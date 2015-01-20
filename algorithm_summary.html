@@ -1,8 +1,7 @@
 <title>アルゴリズムまとめメモ</title>
 <h4 class="shadow">アルゴリズムまとめメモ</h4>
 
-運営者が昔、メモ程度にどこかに書いてたものです。　多分自分用のメモです。
-
+運営者が昔、メモ程度にどこかに書いてたものです。間違っている箇所がありましたら教えて下さい。
 順次追加・修正中
 
 
@@ -71,10 +70,10 @@
 			<li>同じ<b>辺</b>を通らなくて、すべての頂点を通る経路のこと（頂点は何度通っても良い）</li>
 			<li>閉路</li>
 			<ul>
-				<li><font color="#252525" face="sans-serif" size="2"><span style="line-height:24.166400909423828px">最初の始点と終点が同じ頂点のこと。（家から出て、最後に自分の家に帰ってこれるかということ）</span></font></li>
-				<li><font color="#252525" face="sans-serif" size="2"><span style="line-height:24.166400909423828px"><a href="http://ja.wikipedia.org/wiki/%E3%82%AA%E3%82%A4%E3%83%A9%E3%83%BC%E8%B7%AF" target="_blank">オイラー路</a>（オイラーグラフ）</span></font></li>
+				<li>最初の始点と終点が同じ頂点のこと。（家から出て、最後に自分の家に帰ってこれるかということ）</li>
+				<li><a href="http://ja.wikipedia.org/wiki/%E3%82%AA%E3%82%A4%E3%83%A9%E3%83%BC%E8%B7%AF" target="_blank">オイラー路</a>（オイラーグラフ）</li>
 				<ul>
-					<li><font color="#252525" face="sans-serif" size="2"><span style="line-height:24.166400909423828px">閉路の中でもすべての辺を１回だけ通るグラフのこと（一筆書き問題）</span></font></li>
+					<li>閉路の中でもすべての辺を１回だけ通るグラフのこと（一筆書き問題）</li>
 				</ul>
 				<li>ハミルトン閉路</li>
 				<ul>
@@ -86,7 +85,7 @@
 		<ul>
 			<li><a href="http://ja.wikipedia.org/wiki/%E3%83%8F%E3%83%9F%E3%83%AB%E3%83%88%E3%83%B3%E8%B7%AF" style="font-size:10pt">ハミルトン路</a></li>
 			<ul>
-				<li><span style="font-size:10pt">すべての頂点を<b>1度ずつ</b>通る路のこと</span></li>
+				<li>すべての頂点を<b>1度ずつ</b>通る路のこと</li>
 			</ul>
 		</ul>
 		<li>無向グラフ</li>
@@ -115,7 +114,7 @@
 			<ul>
 				<li>もちろんすべての辺で B-&gt;Aの辺もある場合は無向グラフと同等になる。</li>
 			</ul>
-			<li>DAG(<span style="color:rgb(84,84,84);font-family:arial,sans-serif;font-size:small;line-height:18.200000762939453px;background-color:rgb(255,255,255)">&nbsp;directed acyclic graph)</span></li>
+			<li>DAG(directed acyclic graph)</li>
 			<ul>
 				<li>有向グラフで閉路（ループ）を持たないグラフ</li>
 			</ul>
@@ -126,8 +125,8 @@
 			<ul>
 				<li>辺にコストが有り、すべての頂点を１回だけ通り、始点に帰ってくる経路（つまり閉路）の最短経路問題</li>
 				<ul>
-					<li><font color="#252525" face="sans-serif" size="2"><span style="line-height:24.166400909423828px">辺のコストが1または無限大（通れない）の条件</span></font><span style="font-size:10pt">がつくとハミルトン閉路</span></li>
-					<li><span style="font-size:10pt">NP困難</span></li>
+					<li>辺のコストが1または無限大（通れない）の条件がつくとハミルトン閉路</li>
+					<li>NP困難</li>
 				</ul>
 			</ul>
 			<li><a href="http://ja.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%BA%E9%83%B5%E4%BE%BF%E9%85%8D%E9%81%94%E5%95%8F%E9%A1%8C" target="_blank">中国人郵便配達問題</a></li>
@@ -146,13 +145,13 @@
 		<ul>
 			<li>push（値を最後に入れる）/pop(最後の値を取り出して消す）の操作ができるデータ構造</li>
 			<li>いわゆるLIFO(Last In First out)</li>
-			<li><span style="font-size:10pt">実装では、普通のリストを利用することもできるが、それ専用に最適化されたクラスもある言語もある。</span></li>
+			<li>実装では、普通のリストを利用することもできるが、それ専用に最適化されたクラスもある言語もある。</li>
 		</ul>
 		<li>キュー(Queue)</li>
 		<ul>
 			<li>queue (最後に値を入れる)/dequeue(最初の値を取り出す）の操作ができるデータ構造</li>
 			<li>いわゆるFIFO (First in First Out)　</li>
-			<li><span style="font-size:10pt">実装では、普通のリストを利用することもできるが、それ専用に最適化されたクラスもある言語もある。</span></li>
+			<li>実装では、普通のリストを利用することもできるが、それ専用に最適化されたクラスもある言語もある。</li>
 			<li>プライオリティキュー（優先度付きキュー）</li>
 		</ul>
 		<ul>
@@ -161,24 +160,23 @@
 				<li>一般的にプライオリティキューとなっているものは、dequeue時にO (log n)で取り出せる。</li>
 			</ul>
 		</ul>
-		<li><span style="font-size:10pt">Segment Tree</span></li>
+		<li>Segment Tree</li>
 		<ul>
 			<li>区分ごとの値が計算可能な問題に対して（最小値/RMQ(Range Minimum Query)など）<br>
-				<span style="font-size:10pt">区分ごとの計算を予めしておき、データ構造として保持する。</span>
+				区分ごとの計算を予めしておき、データ構造として保持する。
 			</li>
-			<li><span style="font-size:10pt">値を更新するのは O (log n)<br>
-				</span><span style="font-size:10pt">値を取得するのは O (log n)<br>
-				</span><span style="font-size:10pt">で可能</span>
+			<li>値を更新するのは O (log n)<br>
+				値を取得するのは O (log n)<br>
+				で可能
 			</li>
 			<ul>
-				<li>ちなみに配列での純粋な実装の場合は、<span style="font-size:10pt">値を更新するのは O (1)　</span><span style="font-size:10pt">値を取得するのは O (n)</span></li>
+				<li>ちなみに配列での純粋な実装の場合は、値を更新するのは O (1)　値を取得するのは O (n)</li>
 			</ul>
-			<li><span style="font-size:10pt">詳しくはこちら<a href="goog_1008578586">&nbsp;</a></span><a href="http://www.slideshare.net/yuki2006_debel/ss-36668870">http://www.slideshare.net/yuki2006_debel/ss-36668870</a></li>
 		</ul>
 		<li>BIT</li>
 		<ul>
-			<li><span style="font-size:10pt">Segment Treeの応用</span></li>
-			<li><span style="font-size:10pt">1〜n の範囲に対しての計算ができる場合にデータ構造として保持する。</span></li>
+			<li>Segment Treeの応用</li>
+			<li>1〜n の範囲に対しての計算ができる場合にデータ構造として保持する。</li>
 			<li>例えば　ak~anの部分和のような問題によい。　sum(k,n)=S(n)-S(k)なので　Sを効率的に求める</li>
 			<li>計算量的にはSegment Treeと同じだが、（ビットテクニックを知ってれば）実装はこちらのほうが楽</li>
 		</ul>
