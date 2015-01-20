@@ -1,0 +1,154 @@
+運営者が昔、メモ程度にどこかに書いてたものです。
+
+順次追加・修正中
+
+<ul><li>計算手段</li>
+<ul><li>再帰呼び出し</li>
+<ul><li>自分自身の関数を呼び出すこと、forやwhileのループでもできることが、再帰呼び出しのほうが記述しやすいこともある。</li>
+<li><b>末尾再帰</b></li>
+<ul><li>return に再帰関数を呼び出すこと、return以外に再帰呼び出しがないこと<br>
+注意としては再帰の結果をすぐにreturnすること(再帰の結果を更に演算したりなどはNGのはず）<br>
+動き的には末尾の再帰のreturnをすると、それ以降returnの処理しかないような動き。</li>
+<li>これをする理由は、言語によっては（Javaなどはしてくれないはず？）末尾再帰最適化が働き、一つのfor文に変換してくれて、再帰でネックのスタックのコストを削減できる。</li></ul></ul></ul>
+
+<li>数学的アルゴリズム</li>
+<ul><li>最大公約数 (GCD)</li>
+<ul><li><a href="http://ja.wikipedia.org/wiki/%E3%83%A6%E3%83%BC%E3%82%AF%E3%83%AA%E3%83%83%E3%83%89%E3%81%AE%E4%BA%92%E9%99%A4%E6%B3%95">ユークリッド互除法</a></li></ul>
+<li>最小公倍数 (LCM)</li>
+<ul><li>&nbsp;lcm= a*b / gcd(a,b) で求められる。</li></ul>
+<li>素数を求める(Prime Number)</li>
+<ul><li>素数は2,3以外は　6n+1または6n-1の数である。これを知っていると下の2つのアルゴリズムで更に早く求められるかも知れない。</li>
+<li>試し割り</li>
+<ul><li>2~n-1までで余りが出るかどうか求めて、全てあまりが出れば素数(実は√kまでで良い）</li>
+<li>実装は楽</li></ul>
+<li><a href="http://ja.wikipedia.org/wiki/%E3%82%A8%E3%83%A9%E3%83%88%E3%82%B9%E3%83%86%E3%83%8D%E3%82%B9%E3%81%AE%E7%AF%A9" target="_blank">エラトステネスの篩</a></li>
+<ul><li>素数表を作る。</li>
+<li>たくさんの数を判定する場合はこちらが良い。</li></ul></ul>
+<li><a href="http://ja.wikipedia.org/wiki/%E5%86%AA%E5%89%B0%E4%BD%99">冪剰余</a></li>
+<ul><li>aのN を計算し、kで割ったあまりを求める問題。　普通にaのN乗を計算するとオーバーフローしたり、多倍長計算が出来ても重い、あまりを一つの掛け算ごとに行ったりテクニックを使うとO(log N)で計算可能になる。（むしろ正確な値は計算出来ない）</li></ul>
+<li><a href="http://ja.wikipedia.org/wiki/%E6%95%B0%E5%AD%97%E6%A0%B9" target="_blank">数字根</a></li>
+<ul><li><span style="color:rgb(37,37,37);font-family:sans-serif;line-height:16.110933303833008px;background-color:rgb(255,255,255)"><font size="2">ある数値を表す数字を全て足し、結果の数値の数字を全て足し、という操作を繰り返し、最終的に得られる一桁の数字のこと。<br>
+</font></span></li>
+<li><span style="color:rgb(37,37,37);font-family:sans-serif;line-height:16.110933303833008px;background-color:rgb(255,255,255)"><font size="2">実はあまりを場合分けするだけですぐに求められる。（Wikipediaの合同式による定義を参考）</font></span></li></ul>
+<li><font color="#252525" face="sans-serif" size="2"><span style="line-height:16.110933303833008px"><a href="http://ja.wikipedia.org/wiki/%E3%83%95%E3%82%A7%E3%83%AB%E3%83%9E%E3%83%BC%E3%81%AE%E5%B0%8F%E5%AE%9A%E7%90%86">フェルマーの小定理</a></span></font></li></ul>
+<li>グラフ<br>
+<br>
+</li>
+<ul><li>頂点と頂点同士をつないだ辺を持ったもの<br>
+</li>
+<li>道</li>
+<ul><li>v1-&gt;v2-&gt;v3のように表現される、頂点と辺の経路の表現方法である。いわゆるパス。</li>
+<li><span style="color:rgb(37,37,37);font-family:sans-serif;font-size:small;line-height:24.166400909423828px">始点と終点が同じ頂点は「閉道」というが、経路に同じ辺がなければ「閉路」となる。（この時、一般的に閉道とは言わないらしい）</span></li></ul>
+<li><span style="color:rgb(37,37,37);font-family:sans-serif;line-height:24.166400909423828px;background-color:rgb(255,255,255)"><font size="2">路</font></span></li>
+<ul><li><font color="#252525" face="sans-serif" size="2"><span style="line-height:24.166400909423828px">同じ<b>辺</b>を通らなくて、すべての頂点を通る経路のこと（頂点は何度通っても良い）</span></font></li>
+<li><font color="#252525" face="sans-serif" size="2"><span style="line-height:24.166400909423828px">閉路</span></font></li>
+<ul><li><font color="#252525" face="sans-serif" size="2"><span style="line-height:24.166400909423828px">最初の始点と終点が同じ頂点のこと。（家から出て、最後に自分の家に帰ってこれるかということ）</span></font></li>
+<li><font color="#252525" face="sans-serif" size="2"><span style="line-height:24.166400909423828px"><a href="http://ja.wikipedia.org/wiki/%E3%82%AA%E3%82%A4%E3%83%A9%E3%83%BC%E8%B7%AF" target="_blank">オイラー路</a>（オイラーグラフ）</span></font></li>
+<ul><li><font color="#252525" face="sans-serif" size="2"><span style="line-height:24.166400909423828px">閉路の中でもすべての辺を１回だけ通るグラフのこと（一筆書き問題）</span></font></li></ul>
+<li>ハミルトン閉路</li>
+<ul><li>ハミルトン路に閉路の条件を追加したもの</li>
+<li>NP完全</li></ul></ul></ul>
+<ul><li><a href="http://ja.wikipedia.org/wiki/%E3%83%8F%E3%83%9F%E3%83%AB%E3%83%88%E3%83%B3%E8%B7%AF" style="font-size:10pt">ハミルトン路</a></li>
+<ul><li><span style="font-size:10pt">すべての頂点を<b>1度ずつ</b>通る路のこと</span></li></ul></ul>
+<li>無向グラフ</li>
+<ul><li>辺に方向がないもの（どちら共に行ける）A-&gt;Bへも B-&gt;Aへも行ける</li>
+<li><a href="http://ja.wikipedia.org/wiki/%E6%9C%A8%E6%A7%8B%E9%80%A0_(%E3%83%87%E3%83%BC%E3%82%BF%E6%A7%8B%E9%80%A0)">木</a></li>
+<ul><li><a href="http://ja.wikipedia.org/wiki/%E4%BA%8C%E5%88%86%E6%9C%A8">二分木</a></li>
+<ul><li><a href="http://www.sophia-it.com/content/%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%88%86%E6%9C%A8">完全二分木</a></li></ul>
+<li><a href="http://ja.wikipedia.org/wiki/%E5%85%A8%E5%9F%9F%E6%9C%A8" target="_blank">全域木</a></li>
+<ul><li>すべての頂点が連結である（孤立がない）木のこと</li>
+<li>最小全域木(MST:Minimun Spanning Tree)問題</li>
+<ul><li>すべての頂点が連結である（孤立がない）木にするための最小限のコストの辺だけ残したもの。</li>
+<li>（それぞれの道路にコストが有り、n個の村があってすべての村をつなげるために、最小限のコストの道だけ作る問題）</li></ul></ul></ul></ul>
+<li>有向グラフ</li>
+<ul><li>辺に方向がないあるもの（行ける方向が決まっている一方通行） A-&gt;Bしかいけない　</li>
+<ul><li>もちろんすべての辺で B-&gt;Aの辺もある場合は無向グラフと同等になる。</li></ul>
+<li>DAG(<span style="color:rgb(84,84,84);font-family:arial,sans-serif;font-size:small;line-height:18.200000762939453px;background-color:rgb(255,255,255)">&nbsp;directed acyclic graph)</span></li>
+<ul><li>有向グラフで閉路（ループ）を持たないグラフ</li></ul></ul>
+<li>有名な問題</li>
+<ul><li><a href="http://ja.wikipedia.org/wiki/%E5%B7%A1%E5%9B%9E%E3%82%BB%E3%83%BC%E3%83%AB%E3%82%B9%E3%83%9E%E3%83%B3%E5%95%8F%E9%A1%8C">巡回セールスマン問題</a>(TSP)</li>
+<ul><li>辺にコストが有り、すべての頂点を１回だけ通り、始点に帰ってくる経路（つまり閉路）の最短経路問題</li>
+<ul><li><font color="#252525" face="sans-serif" size="2"><span style="line-height:24.166400909423828px">辺のコストが1または無限大（通れない）の条件</span></font><span style="font-size:10pt">がつくとハミルトン閉路</span></li>
+<li><span style="font-size:10pt">NP困難</span></li></ul></ul>
+<li><a href="http://ja.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%BA%E9%83%B5%E4%BE%BF%E9%85%8D%E9%81%94%E5%95%8F%E9%A1%8C" target="_blank">中国人郵便配達問題</a></li>
+<ul><li>すべての辺を１回以上通る閉路の最短経路問題</li>
+<ul><li>P問題</li></ul></ul></ul></ul>
+<li>データ構造</li>
+<ul><li>連想配列・HashMap</li>
+<li>スタック(Stack)</li>
+<ul><li>push（値を最後に入れる）/pop(最後の値を取り出して消す）の操作ができるデータ構造</li>
+<li>いわゆるLIFO(Last In First out)</li>
+<li><span style="font-size:10pt">実装では、普通のリストを利用することもできるが、それ専用に最適化されたクラスもある言語もある。</span></li></ul>
+<li>キュー(Queue)</li>
+<ul><li>queue (最後に値を入れる)/dequeue(最初の値を取り出す）の操作ができるデータ構造</li>
+<li>いわゆるFIFO (First in First Out)　</li>
+<li><span style="font-size:10pt">実装では、普通のリストを利用することもできるが、それ専用に最適化されたクラスもある言語もある。</span></li>
+<li>プライオリティキュー（優先度付きキュー）</li></ul>
+<ul>
+<ul><li>優先度を指定して、その順に取り出すことができる。</li>
+<li>一般的にプライオリティキューとなっているものは、dequeue時にO (log n)で取り出せる。</li></ul></ul>
+
+<li><span style="font-size:10pt">Segment Tree</span></li>
+<ul><li>区分ごとの値が計算可能な問題に対して（最小値/RMQ(Range Minimum Query)など）<br>
+<span style="font-size:10pt">区分ごとの計算を予めしておき、データ構造として保持する。</span></li>
+<li><span style="font-size:10pt">値を更新するのは O (log n)<br>
+</span><span style="font-size:10pt">値を取得するのは O (log n)<br>
+</span><span style="font-size:10pt">で可能</span></li>
+<ul><li>ちなみに配列での純粋な実装の場合は、<span style="font-size:10pt">値を更新するのは O (1)　</span><span style="font-size:10pt">値を取得するのは O (n)</span></li></ul>
+<li><span style="font-size:10pt">詳しくはこちら<a href="goog_1008578586">&nbsp;</a></span><a href="http://www.slideshare.net/yuki2006_debel/ss-36668870">http://www.slideshare.net/yuki2006_debel/ss-36668870</a></li></ul>
+<li>BIT</li>
+<ul><li><span style="font-size:10pt">Segment Treeの応用</span></li>
+<li><span style="font-size:10pt">1〜n の範囲に対しての計算ができる場合にデータ構造として保持する。</span></li>
+<li>例えば　ak~anの部分和のような問題によい。　sum(k,n)=S(n)-S(k)なので　Sを効率的に求める</li>
+<li>計算量的にはSegment Treeと同じだが、（ビットテクニックを知ってれば）実装はこちらのほうが楽</li></ul></ul>
+<li>場合の数</li>
+<ul><li>
+包除原理
+</li>
+<ul><li>全体の数から、該当しない（重複している）数を取り除く原理である。<br>
+具体的には A&nbsp;∪&nbsp;B=|A|*|B|- A∩B &nbsp; 　　のような集合の公式を用いること</li>
+<ul><li><span style="font-size:10pt">例：a~bの中で「3の倍数の数の総数は？」　という問題に対して　 b/3-(a-1)/3 &nbsp;のように回答できる</span></li></ul></ul>
+<li>順序が関係ある。n個からk個取り出す組み合わせは nPk</li>
+<li>順序が関係ない。n個からk個取り出す組み合わせは nCk</li>
+<li>順序が関係ある。n個から全て取り出す組み合わせは n!</li>
+<li><a href="http://ja.wikipedia.org/wiki/%E3%83%91%E3%82%B9%E3%82%AB%E3%83%AB%E3%81%AE%E4%B8%89%E8%A7%92%E5%BD%A2" target="_blank">パスカルの三角形</a></li>
+<ul><li>いわゆるコンビネーション　nCk　を計算するときに (n+1)段目の(k+1)番目の値である。</li>
+<li>二項定理などにも使える。</li></ul></ul></ul>
+<font face="monospace"><span style="white-space:pre">
+</span></font>
+<ul><li>計算量削減　（重要）</li>
+<ul><li><a href="http://ja.wikipedia.org/wiki/%E3%83%A1%E3%83%A2%E5%8C%96">メモ化</a>・メモ化再帰</li>
+<ul><li>過去に行った計算を保存しておき、一度した計算を行わないようにして計算量を削減する。</li>
+<li>「メモ化再帰」は、メモ化と再帰呼び出しを組み合わせたもの、TopCoder的には再帰する場合はメモ化再帰をよく使う。<br>
+<br>
+</li></ul>
+<li><a href="http://ja.wikipedia.org/wiki/%E5%8B%95%E7%9A%84%E8%A8%88%E7%94%BB%E6%B3%95">動的計画法</a></li>
+<ul><li>漸化式的に問題を解く。　（どのサイトも難しい説明をしてるけど、要はこういうこと）<br>
+<br>
+</li></ul></ul>
+<li>検索</li>
+<ul><li>局所的最良検索</li>
+<ul><li><a href="http://ja.wikipedia.org/wiki/%E8%B2%AA%E6%AC%B2%E6%B3%95">貪欲法</a></li></ul>
+<li>全探索</li>
+<ul><li><a href="http://ja.wikipedia.org/wiki/%E6%B7%B1%E3%81%95%E5%84%AA%E5%85%88%E6%8E%A2%E7%B4%A2" style="font-size:10pt">深さ優先検索</a><span style="font-size:10pt">（DFS)</span></li>
+<li><a href="http://ja.wikipedia.org/wiki/%E5%B9%85%E5%84%AA%E5%85%88%E6%8E%A2%E7%B4%A2" style="font-size:10pt">幅優先探索</a><span style="font-size:10pt">(BFS)</span></li></ul>
+<li>二分探索</li>
+<ul><li>範囲を半分ごとに縮めていくアルゴリズム、通常の探索ではO(n)となるところをlog(n)に出来たりする。</li></ul></ul></ul>
+<ul><li>コスト計算</li>
+<ul><li><u><a href="http://ja.wikipedia.org/wiki/%E3%83%80%E3%82%A4%E3%82%AF%E3%82%B9%E3%83%88%E3%83%A9%E6%B3%95">ダイクストラ法</a></u></li>
+<ul><li>指定した２点間の最小経路コスト計算アルゴリズム</li></ul>
+<li><a href="http://ja.wikipedia.org/wiki/%E3%83%AF%E3%83%BC%E3%82%B7%E3%83%A3%E3%83%AB-%E3%83%95%E3%83%AD%E3%82%A4%E3%83%89%E6%B3%95">ワーシャル-フロイド法</a></li>
+<ul><li>任意のノード間の最小経路コスト計算アルゴリズム</li>
+<ul><li>SRM 584 div2 Middle</li></ul></ul></ul>
+<li>累積和手法</li>
+<ul><li>いもす法</li>
+<ul><li><u><a href="http://imoz.jp/algorithms/imos_method.html">http://imoz.jp/algorithms/imos_method.html</a></u></li></ul></ul>
+<li>ゲーム</li>
+<ul><li><a href="http://ja.wikipedia.org/wiki/%E3%83%8B%E3%83%A0">Nim</a></li>
+<ul><li>複数の山があり、それぞれの山には何個か物がある、同じ山からなら１個以上物が取れる、最後の１個をとった人が勝つゲーム</li>
+<li>簡単に計算できる必勝法が存在し、ある問題がNimに帰着できると簡単に答えが出せる。</li>
+<li>最後の一個をとった人が負けになるパターン（逆型）もあるが、簡単に答えは出せないらしい。</li></ul></ul></ul>
+その他のアルゴリズム紹介（競技プログラミングは出てこないと思います）<br>
+<ul><li>図形判定</li>
+<ul><li>点の多角形に対する内外判定</li>
+<ul><li><a href="http://www.nttpc.co.jp/company/r_and_d/technology/number_algorithm.html">http://www.nttpc.co.jp/company/r_and_d/technology/number_algorithm.html</a></li></ul></ul></ul>
