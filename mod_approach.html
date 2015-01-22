@@ -1,9 +1,36 @@
-<h4 class="shadow">modに対するアプローチ</h4>
+<title>modに対するアプローチ</title>
+<h5 class="shadow">分解してみる</h5>
+<pre>
+  例題: ${}_n \mathrm{C} _k \pmod{10}$ を求めよ。 ただし $0\leq k \leq n \leq 10^{6}$
+</pre>
+${}_n \mathrm{C} _k \equiv \frac{n (n-1) (n-2) \ldots (n-k+1)}{k!} \pmod{10}$ なので $\{k!\}^{-1} \pmod{10}$ が計算できればよさそうですが<br>
+$k!$ と $10$ が互いに素になるかはわかりません。仮に互いに素でない場合は逆元が存在しないのでこのままでは解けません。<br>
+そこで
+<ul>
+  <li>$n (n-1) (n-2) \ldots (n-k+1) = 2^{t_1}\times 5^{f_1}\times r_{1}$ </li>
+  <li>$k! = 2^{t_2}\times 5^{f_2}\times r_{2}$</li>
+</ul>
+と分解してみます。すると答えは $2^{t_1 - t_2}\times 5^{f_1 - f_2}\times r_1 \times {r_2}^{-1} \pmod{10}$ になります。<br>
+いま $r_{2}$ に $2$ と $5$ は含まれていないので $r_{2}$ と $10$ が必ず互いに素になり逆元が計算できます。
+
 <h5 class="shadow"><a href="http://ja.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E3%81%AE%E5%89%B0%E4%BD%99%E5%AE%9A%E7%90%86">中国人剰余定理</a></h5>
-$m_{1}, m_{2} \ldots m_{k}$ がどの2つも互いに素ならば<br>
+「$m_{1}, m_{2} \ldots m_{k}$ がどの2つも互いに素ならば<br>
 <ul>
 <li>$x \equiv a_{1} \pmod{m_{1}}$</li>
 <li>$x \equiv a_{2} \pmod{m_{2}}$</li>
 <li>$\ldots$</li>
 <li>$x \equiv a_{k} \pmod{m_{k}}$</li>
 </ul>
+をすべて満たす $x$ が $m_{1} m_{2} \ldots m_{k}$ を法として一意に存在する」というのが中国人剰余定理です。<br>
+<br>
+$f(n) \pmod m$ を直接計算するのは難しい・大変である場合でも、$m = {p_1}^{e_1} {p_2}^{e_2} ... {p_k}^{e_k}$ と分解して
+<ul>
+  <li>$ f(n) \equiv r_1 \pmod{{p_1}^{e_1}}$ </li>
+  <li>$ f(n) \equiv r_2 \pmod{{p_2}^{e_2}}$ </li>
+  <li>$ \ldots$ </li>
+  <li>$ f(n) \equiv r_k \pmod{{p_k}^{e_k}}$ </li>
+</ul>
+を計算できたのであればそれらから $f(n) \pmod m$ を計算することができます。<br>
+<br>
+上の問題でいうと ${}_n \mathrm{C} _k \pmod{2}$ と ${}_n \mathrm{C} _k \pmod{5}$ が計算できれば ${}_n \mathrm{C} _k \pmod{10}$ を計算することができることになります。<br>
+詳細は割愛しますが ${}_n \mathrm{C} _k \pmod{p^e}$ は前処理に $O(p^e)$ かけることで一回あたり $O(\log n)$ で計算することができます。
