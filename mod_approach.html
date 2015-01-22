@@ -1,7 +1,7 @@
 <title>modに対するアプローチ</title>
 <h5 class="shadow">分解してみる</h5>
 <pre>
-  例題: ${}_n \mathrm{C} _k \pmod{10}$ を求めよ。 ただし $0\leq k \leq n \leq 10^{6}$
+例題: ${}_n \mathrm{C} _k \pmod{10}$ を求めよ。 ただし $0\leq k \leq n \leq 10^{6}$
 </pre>
 ${}_n \mathrm{C} _k \equiv \frac{n (n-1) (n-2) \ldots (n-k+1)}{k!} \pmod{10}$ なので $\{k!\}^{-1} \pmod{10}$ が計算できればよさそうですが<br>
 $k!$ と $10$ が互いに素になるかはわかりません。仮に互いに素でない場合は逆元が存在しないのでこのままでは解けません。<br>
