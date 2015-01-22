@@ -227,9 +227,11 @@
 			<li>全体の数から、該当しない（重複している）数を取り除く原理である。<br>
 				具体的には $|A \cup B| = |A| + |B|- |A \cap B|$ のような集合の公式を用いて数え上げること
 			</li>
-			<li>一般式はwikipediaを参照のことだが、競技プログラミングにおいては、
-			    $\displaystyle |\overline{\bigcup_{S \in A} S}| = \sum_{B \subseteq A} (-1)^{|B|} |\bigcap_{S \in B} S|$
-			    という式の形で使われることが多い(要出典)
+			<li>詳しくはwikipediaを参照のことだが、競技プログラミングにおいては、
+			    $\displaystyle |\bigcap_{S \in A} \overline{S}| = |\overline{\bigcup_{S \in A} S}| = \sum_{B \subseteq A} (-1)^{|B|} |\bigcap_{S \in B} S|$
+			    という式の形で使われることが多い(要出典)。<br>
+			    つまり、$|S|$個の制約があるときに全ての制約を避けるような場合の数を求めたい場合、
+			    制約の部分集合に<b>違反する</b>(部分集合に入らない制約に関しては全く気にしない)ような場合の数を求めることができれば、元の問題の場合の数を求めることができる
 			</li>
 			<li>また、上式でいう$|\bigcap_{S \in B} S|$が$B$の要素数のみによって決まる場合などに(たとえば$f(n)$が$|B| = n$のときの値だとすると)、
 			    $\displaystyle = \sum_{n=0}^{|A|} (-1)^n \binom{|A|}{n} f(n)$
