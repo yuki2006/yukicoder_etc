@@ -221,11 +221,15 @@
 			場合の数は大きくなることが多いので ${\rm mod}\ m$ で答え求めることが多い。$(a \pm b)\ {\rm mod}\ m = (a\ {\rm mod}\ m) \pm (b\ {\rm mod}\ m)$ や $(a \times b)\ {\rm mod}\ m = (a\ {\rm mod}\ m) \times (b\ {\rm mod}\ m)$ が成り立つことを忘れないように。また、$(a / b)\ {\rm mod}\ m = (a\ {\rm mod}\ m) / (a\ {\rm mod}\ m)$ は通常<b>成り立たない</b>ことには注意！（どうしてもなら、特に $m$ が素数なら逆元を用いることで割り算もできる）
 		</li>
 		<li>
-			包除原理
+			<a href='http://ja.wikipedia.org/wiki/%E5%8C%85%E9%99%A4%E5%8E%9F%E7%90%86' target='_blank'>包除原理</a>
 		</li>
 		<ul>
 			<li>全体の数から、該当しない（重複している）数を取り除く原理である。<br>
 				具体的には $|A \cup B| = |A| + |B|- |A \cap B|$ のような集合の公式を用いて数え上げること
+			</li>
+			<li>一般式はwikipediaを参照のことだが、競技プログラミングにおいては、
+			    $\displaystyle |\overline{\bigcup_{S \in A} S}| = \sum_{B \subseteq A} (-1)^{|B|} |\bigcap_{S \in B} S|$
+			    という式の形で使われることが多い(要出典)
 			</li>
 			<ul>
 				<li>例：a~bの中で「3の倍数の数の総数は？」　という問題に対して　 b/3-(a-1)/3 &nbsp;のように回答できる</li>
