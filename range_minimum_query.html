@@ -2,7 +2,7 @@
 <p>
 <b>range minimum query</b>(<b>RMQ</b>)とは、整列集合の列上で区間内の最小値を求めるという問題である。最小値の場所を求めるというバリエーションもある。
 </p><p>
-"lowest common ancestor"と深い関係があり、両者を還元することができ、解くのにも使われる。
+<a href='lowest_common_ancestor'>lowest common ancestor</a>と深い関係があり、両者を還元することができ、解くのにも使われる。
 クエリ問題版では、lowest common ancestorに還元する前処理$Θ(n)$, クエリ$Θ(1)$のアルゴリズムが存在する。
 </p>
 <h2>定義</h2>
@@ -51,7 +51,7 @@ RMQクエリでは内部状態と区間が与えられて入力のRMQを求め�
 </p><p>
 クエリ問題版を、前計算$Θ(n \log n)$時間, $Θ(n \log n)$空間, クエリ$Θ(1)$時間で解くことができる。
 </p>
-<h3><a href='lowest_common_ancestor'>lowest common ancestor</a>への還元</h3>
+<h3>lowest common ancestorへの還元</h3>
 <p>
 "Cartesian tree"という根付き木に入力を変換することでlowest common ancestor問題へと還元できる。詳細は"Cartesian tree"を参照。
 </p><p>
