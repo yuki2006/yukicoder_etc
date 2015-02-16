@@ -52,7 +52,7 @@ LCAクエリでは内部状態と2つの頂点が与えられて、入力のLCA�
 動的問題版に対しては"link-cut tree"を用いることでクエリならし$Θ(\log n)$時間を達成する。
 </p>
 
-<h4>"euler tour"による<a href='range_minimum_query#plusminus_rmq'>±RMQ</a>への還元</h4>
+<h4>"euler tour"による<a href='range_minimum_query#plusminus-rmq'>±RMQ</a>への還元</h4>
 <p>
 "euler tour#頂点記録版"を用いて頂点の列を作る。頂点と一緒に深さも記録する。さらに、頂点に対して列中での一番左・右の出現位置L,Rをそれぞれ記録する。
 このとき、頂点v,uのLCAは列中でv,uの出現を全て含む極小の区間、つまり$[L_v, R_u]$もしくは$[L_u, R_v]$の中で深さが最小である頂点である。この列の深さ情報は隣接する2つの要素の差が必ず±1になるので、それを利用できる。
