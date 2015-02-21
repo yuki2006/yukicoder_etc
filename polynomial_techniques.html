@@ -1,0 +1,113 @@
+<!-- 数学ガチ勢の方、そうでない方も、指摘・加筆お願いします！ -->
+<title>多項式を使うテクニックたち</title>
+<p>注意：※yukicoderやその他のサイトの問題に対するネタバレがある可能性があります</p>
+<p>以下では多項式は可換環である$R$を係数とするとする。
+計算量はarithmetic complexityで考える(競技プログラミングにおいてはたいていmodを取るので定数時間で計算できるとしてよい)</p>
+<h3>多項式補完</h3>
+<h3>多項式のある種の逆元</h3>
+<p>
+有名なpower seriesの式$\displaystyle \sum_{i=0}^{\infty} a^i = 1/(1-a)$は多項式にも適用できる。
+つまり、多項式$f = \sum_{i=0}^k a_i X^i$に対し、ある種の逆元を$\displaystyle \sum_{i=0}^{\infty} (1-f)^i$と表すことができる。
+この式は$a_0 = 1$である場合に限りよく定義でき、これは多項式環の拡張である"formal power series"環上に値を取る。
+</p>
+<p>
+$f$に$a_0^{-1}$かけることで、つまり$f^{-1} = a_0^{-1} \displaystyle \sum_{i=0}^{\infty} (1 - a_0^{-1} f)^i$として、$a_0 \in R^*$である限りこれを求めることができる。
+</p>
+<h3>母関数</h3>
+<p>
+数列に対し、有理関数が母関数であることと線形漸化式であることは同値である。(加筆求む)
+</p>
+<h3>多項式で表せるDP</h3>
+<p>
+以下の問題を考える：
+「正整数の列$a$が与えられるとき、$a$の重複なし部分和でちょうど$b$になるものは何通りあるか？」
+この問題は典型的なDPであるが、以下のように多項式によって表せる：
+「$f = \displaystyle \prod_i (1+X^{a_i})$とするとき、$f$の$b$次の係数を求めよ」
+この多項式はこの問題に関する母関数であるとも考えられる。
+</p><p>
+また、同じように、「正整数の列$a$が与えられるとき、$a$の重複あり部分和でちょうど$b$になるものは何通りあるか？」という問題の場合、
+$f = \displaystyle \prod_i (\sum_{j=0}^{\infty} X^{j a_i})$となるが、逆元を用いて$f = \prod_i (1-X^{a_i})^{-1})$とも表せる。
+</p>
+<p>多次元のDPであっても多変数多項式によって表せ、同じように考えられる。</p>
+<h3>"戻すDP"</h3>
+<p>
+典型的な部分和数え上げ問題のDPの遷移が多項式の掛け算として表せることがわかった。
+ならば、その逆演算である割り算がどう適用できるかを考えてみるのは自然だろう。
+</p><p>
+たとえば、$f = \displaystyle \prod_i (1+X^{a_i})$である場合、$(1+X^a_i)$で割ることでDPを"戻す"ことができる。
+つまり、$a$から要素$a_i$を削除した列でのDP結果が得られる。
+実際には、$(1+X^a_i)^{-1} = \sum_{j=0}^{\infty} (-X)^{a_i j}$となる。
+単純に再計算する場合$O(nb)$程度の計算量がかかるが、この場合重複あり部分和DPと同じように実装することで$O(b)$の計算量で求めることができる。
+</p><p>
+重複ありの場合、$f = \prod_i (1-X^{a_i})^{-1})$であるが、
+$((1-X^{a_i})^{-1})^{-1} = 1-X^{a_i}$というようにそれ自身であるので、"戻す"場合は重複なしDPのような掛け算によって実装できる。
+</p>
+<h4>関連する問題</h4>
+<ul>
+<li><a href='http://community.topcoder.com/stat?c=problem_statement&pm=11026'>TopCoder Member SRM 478 Div1 Hard "RandomApple"</a></li>
+<li><a href='http://yukicoder.me/problems/183'>yukicoder No.155 "生放送とBGM"</a></li>
+<li><a href='http://arc028.contest.atcoder.jp/tasks/arc028_4'>AtCoder Regular Contest 028 D "注文の多い高橋商店"</a></li>
+</ul>
+<h3>線形漸化式の値</h3>
+<p>
+$b_i = a_i (i < k), b_{i+k} = \displaystyle \sum_{j=0}^{k-1} c_j b_{i+j}$と表される線形漸化式を考える。
+$f = X^k - \sum_{i=0}^{k-1} c_{k-1-i} X^i$とし、$X^j \bmod f = \sum_{i=0}^{k-1} d_i X^i$と表されたとすると、$b_j = \displaystyle \sum_{i=0}^{k-1} a_i d_i$となる。
+これを繰り返し二乗法により計算すれば、線形漸化式のj番目の値を、$O(k^2 \log j)$または、高速な多項式割り算を実装すれば$O(k \log k \log j)$程度の計算量で解くことができる。
+</p>
+<h4>関連する問題</h4>
+<ul>
+<li><a href='http://abc009.contest.atcoder.jp/tasks/abc009_4'>AtCoder Beginner Contest #009 D "漸化式"</a></li>
+<li><a href='http://tdpc.contest.atcoder.jp/tasks/tdpc_fibonacci'>AtCoder Typical DP Contest T "フィボナッチ"</a></li>
+</ul>
+<h3>多項式補間</h3>
+<p>
+$f(x_i) = y_i$となるような長さ$k$の列$x, y$が与えられているとする。$i \neq j$なら$x_i \neq x_j$とする。"多項式補間"では、この列から多項式$f$を復元する。
+$f \bmod (X-a) = f(a)$である(Polynomial remainder theorem)。
+つまり、解きたい式は連立1次合同方程式$f \bmod (X-x_i) = y_i$となる。これを解くには"中国人剰余定理"が適用できる。
+$x_i \neq x_j$なら$\gcd(X-x_i,X-x_j) = 1$であることに注意すると、$f \equiv g \pmod (\prod_i (X-x_i))$となるような$g$が得られる。
+$R$が体なら次数$k$未満の多項式でユニークであるので、復元できたといえる。
+中国人剰余定理の実装によってそれぞれ"ラグランジュ補間"や"ニュートン補間"が導出できる。
+</p>
+<p>
+通常$O(n^2)$程度の計算量で補間できるが、等差数列に対しては$O(n + \log Mod)$程度の計算量で補間できる。また、後述のDFTも特殊な数列に対しての補間である。
+</p>
+<p>
+時々、答えの数列が多項式であることはわかっていても実際の多項式を求めるのは難しかったり計算量がかかってしまうことがある。
+このとき、適当な数たちに対して、多項式でなく$R$上で計算をして、その後に多項式補間をすることで計算量が改善することがある。
+</p>
+<h4>関連する問題</h4>
+<ul>
+<li><a href='http://yukicoder.me/problems/22'>yukicoder No.42 "貯金箱の溜息"</a></li>
+<li><a href='http://community.topcoder.com/stat?c=problem_statement&pm=13369&rd=16058'>TopCoder TCO14 Round 3B Hard "TreeDistance"</a></li>
+</ul>
+<h3>彩色多項式</h3>
+<p>
+ある無向グラフ$G = (V,E)$に対し、$f(c)$を、このグラフを$c$色以下でproper彩色する場合の数、と定義する。
+このとき、$f$は次数$|V|$以下の多項式となっている。
+</p>
+<h4>関連する問題</h4>
+<ul>
+<li><a href='https://www.hackerrank.com/contests/codesprint5/challenges/coloring-grid'>HackerRank CodeSprint 5 "Coloring Grid"</a></li>
+<li><a href='https://judge.npca.jp/problems/view/174'>NPCA Judge #174 "木上のパスの塗り分け"</a> (自作問題・AC出てないのでジャッジ合ってるかわからない)</li>
+</ul>
+<h3>DFT</h3>
+<p>
+"DFT" (Discrete Fourier Transform), "NTT" (Number Theoretic Transform) より一般に "z-transform"は、ある特別な数列による多項式の多点評価と多項式補間であるとみなせる。
+こう考えれば掛け算の準同型性による畳み込みも理解できる。
+</p>
+<h3>特殊な行列</h3>
+<p>特殊な行列は多項式の剰余環として表すことができるものがある(加筆求む)</p>
+<h3>多項式の剰余環による拡張</h3>
+<p>
+複素数体$\mathbb C$は実数体$\mathbb R$を多項式$X^2 + 1$によって拡張したもの(${\mathbb C} = {\mathbb R}[X]/(X^2 + 1)$)であると考えられる。
+同様に、ガウス整数は整数に対しての同じことである。${\mathbb Z}/m{\mathbb Z}$に対しても同じことを考えられる。
+</p><p>
+他には、例えば$f = X^2 - 5$によって拡張することで$\sqrt 5$が存在することになるので、フィボナッチ数のBinet's formulaを計算することができる。
+(加筆求む)
+</p>
+<h4>関連する問題</h4>
+<ul>
+<li><a href='http://yukicoder.me/problems/370'>yukicoder No.147 "試験監督（2）"</a></li>    
+<li><a href='https://www.hackerrank.com/contests/infinitum8/challenges/down-the-rabbit-hole'>HackerRank Ad Infinitum 8 "Down the Rabbit Hole"</a></li>
+</ul>
+
