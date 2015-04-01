@@ -1,19 +1,20 @@
-<title>誤差</title>
+<title>誤差の話</title>
 <h4 class="shadow">整数型から浮動小数点型への変換</h4>
 整数型を同じビット幅の浮動小数点型に変換すると、丸め誤差が発生することがある。<br>
 例えばJavaでは、long型をdouble型にキャストすると、最大で$\pm 1024$の誤差が発生し得る。<br>
 
 <h4 class="shadow">sqrtを用いた平方数判定</h4>
+
 <h5>Java</h5>
 longの範囲の平方数$x$に対して、次の式は$\sqrt{x}$を正しく計算した。(Oracle JDK8で実験)<br>
-<pre>(long) Math.sqrt(x)</pre><br>
+<pre>(long) Math.sqrt(x)</pre>
 したがって、longの範囲の非負整数に対して、平方数判定は次のようにできる。Long.MAX_VALUEで呼び出してもオーバーフローしない。<br>
 <pre>
 public static boolean isSquareNumber(long x) {
 	long y = (long) Math.sqrt(x);
 	return y * y == x;
 }
-</pre><br>
+</pre>
 このコードで、
 <a href="http://docs.oracle.com/javase/specs/jls/se8/html/jls-5.html#jls-5.1.2">longからdoubleへの変換</a>・
 <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Math.html#sqrt-double-">sqrt</a>・
