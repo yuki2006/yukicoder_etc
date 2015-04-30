@@ -10,6 +10,22 @@
         ソートしておかないと、全ての順列を列挙できないことに注意。<br>
         prev_permutaionなどもある。
     </dd>
+    <dt>max_element, min_element</dt>
+    <dd>最大値・最小値を求める。</dd>
+    <dt>count</dt>
+    <dd>ある値の数を数える。</dd>
+    <dt>accumulate</dt>
+    <dd>総和を求める。和の型は要素の型でなく第3引数の型となるのでオーバーフローに注意。</dd>
+    <dt>unique</dt>
+    <dd>sort(v.begin(), v.end()); v.erase(unique(v.begin(), v.end()), v.end());<br>
+        というコードにより、重複した要素を削除できる。
+    </dd>
+    <dt>lower_bound, uppper_bound</dt>
+    <dd>
+    lower_bound(a.begin(), a.end(), val): $a[i] \ge val$ である最左の位置<br>
+    upper_bound(a.begin(), a.end(), val): $a[i] &gt; val$ である最左の位置<br>
+    を求める。
+    </dd>
 </dl>
 
 <h4 class="shadow">Java</h4>
