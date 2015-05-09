@@ -17,21 +17,32 @@
     <dt>accumulate</dt>
     <dd>総和を求める。和の型は要素の型でなく第3引数の型となるのでオーバーフローに注意。</dd>
     <dt>unique</dt>
-    <dd>sort(v.begin(), v.end()); v.erase(unique(v.begin(), v.end()), v.end());<br>
-        というコードにより、重複した要素を削除できる。
+    <dd>
+    <code>sort(v.begin(), v.end()); v.erase(unique(v.begin(), v.end()), v.end());</code><br>
+        というコードにより、v中の重複した要素を削除できる。
     </dd>
     <dt>lower_bound, uppper_bound</dt>
     <dd>
-    lower_bound(a.begin(), a.end(), val): $a[i] \ge val$ である最左の位置<br>
-    upper_bound(a.begin(), a.end(), val): $a[i] &gt; val$ である最左の位置<br>
-    を求める。
+    ソート済みのコンテナaに対し、<br>
+    <code>lower_bound(a.begin(), a.end(), val)</code>: <code>a[i] &gt;= val</code>である最左の位置<br>
+    <code>upper_bound(a.begin(), a.end(), val)</code>: <code>a[i] &gt; val</code>である最左の位置<br>
+    を求める。<br>
+    aがランダムアクセスできるコンテナでないと効率が悪くなってしまうことに注意する。
+    setやmapに対して適用したい場合は、それのメンバ関数の方を使うべきである。
     </dd>
     <dt>bitset</dt>
     <dd>
-    数値をビット集合として格納する。ビット演算は定数倍高速化が見込める
+    ビットベクトルを格納し、基本的な操作ができる。もちろんワードサイズ分の定数倍が速いことが期待できる。
+    ビット演算 &amp;,|,^,~ のほかシフト演算もでき、便利である。また、popcountもできる。<br>
+    bitsetのサイズはコンパイル時定数である必要がある。
+    一方、vector&lt;bool&gt;は動的にサイズを決定・変更でき、メモリ効率もいいが、操作はできない。
     </dd>
-
-    
+    <dt>swap</dt>
+    <dd>
+    vectorやset,mapなどコンテナのうち動的なものにはv.swap(w)という形で使えるメンバ関数があり、$O(1)$時間で内容をswapできる。<br>
+    例えばDPをメモリ節約する場合や、マージテクをする場合などに使える。<br>
+    非メンバ関数のswapを呼んだ場合にも自動的にオーバーロードされた関数が呼ばれ、このメンバ関数が呼ばれる。
+    </dd>
 </dl>
 
 <h4 class="shadow">Java</h4>
