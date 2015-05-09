@@ -36,20 +36,33 @@
 
 <h4 class="shadow">Java</h4>
 <dl>
-    <dt>PriorityQueue</dt>
-    <dd>優先度付きキュー <a href="https://docs.oracle.com/javase/jp/7/api/java/util/PriorityQueue.html">https://docs.oracle.com/javase/jp/7/api/java/util/PriorityQueue.html</a></dd>
-
-    <dt>BigInteger</dt>
-    <dd>多倍長整数型クラス、isProbablePrimeやmodPowやmodInverse,gcdなどの便利メソッドもある。 <a href="https://docs.oracle.com/javase/jp/7/api/java/math/BigInteger.html">https://docs.oracle.com/javase/jp/7/api/java/math/BigInteger.html</a></dd>
-
-    <dt>BitSet</dt>
-    <dd>C++の節にもあるがビットベクトルを生成する。bool配列よりメモリ効率がよい。</dd>
+    <dt><a href="http://docs.oracle.com/javase/jp/8/docs/api/java/lang/Integer.html">Integer</a>, <a href="http://docs.oracle.com/javase/jp/8/docs/api/java/lang/Long.html">Long</a></dt>
+    <dd>int,longに対する関数群。ひと通りあるので必見。<br/> Java8からはunsigned系の関数がふえてlong単体で2^64-1以下の整数を扱えるようになった。</dd>
     
-    <dt>(Long|Integer).(bitCount|highestOneBit|lowestOneBit|numberOfTrailingZeros|numberOfLeadingZeros)</dt>
-    <dd>読んで字のごとし。<br/> Java8からはunsigned系の関数がふえてlong単体で2^64-1以下の整数を扱えるようになった。</dd>
+    <dt><a href="http://docs.oracle.com/javase/jp/8/docs/api/java/util/Arrays.html">Arrays</a>, <a href="http://docs.oracle.com/javase/jp/8/docs/api/java/util/Collections.html">Collections</a></dt>
+    <dd>配列, コレクションに対する関数群。</dd>
+    
+    <dt><a href="http://docs.oracle.com/javase/jp/8/docs/api/java/lang/Integer.html">Integer</a>, <a href="http://docs.oracle.com/javase/jp/8/docs/api/java/lang/Long.html">Long</a></dt>
+    <dd>int,longに対する関数群。ひと通りあるので必見。<br/> Java8からはunsigned系の関数がふえてlong単体で2^64-1以下の整数を扱えるようになった。</dd>
+    
+    <dt><a href="http://docs.oracle.com/javase/jp/8/docs/api/java/util/HashSet.html">HashSet</a>, <a href="http://docs.oracle.com/javase/jp/8/docs/api/java/util/HashMap.html">HashMap</a></dt>
+    <dd>ハッシュマップ。挿入・削除・参照がO(1)でできる。</a></dd>
 
+    <dt><a href="http://docs.oracle.com/javase/jp/8/docs/api/java/util/TreeSet.html">TreeSet</a>, <a href="http://docs.oracle.com/javase/jp/8/docs/api/java/util/TreeMap.html">TreeMap</a></dt>
+    <dd>赤黒木。Comparatorを自前で定義するとき0を返したものは同一と扱われ闇に葬られるので注意。</a></dd>
+    
+    <dt><a href="http://docs.oracle.com/javase/jp/8/docs/api/java/util/PriorityQueue.html">PriorityQueue</a></dt>
+    <dd>優先度付きキュー</a></dd>
+
+    <dt><a href="http://docs.oracle.com/javase/jp/8/docs/api/java/math/BigInteger.html">BigInteger</a></dt>
+    <dd>immutableな多倍長整数型クラス、isProbablePrimeやmodPowやmodInverse,gcdなどの便利メソッドもある。</dd>
+    
+    <dt><a href="http://docs.oracle.com/javase/jp/8/docs/api/java/util/BitSet.html">BitSet</a></dt>
+    <dd>C++の節にもあるがビットベクトルを生成する。boolean配列よりメモリ効率がよい。</dd>
+
+    <dt><a href="http://docs.oracle.com/javase/jp/8/docs/api/java/awt/geom/Point2D.html">Point2D</a>, <a href="http://docs.oracle.com/javase/jp/8/docs/api/java/awt/geom/Line2D.html">Line2D</a></dt>
+    <dd>2次元幾何用の関数群。基本的なものしかない。</dd>
 </dl>
-
 
 <h4 class="shadow">Python</h4>
 <dl>
