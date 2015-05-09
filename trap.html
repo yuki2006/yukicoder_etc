@@ -17,5 +17,19 @@
         
     </dd>
 
+    <dt>Javaのsortは特殊なケースでO(n^2)になってしまう</dt>
+    <dd>
+        int,long配列のソートが特殊なケースで遅くなってしまう。hack制度を採用しているジャッジではこれを考慮しなければならない。
+        対策としては次がある。
+        <ul>
+            <li>Integer,Long配列にする</li>
+            <li>ソートする前にシャッフルする</li>
+            <li>radix sort等別のソートを使用する</li>
+        </ul>
+        <p>
+            kinabaさんの記事
+            <a href="http://www.kmonos.net/wlog/127.html">http://www.kmonos.net/wlog/127.html</a>
+        </p>
+    </dd>
     
 </dl>
