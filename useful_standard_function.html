@@ -97,3 +97,27 @@
     <dd>優先度付きキュー。使い方としたら、専用のクラスがあるというわけでなく配列をヒープ化する。</dd>
 </dl>
 
+<h4 class="shadow">C#</h4>
+<dl>
+    <dt><a href="https://msdn.microsoft.com/ja-jp/library/system.int32%28v=vs.110%29.aspx">Int32(int)</a>, <a href="https://msdn.microsoft.com/ja-jp/library/system.int64%28v=vs.110%29.aspx">Int64(long)</a>, <a href="https://msdn.microsoft.com/ja-jp/library/system.decimal%28v=vs.110%29.aspx">Decimal(decimal)</a></dt>
+    <dd>int,long,decimalに対する関数群。intやlong、decimalはそれぞれInt32、Int64、Decimalのエイリアス。decimalはdoubleよりも扱える範囲は狭いものの精度が高いため、確率問題の精度落ちによるWA対策として使うことができる。</dd>
+    
+    <dt><a href="https://msdn.microsoft.com/ja-jp/library/system.math%28v=vs.110%29.aspx">Math</a></dt>
+    <dd>基本的な数学関数群。最低限必要なものは揃っている。</dd>
+
+    <dt><a href="https://msdn.microsoft.com/ja-jp/library/system.array%28v=vs.110%29.aspx">Array</a>, <a href="https://msdn.microsoft.com/ja-jp/library/system.linq.enumerable%28v=vs.110%29.aspx">Enumerable</a></dt>
+    <dd>配列, コレクションに対する関数群。Linq(language integrated query)と呼ばれる定数倍が重いものの強力な関数群が存在する。</dd>
+    
+    <dt><a href="https://msdn.microsoft.com/ja-jp/library/xfhwa508%28v=vs.110%29.aspx">Dictionary</a>, <a href="https://www.google.co.jp/search?q=hashset&ie=utf-8&oe=utf-8&hl=ja">HashSet</a></dt>
+    <dd>ハッシュマップ。挿入・削除・参照がO(1)でできる。</a></dd>
+
+    <dt><a href="https://msdn.microsoft.com/ja-jp/library/f7fta44c%28v=vs.110%29.aspx">SortedDictionary</a>, <a href="https://msdn.microsoft.com/ja-jp/library/dd412070%28v=vs.110%29.aspx">SortedSet</a></dt>
+    <dd>赤黒木。比較関数を自前で定義するとき0を返したものは同一と扱われ闇に葬られるので注意。C++のsetに存在するlower_boundやupper_boundを行うことができないため、非常に使いにくい。C#には優先度付キューが存在しないため、代わりに使用することもある。その際は比較関数を適切に設定する必要がある。</a></dd>
+
+    <dt><a href="https://msdn.microsoft.com/ja-jp/library/system.numerics.biginteger%28v=vs.110%29.aspx">BigInteger</a></dt>
+    <dd>多倍長整数型構造体。System.Numerics.dllに存在するため、ジャッジの環境によっては使えないこともある。</dd>
+    
+     <dt><a href="https://msdn.microsoft.com/ja-jp/library/system.string%28v=vs.110%29.aspx">String(string)</a>, <a href="https://msdn.microsoft.com/ja-jp/library/system.text.stringbuilder%28v=vs.110%29.aspx">StringBuilder</a>, <a href="https://msdn.microsoft.com/ja-jp/library/system.stringcomparer%28v=vs.110%29.aspx">StringComparer</a></dt>
+    <dd>文字列、及び文字列操作、比較。stringはimmutableな文字列型、変更したい場合はchar[]を使う。文字列の連結を複数回行う場合はStringBuilderを使う。StringComparerは文字列の比較関数を提供する。</dd>
+    
+</dl>
