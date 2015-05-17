@@ -83,12 +83,85 @@
     <dt><a href="http://docs.python.jp/2/library/collections.html#collections.Counter">Counter</a></dt>
     <dd>連想配列とカウンターを持ったクラス
     </dd>
+    
     <dt><a href="http://docs.python.jp/3/library/itertools.html#itertools.permutations">itertools.permutations</a></dt>
     <dd>いわゆる順列、競プロによく出てくるあれです。 <br>
     </dd>
     
+    <dt>float('inf')</dt>
+    <dd>無限大。最小値を求めるときの初期値などに。<br>
+        負の無限大はfloat('-inf')あるいは-float('inf')。
+    </dd>
     
+    <dt>文字列と掛け算</dt>
+    <dd>'1'を10個並べたかったら<br>
+        <code>'1' * 10</code><br>
+        と書くと'1111111111'になる。'10'にはならない。
+    </dd>
     
+    <dt><a href="http://docs.python.jp/2.7/library/collections.html?highlight=defaultdict#collections.defaultdict">defaultdict</a></dt>
+    <dd>辞書にキーが存在しないときに自動的に呼ばれる関数を指定できる。例) <code>defaultdict(int)</code><br>
+        <code>from collections import defaultdict</code>
+    </dd>
+    
+    <dt>modpow(x, y, mod)</dt>
+    <dd>
+    <a href="http://docs.python.jp/2.7/library/functions.html?highlight=pow#pow">pow()</a>の3つめの引数で指定する。<br>
+    <code>x = pow(123456789, 987654321, int(1e9)+7)</code>
+        
+    </dd>
+    
+    <dt><a href="http://docs.python.jp/2.7/library/math.html?highlight=hypot#math.hypot">hypot(x, y)</a></dt>
+    <dd>
+        幾何で出てくるユークリッド距離$\sqrt{x^2 + y^2}$のこと。<br>
+        <code>from math import hypot</code>
+    </dd>
+    
+    <dt><a href="http://docs.python.jp/2.7/library/fractions.html#fractions.gcd">gcd(x, y)</a></dt>
+    <dd>
+        最大公約数。<br>
+        <code>from fractions import gcd</code><br>
+        lcm(最小公倍数)は標準には含まれていないので自分で実装する必要がある。<br>
+        <code>lcm = lambda x, y: x * y / gcd(x, y)</code>
+    </dd>
+    
+    <dt><a href="http://docs.python.jp/2.7/library/fractions.html?highlight=fraction#fractions.Fraction">分数</a></dt>
+    <dd>
+        精度が欲しい場合に、なるべく分数で計算して、最後に小数にするといった案が考えられる。<br>
+        処理速度が小数で計算するときよりも遅くなるので、そこには注意すること。<br>
+        <code>from fractions import Fraction</code>
+    </dd>
+
+    <dt>条件演算子</dt>
+    <dd>
+        '真のときの値' if 条件 else '偽のときの値'<br>
+        と書く。<br>
+        例)<br>
+        <code>a = 'Yes' if ok else 'No'</code><br>
+        また、<br>
+        <code>x = 789 if n%3==0 else 654 if n%3==1 else 123</code><br>
+        のように続けて書くこともできるといえばできるが、可読性が…。
+    </dd>
+    
+    <dt><a href="http://docs.python.jp/2.7/library/string.html#formatspec">format関数</a></dt>
+    <dd>
+        右詰め、左詰め、0埋め、コンマ付与、小数点以下第何位まで出力など、いろいろできる。<br>
+        <code>s = '{:,}'.format(9876543210) # 9,876,543,210</code>
+
+    </dd>
+    
+    <dt><a href="http://docs.python.jp/2/library/functions.html#enumerate">enumerate</a></dt>
+    <dd>
+        リストの位置と要素を一緒に取得したいときに使う。<br>
+        <code>for i, e in enumerate([2, 3, 5, 7, 11]):<br>&nbsp;&nbsp;&nbsp;&nbsp;print('{}: {}'.format(i, e))
+        </code>
+    </dd>
+    
+    <dt><a href="http://docs.python.jp/2.7/library/bisect.html">bisect</a></dt>
+    <dd>
+        二分探索。自分で1から書かなくても用意されている。<br>
+        <code>import bisect</code>
+    </dd>
 </dl>
 
 <h4 class="shadow">Go</h4>
