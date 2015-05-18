@@ -15,7 +15,7 @@
     <dt>count</dt>
     <dd>ある値の数を数える。</dd>
     <dt>accumulate</dt>
-    <dd>総和を求める。和の型は要素の型でなく第3引数の型となるのでオーバーフローに注意。</dd>
+    <dd>総和を求める。和の型は要素の型でなく第3引数の型となるのでオーバーフローに注意。<br>文字列の連結などももちろん可能。</dd>
     <dt>unique</dt>
     <dd>
     <code>sort(v.begin(), v.end()); v.erase(unique(v.begin(), v.end()), v.end());</code><br>
@@ -24,7 +24,7 @@
     <dt>lower_bound, uppper_bound</dt>
     <dd>
     ソート済みのコンテナaに対し、<br>
-    <code>lower_bound(a.begin(), a.end(), val)</code>: <code>a[i] &gt;= val</code>である最左の位置<br>
+    <code>lower_bound(a.begin(), a.end(), val)</code>: <code>a[i] &ge; val</code>である最左の位置<br>
     <code>upper_bound(a.begin(), a.end(), val)</code>: <code>a[i] &gt; val</code>である最左の位置<br>
     を求める。<br>
     aがランダムアクセスできるコンテナでないと効率が悪くなってしまうことに注意する。
@@ -42,6 +42,13 @@
     vectorやset,mapなどコンテナのうち動的なものにはv.swap(w)という形で使えるメンバ関数があり、$O(1)$時間で内容をswapできる。<br>
     例えばDPをメモリ節約する場合や、マージテクをする場合などに使える。<br>
     非メンバ関数のswapを呼んだ場合にも自動的にオーバーロードされた関数が呼ばれ、このメンバ関数が呼ばれる。
+    </dd>
+    <dt>priority_queue</dt>
+    <dd>
+    優先度付きキュー。<br>
+    ダイクストラやプリム法の実装の際に便利。<br>
+    「優先度」なので値の大きい方から取り出してくるので、ダイクストラなど小さいものから処理したい場合は符号を反転して突っ込むと良い。<br>
+    また、ノード番号なども必要とあればpairなどでまとめて、(コスト，ノード番号)などの形で突っ込む。<br>
     </dd>
 </dl>
 
