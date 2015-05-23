@@ -118,6 +118,16 @@
         
     </dd>
     
+    <dt><a href="http://docs.python.jp/2.7/library/copy.html#copy.copy">copy.copy(x)</a></dt>
+    <dd>
+    オブジェクトをシャロー（浅い）コピーする。
+    </dd>
+   
+      <dt><a href="http://docs.python.jp/2.7/library/copy.html#copy.deepcopy">copy.deepcopy(x)</a></dt>
+    <dd>
+    オブジェクトをディープ（深い）コピーする。
+    </dd>
+    
     <dt><a href="http://docs.python.jp/2.7/library/math.html?highlight=hypot#math.hypot">hypot(x, y)</a></dt>
     <dd>
         幾何で出てくるユークリッド距離$\sqrt{x^2 + y^2}$のこと。<br>
@@ -132,9 +142,9 @@
         <code>lcm = lambda x, y: x * y / gcd(x, y)</code>
     </dd>
     
-    <dt><a href="http://docs.python.jp/2.7/library/fractions.html?highlight=fraction#fractions.Fraction">分数</a></dt>
+    <dt><a href="http://docs.python.jp/2.7/library/fractions.html?highlight=fraction#fractions.Fraction">分数</a>(有理数）</dt>
     <dd>
-        精度が欲しい場合に、なるべく分数で計算して、最後に小数にするといった案が考えられる。<br>
+        精度が欲しい場合に、なるべく分数(有理数）で計算して、最後に小数にするといった案が考えられる。<br>
         処理速度が小数で計算するときよりも遅くなるので、そこには注意すること。<br>
         <code>from fractions import Fraction</code>
     </dd>
