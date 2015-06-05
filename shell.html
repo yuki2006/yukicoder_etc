@@ -1,0 +1,142 @@
+<title>シェルコマンド</title>
+
+<p>
+    競技プログラミングに役立ちそうなシェルコマンドについてのまとめ．<br>
+    IDEを使っている人には縁がない話かも
+</p>
+
+<h4 class="shadow">基本的なコマンド</h4>
+<p>
+    <dl>
+        <dt>pwd</dt>
+        <dd>現在ディレクトリのフルパス表示</dd>
+
+        <dt>cd</dt>
+        <dd>ホームディレクトリへ移動</dd>
+
+        <dt>cd [dir名]</dt>
+        <dd>指定ディレクトリへ移動</dd>
+
+        <dt>mkdir [dir名]</dt>
+        <dd>新規ディレクトリを作成</dd>
+
+        <dt>rm -r [dir名]</dt>
+        <dd>指定ディレクトリを中のファイルごと削除</dd>
+
+        <dt>cp -r [dirA] [dirB]</dt>
+        <dd>ディレクトリAをディレクトリBにコピー</dd>
+
+        <dt>mv [file名] [dir名]</dt>
+        <dd>ファイルをディレクトリへ移動</dd>
+
+        <dt>touch [file名]</dt>
+        <dd>新しいファイルを作成</dd>
+
+        <dt>diff [file名] [file名]</dt>
+        <dd>2つのファイルを比較する．</dd>
+
+        <dt>ls</dt>
+        <dd>現在ディレクトリのファイル一覧表示</dd>
+
+        <dt>ls [dir名]</dt>
+        <dd>指定ディレクトリのファイル一覧表示</dd>
+
+        <dt>ls -a</dt>
+        <dd>隠しファイルも含む全てのファイル表示</dd>
+
+        <dt>ls -l</dt>
+        <dd>詳細情報を表示</dd>
+
+        <dt>ls -R</dt>
+        <dd>ディレクトリ下層までたどって表示</dd>
+
+        <dt>pushd [dir名]</dt>
+        <dd>現在ディレクトリをディレクトリスタックに積み、ディレクトリ移動</dd>
+
+        <dt>popd</dt>
+        <dd>ディレクトリスタック先頭のディレクトリへ移動して、スタックから降ろす</dd>
+
+        <dt>alias</dt>
+        <dd>コマンドの別名を指定する．例えば，筆者は<code>alias g="g++ -Wall -Wextra -O2 -g -Wl,--stack=268435456 -D LOCAL -std=c++11"</code>としているので，
+            <code>g A.cpp</code>と叩くだけでこれら全てのオプションが付く．この設定は.bashrcなどのファイルに書いておくと次回以降も有効になる．</dd>
+
+        <dt>gdb</dt>
+        <dd>デバッガ．長くなるので省略します・・・(ググってください) コンパイル時に<code>-g</code>を付けておくといい．</dd>
+
+        <dt>valgrind</dt>
+        <dd>デバッガ．アクセス違反とかメモリリークとか未定義の変数にアクセスしてないかとかが全部わかるすごいツール．Windowsでは使えないらしい．コンパイル時に<code>-g</code>を付けておくといい．</dt>
+</dl>
+</p>
+
+<h4 class="shadow">GCC</h4>
+<p>
+    <dl>
+        <dt>gcc, g++</dt>
+        <dd>GCCでC/C++言語プログラムをコンパイルする．以下は全てこれのオプション</dd>
+
+        <dt>-Wall -Wextra</dt>
+        <dd>警告を有効にする．例えば，<code>gcc A.cpp -Wall -Wextra</code>とコンパイルすると下のようなバグが検出される．
+            <pre>
+int main(){
+    int a,b,c;
+    scanf("%d",a);    // &aの間違い
+    c = a+b;          // bが初期化されていない
+}</pre>
+            コンパイラが古くて<code>-Wextra</code>がなければ，それの旧称であるところの<code>-W</code>を使う．
+
+        </dd>
+
+        <dt>-O2</dt>
+        <dd>最適化する．つまり，プログラムを解析して無駄を省いて高速化する．レベルは最低の<code>-O0</code>が無効で，最大で<code>-O3</code>まである</dd>
+
+        <dt>-o [出力ファイル名]</dt>
+        <dd>出力される実行ファイルのファイル名を指定する．<code>-o A.cpp</code>などとしてソースコード上書きしないように注意．</dd>
+
+        <dt>-D [MACRO]</dt>
+        <dd>マクロを定義する．例えば<code>gcc A.cpp -D LOCAL -D X=10</code>とコンパイルするとソースコードの先頭に<code>#define LOCAL</code><code>#define X 10</code>としたのと一緒になる．これは次のような使い方ができる．
+            <pre>
+int main(){
+    // ローカルではinput.txtから，ジャッジでは標準入力から受け取る．
+    #ifdef LOCAL
+        freopen("input.txt", "w", stdin);
+    #endif
+    int arr[X]; // 配列の長さをコンパイルコマンドで指定できる
+    int a,b;
+    scanf("%d %d\n", &a, &b);
+}</pre>
+            ちなみに，<code>assert</code>関数などは<code>-D NDEBUG</code>とすれば無効にできる．<a href="http://www1.cts.ne.jp/~clab/hsample/Bug/Bug2.html">(参考)</a>
+</dd>
+
+        <dt>-Wl,--stack=268435456</dt>
+        <dd>スタックメモリを256メガバイトにする．つまり，深い再帰呼び出しを行ってもスタックオーバーフローしづらくなる．この記法(コンマが入る位置とか)には環境によって若干違いがあるようです．ulimitコマンドで変える方法もある</dd>
+
+        <dt>-g</dt>
+        <dd>デバッグに必要な情報を埋め込む．gdbやvalgrindを使うときにこれがないと困る．</dd>
+
+        <dt>-std=[ver]</dt>
+        <dd>言語のバージョンを指定する．yukicoderではたぶん<code>-std=c++11</code>がついている．C++の新しい機能(ラムダとか)を使いたいときは必須．</dd>
+</dl>
+</p>
+
+<h4 class="shadow">その他</h4>
+<p>
+    <dl>
+        <dt>A && B</dt>
+        <dd>コマンドAが正常終了した時に限ってコマンドBを実行する．例えば<code>g++ A.cpp && ./a.out</code>とすると，コンパイルが成功した場合にのみ実行される．</dd>
+
+        <dt>A || B</dt>
+        <dd>コマンドAが異常終了した時に限ってコマンドBを実行する．</dd>
+
+        <dt>A > output.txt</dt>
+        <dd>コマンドAの出力をoutput.txtに書き出す．</dd>
+
+        <dt>A < input.txt</dt>
+        <dd>コマンドAの入力をinput.txtから読み出す．</dd>
+
+        <dt>A | B</dt>
+        <dd>コマンドAの出力を入力としてコマンドBを実行する．例えば<code>./generator.out | ./solver.out</code>とすると，generator.outが生成するテストケースが./solver.outに入力される．</dd>
+
+        <dt>factor [N]</dt>
+        <dd>Nを素因数分解する．競プロでは意外と便利．</dd>
+</dl>
+</p>
