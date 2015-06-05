@@ -33,6 +33,10 @@ $n$は$m \le n, \gcd(m, n) = 1$でありさえすれば任意に取れるので�
 なお、$\overline x$から$x$を得るには、単に$\overline x$に対してMontgomery reductionを適用すればよい。
 また、$\overline {x^{-1}}$を求める時は${\overline x}^{-1}$を求めたあと$n^2 \bmod m$をかけてMontgomery reductionをすればよい。
 </p>
+<h3>高速化</h3>
+<p>
+$a &lt; n m$でさえあればよいので、掛け算の和を求めるような処理の場合、掛け算のたびにMontgomery reductionをしなくてもよい。
+</p>
 <h3>多項式の場合</h3>
 <p>
 多項式に対してもMontgomery reductionとモンゴメリ乗算を自然に一般化できる。
