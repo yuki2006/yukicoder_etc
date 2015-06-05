@@ -10,11 +10,33 @@ Montgomery reductionの基本的なアイデアは、$n^{-1}$を掛ける代わ�
 $r \equiv (-m)^{-1} \pmod n$となる$0 \le r &lt; n$を事前に計算しておく。
 $b = a \times r \bmod n$とし、$t = a + b \times m$とすると、$t \equiv a \pmod m$かつ$t \equiv 0 \pmod n$となる。
 これは中国人剰余定理をしているのと同じであることに注意しておく。
-さて、この$t$は$n$の倍数であるので、逆元を使わなくても整数上の割り算ができる。これにより、$t / n \equiv a n^{-1} \pmod m$となる答えが計算できた。
+さて、この$t$は$n$の倍数であるので、逆元を使わなくても整数上の割り算ができる。これにより、$c = t / n$として$c \equiv a n^{-1} \pmod m$となる答えが計算できた。
 </p>
 <p>
-$t / n$の大きさを考えよう。$0 \le a &lt; m n$と仮定すると、(あとで書く)、$t &lt; 2m$となる。よって、最後に引き算をするだけで$m$未満の標準形へ"reduce"できた。
+$c$の大きさを考えよう。$b &lt; n$であるので、$t &lt; a + m n$である。よって、$0 \le a &lt; m n$の場合、$0 \le c &lt; 2m$となる。
+この場合、<code>if(c >= m) c -= m;</code>のようなコードにより$c$を$m$未満の標準系へ"reduce"できた。
+nが2の累乗ならば割り算,剰余算なしでビット演算,シフトだけで計算できることが重要である。
+$a$自体はある程度小さければ標準系である必要がないことに注意しておく。
+</p>
+<h3>Montgomery multiplication</h3>
+<p>
+モンゴメリ乗算は、剰余環の要素を違う方法で保持することで、Montgomery reductionによって掛け算の際の剰余を行わなくてよいようにするテクニックである。
 </p>
 <p>
-$n$が2の累乗である場合、これは割り算を使わずに計算できる。よって、高速になりうる。(あとでもっと詳しく書く)
+モンゴメリ乗算を用いるには、値$x$に対して$\overline x = x \times n \bmod m$と変換して保持する。この変換には$m$による剰余が必要であるが、この変換は1度だけなので、剰余環上での計算を連続して行う場合にはコストをならせる。
+そのように変換した$\overline x$, $\overline y$に対して、足し算・引き算は$\overline {x + y} \equiv \overline x + \overline y$として通常通り計算できる。
+問題は掛け算であるが、定義より$\overline {x \times y} \equiv \overline x \times \overline y \times n^{-1}$となる。
+$\overline x \times \overline y &lt; m^2$であるので、$m \le n$となるように$n$を取ればここでMontgomery reductionが使える。
+$n$は$m \le n, \gcd(m, n) = 1$でありさえすれば任意に取れるので、$m$が2を約数に含まない場合には$n$を2の累乗に取れば剰余算なしに高速に剰余環での掛け算が計算できた。
+</p>
+<p>
+なお、$\overline x$から$x$を得るには、単に$\overline x$に対してMontgomery reductionを適用すればよい。
+また、$\overline {x^{-1}}$を求める時は${\overline x}^{-1}$を求めたあと$n^2 \bmod m$をかけてMontgomery reductionをすればよい。
+</p>
+<h3>多項式の場合</h3>
+<p>
+多項式に対してもMontgomery reductionとモンゴメリ乗算を自然に一般化できる。
+多項式の場合、"<code>if(c >= m) c -= m;</code>"の部分は必要ない。
+また、整数でいう2の累乗は変数の累乗に対応する。
+多項式の場合も定数倍高速化になりうる。
 </p>
