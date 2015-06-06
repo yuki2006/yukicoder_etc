@@ -64,7 +64,7 @@
 <code>function gin() {
   g++ $1 -O2 -Wl,--stack,104857600 && echo "compile done" && time ./a < in
 }</code>
-            と書いている変な人もいます．
+            と書いている変な人もいます．<code>gin a.cpp</code>でコンパイルされ，コンパイルが成功すればファイル<code>in</code>の内容を標準入力として受け取りながらプログラムが走ります．
         </dd>
 
         <dt>gdb</dt>
