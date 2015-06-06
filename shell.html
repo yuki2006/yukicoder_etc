@@ -59,7 +59,13 @@
 
         <dt>alias</dt>
         <dd>コマンドの別名を指定する．例えば，筆者は<code>alias g="g++ -Wall -Wextra -O2 -g -Wl,--stack=268435456 -D LOCAL -std=c++11"</code>としているので，
-            <code>g A.cpp</code>と叩くだけでこれら全てのオプションが付く．この設定は.bashrcなどのファイルに書いておくと次回以降も有効になる．</dd>
+            <code>g A.cpp</code>と叩くだけでこれら全てのオプションが付く．この設定は.bashrcなどのファイルに書いておくと次回以降も有効になる．<br>
+            aliasは単純な置き換えだが，もうちょっと複雑なことをしたく<code>.bashrc</code>に
+<code>function gin() {
+  g++ $1 -O2 -Wl,--stack,104857600 && echo "compile done" && time ./a < in
+}</code>
+            と書いている変な人もいます．
+        </dd>
 
         <dt>gdb</dt>
         <dd>デバッガ．長くなるので省略します・・・(ググってください) コンパイル時に<code>-g</code>を付けておくといい．</dd>
