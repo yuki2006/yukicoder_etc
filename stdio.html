@@ -135,7 +135,29 @@ Python3では, raw_inputが非推奨になりましたのでinput関数を使用
 </pre>
 最初に &lt;?php  をつけないといけないことに注意
 </div>
+<!--$ があるとMathjaxになってしまうので無理やりオフに -->
+<div class="tex2jax_ignore">
 
+<h3 class="shadow">perl</h3>
+<pre>
+#!/usr/bin/perl
+
+# 1行読み込む
+$N = <>;
+# 末尾に改行が付いているので取り除く
+chomp $N;
+# 空白で分割する
+($A, $B) = split /\s/, $N;
+
+# 1行読み込む
+$S = <>;
+# 末尾に改行が付いているので取り除く
+chomp $S;
+
+# 標準出力に出力します
+print $A + $B, " ", $S;
+</pre>
+</div>
 <h3 class="shadow">Javascript</h3>
 <pre>
 function Main(input) {
@@ -157,7 +179,7 @@ Main(require("fs").readFileSync("/dev/stdin", "utf8"));
 
 <h3 class="shadow">D</h3>
 <pre>
-    import std.stdio, std.conv, std.string, std.range, std.array,
+import std.stdio, std.conv, std.string, std.range, std.array,
        std.algorithm;
 
 void main() {
