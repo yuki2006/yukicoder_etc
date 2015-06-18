@@ -47,19 +47,12 @@ public class Main {
 }
 </pre>
 
-<h3 class="shadow">D</h3>
+
+<h3 class="shadow">Ruby</h3>
 <pre>
-    import std.stdio, std.conv, std.string, std.range, std.array,
-       std.algorithm;
-
-void main() {
-  auto I = readln().strip().split().map!(to!int)().array();
-  auto S = readln().strip();
-
-  writeln( I.sum, " ", S );
-}
-    
+    print gets.split.map(&:to_i).reduce(:+),' ',gets
 </pre>
+
 <h3 class="shadow">Python2</h3>
 <pre>
 # 標準入力から一行分を読み出し intにキャストする。
@@ -119,4 +112,18 @@ function Main(input) {
 
 // Don't edit this line!
 Main(require("fs").readFileSync("/dev/stdin", "utf8"));
+</pre>
+
+<h3 class="shadow">D</h3>
+<pre>
+    import std.stdio, std.conv, std.string, std.range, std.array,
+       std.algorithm;
+
+void main() {
+  auto I = readln().strip().split().map!(to!int)().array();
+  auto S = readln().strip();
+
+  writeln( I.sum, " ", S );
+}
+    
 </pre>
