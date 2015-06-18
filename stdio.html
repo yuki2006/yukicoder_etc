@@ -92,7 +92,15 @@ print A+B , S
 <pre>
 function Main(input) {
     // inputにはすべての入力の文字列が与えられるので必要に応じて input.split("\n") などで分割する。
-    console.log(input);
+
+    var data = input.split("\n")
+    
+    var first_line = data[0].split(" ").map(parseInt)
+    var second_line = data[1]
+    
+    var c = first_line[0] + first_line[1]
+
+    console.log(c + " " + second_line);
 }
 
 // Don't edit this line!
