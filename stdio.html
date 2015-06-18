@@ -76,6 +76,31 @@ S = raw_input()
 print A+B , S
 </pre>
 
+
+<h3 class="shadow">Python3</h3>
+<pre>
+# 標準入力から一行分を読み出し intにキャストする。
+first = input()
+
+# 読み込んだ文字列をスペースで分割する
+split_first=first.split()
+
+# それぞれをint型に変換する
+A = int(split_first[0])
+B = int(split_first[1])
+
+# 慣れてくると この一行でよい
+# A , B = map(int, input().split()) 
+
+#2行目を読み込む
+S = input()
+
+# 標準出力に書き出す。
+# カンマで区切るとスペースで分割してくれるので楽です。
+print A+B , S
+</pre>
+Python3では, raw_inputが非推奨になりましたのでinput関数を使用します。
+
 <h3 class="shadow">PHP</h3>
 
 <!--$ があるとMathjaxになってしまうので無理やりオフに -->
