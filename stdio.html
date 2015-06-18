@@ -87,6 +87,21 @@ public class Program
 </pre>
 camypaperさん提供
 
+<h3 class="shadow">D</h3>
+<pre>
+import std.stdio, std.conv, std.string, std.range, std.array,
+       std.algorithm;
+
+void main() {
+  auto I = readln().strip().split().map!(to!int)().array();
+  auto S = readln().strip();
+
+  writeln( I.sum, " ", S );
+}
+    
+</pre>
+diginatuさん提供
+
 <h3 class="shadow">Ruby</h3>
 <pre>
 A,B=gets.split.map(&:to_i)
@@ -163,7 +178,7 @@ Python3では, raw_inputが非推奨になりましたのでinput関数を使用
 <!--$ があるとMathjaxになってしまうので無理やりオフに -->
 <div class="tex2jax_ignore">
 
-<h3 class="shadow">perl</h3>
+<h3 class="shadow">Perl</h3>
 <pre>
 #!/usr/bin/perl
 
@@ -185,6 +200,23 @@ print $A + $B, " ", $S;
 </div>
 なおさん提供
 
+<h3 class="shadow">Scala</h3>
+<pre>
+import scala.io.StdIn.readLine
+
+object Main {
+  def main(args: Array[String]){
+    val ab = readLine().split(" ").map(_.toInt)
+    val (a,b) = (ab(0),ab(1))
+    val s = readLine()
+
+    val n = a+b
+    println(s"$n $s")
+  }
+}
+    
+</pre>
+ともきさん提供
 <h3 class="shadow">Javascript</h3>
 <pre>
 function Main(input) {
@@ -204,17 +236,4 @@ function Main(input) {
 Main(require("fs").readFileSync("/dev/stdin", "utf8"));
 </pre>
 
-<h3 class="shadow">D</h3>
-<pre>
-import std.stdio, std.conv, std.string, std.range, std.array,
-       std.algorithm;
 
-void main() {
-  auto I = readln().strip().split().map!(to!int)().array();
-  auto S = readln().strip();
-
-  writeln( I.sum, " ", S );
-}
-    
-</pre>
-diginatuさん提供
