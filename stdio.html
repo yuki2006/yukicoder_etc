@@ -1,49 +1,72 @@
 <title>言語別標準入出力</title>
 
-
-
+各問題の入出力の受け取り方です。
+ここでは、
+<a href="http://yukicoder.me/problems/527">No.9001 入出力の練習問題（テスト用）</a>の問題を例にしております。
 
 <h3 class="shadow">Java</h3>
 <pre>
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
         //標準入力から読み込む際に、Scannerオブジェクトを使う。
         Scanner sc = new Scanner(System.in);
 
         //int １つ分を読み込む
-        int n= sc.nextInt();
+        int a = sc.nextInt();
+
+        //int １つ分を読み込む
+        int b = sc.nextInt();
+
+        //string １つ分を読み込む
+        String s = sc.next();
 
         //標準出力に書き出す。
-        System.out.println(i);
+        System.out.println( (a+b) +" "+s);
     }
 }
 </pre>
 <h3 class="shadow">C++</h3>
 <pre>
-#include &lt;iostream>
-#include &lt;string>
+#include <iostream>
+#include <string>
 
 using namespace std;
 
 int main() {
-	int n;
-	string s;
+    int a,b;
+    string s;
 
-	// 標準入力から、空白や改行で区切られた整数と文字列を読み込む。
-	cin >> n >> s;
+    // 標準入力から、空白や改行で区切られた整数と文字列を読み込む。
+    cin >> a >> b >> s;
 
-	// 整数と文字列を空白で区切って、標準出力に書き出す。
-	cout << n << " " << s << endl;
-	return 0;
+    // 整数と文字列を空白で区切って、標準出力に書き出す。
+    cout << a+b << " " << s << endl;
+    return 0;
 }
 </pre>
 <h3 class="shadow">Python2</h3>
 <pre>
 # 標準入力から一行分を読み出し intにキャストする。
-N = int(raw_input())
+first = raw_input()
+
+# 読み込んだ文字列をスペースで分割する
+split_first=first.split()
+
+# それぞれをint型に変換する
+A = int(split_first[0])
+B = int(split_first[1])
+
+# 慣れてくると この一行でよい
+# A , B = map(int, raw_input().split()) 
+
+#2行目を読み込む
+S = raw_input()
 
 # 標準出力に書き出す。
-print N
+# カンマで区切るとスペースで分割してくれるので楽です。
+print A+B , S
 </pre>
 
 <h3 class="shadow">PHP</h3>
