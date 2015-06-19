@@ -1,5 +1,61 @@
 <title>中華風剰余定理</title>
 <p>
-    この定理は、互いに素な整数$m, n$に対して、$\mathbb{Z}/m\mathbb{Z} \times \mathbb{Z}/n\mathbb{Z} \cong \mathbb{Z}/mn\mathbb{Z}$であると述べている。
-    中華風剰余定理, 中国剰余定理, 中国人剰余定理, Chinese Remainder Teorem, CRT などと呼ばれる。
+$m_1, \dots, m_n$を、$i \neq j$に対して$\gcd(m_i, m_j) = 1$となる整数$m_i &gt; 1$とし、$m = \prod_{i=1}^n m_i$とする。
+この定理は$\mathbb{Z}/ m_1 \mathbb{Z} \times \cdots \times \mathbb{Z}/ m_n \mathbb{Z} \cong \mathbb{Z}/ m \mathbb{Z}$であると述べている。
 </p>
+<p>
+つまり、$\forall i, a \equiv a_i \pmod {m_i}$という連立線形合同方程式が与えられたとき、$0 \le a &lt; m$となる解が一意に存在する。
+</p>
+<p>
+中華風剰余定理, 中国剰余定理, 中国人剰余定理, Chinese Remainder Teorem, CRT などと呼ばれる。
+</p>
+<p>
+$\mathbb{Z}$以外の環に対しても一般化できる。体上の多項式の場合が特に重要である。
+体$F$に対して$m_i = (x-u_i) \in F[x]$とすると、$f \bmod (x-u_i) = f(u_i)$であるので、これは多項式補間ということになる。
+</p>
+<h3>アルゴリズム</h3>
+<p>上記の$a_i$から$a$を復元するアルゴリズムを考える。
+アルゴリズム版は定理と区別して"Chinese Remainder Algorithm (CRA)"や"Effective CRT"などとも呼ばれる。
+ただし、その場合下記のLagrange CRAのみを指すことも多い。
+</p>
+<p>
+前述のようにこの定理のアルゴリズムは多項式補間の一般化であるので、この記事では、アルゴリズムを多項式補間の場合の名前で呼ぶことにする。この呼び方は一般的ではない。
+</p>
+<h4>Lagrange CRA</h4>
+<p>
+定理の標準的な証明に使われる構成法である。Lagrange interpolation (ラグランジュ補間)の一般化となる。
+</p>
+<p>
+各$i \neq j$に対し、$s_i = (\frac{m}{m_i})^{-1} \bmod m_i$, $b_i = s_i \frac{m}{m_i}$とする。このとき、$b_i \equiv 0 \pmod m_j$であり、$b_i \equiv 1 \pmod m_i$となる。
+ここで$a = \sum_{i=1}^n a_i b_i \bmod m$とすると条件を満たすことがわかる。
+</p>
+<p>
+そのままの実装では、$F[x]$上で$m_i$が次数1の場合(多項式補間の場合)、$\Theta(n^2)$回の$F$上の掛け算・足し算と$\Theta(n)$回の$F$上の逆元を求める時間計算量となる。$\mathbb{Z}$上の場合も同じような時間計算量となる。
+</p>
+<p>
+高速な乗算と逆元を求めるアルゴリズムを用い適切な分割統治アプローチを用いると、$F[x]$上や$\mathbb{Z}$で$m_i$が定数サイズの場合$O(M(n) \log n)$の時間計算量でも実装できる。これを"Fast CRA"と呼ぶことがある。
+</p>
+<h4>Newton CRA</h4>
+<p>
+$n$が2の場合はこのアルゴリズムのほうが単純である。$n$が小さい場合は特にこのアルゴリズムが高速になりうる。
+</p>
+<p>
+$n = 2$と仮定する。$t \equiv m_1^{-1} \pmod {m_2}$, $h \equiv (a_2 - a_1) t \pmod {m_2}$としたとき、$a = a_1 + m_1 h$とすると、$a$は条件を満たす。
+</p>
+<p>
+$n &gt; 2$の場合、入力を分割して再帰的に適用する。
+$F[x]$上や$\mathbb{Z}$で$m_i$が定数サイズの場合、$\Theta(n^2)$時間の乗算を用いる場合は左から1つずつ追加していくように分割すれば$\Theta(n^2)$時間となる。
+この場合、多倍長演算を全て実装しなくても、片方の引数が定数サイズの演算のみで実装できるため、実装が比較的簡単になる。
+また、これはオンラインアルゴリズムと言える。
+</p><p>
+高速な乗算と逆元を求めるアルゴリズムを用いる場合は入力を半分ずつに分割していくようにすれば$O(M(n) \log^2 n)$時間で実装できる。
+</p>
+<p>
+両方のアルゴリズムにいえることだが、$m_i$が固定されている場合は、それのみによって決まる変数を事前計算しておくことで高速化できる。
+特に逆元を求める操作は高価であるので、出来る限り事前計算しておくべきである。Newton CRAでは逆元を事前計算しておけば計算量を$O(M(n) \log n)$に落とせる。
+</p>
+<h3>参考文献</h3>
+<ul>
+<li>Shoup, Victor. <a href='http://shoup.net/ntb/'>A computational introduction to number theory and algebra</a>. Cambridge university press, 2009.</li>
+<li>Von Zur Gathen, Joachim, and Jürgen Gerhard. Modern computer algebra. Cambridge university press, 2013.</li>
+</ul>
