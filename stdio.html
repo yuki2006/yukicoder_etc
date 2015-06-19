@@ -111,18 +111,18 @@ cielさん提供
 
 <h3 class="shadow">Python2 (PyPy2)</h3>
 <pre>
-# 標準入力から一行分を読み出し intにキャストする。
+# 標準入力から一行分を読み出し、文字列として格納する。
 first = raw_input()
 
-# 読み込んだ文字列をスペースで分割する
+# 読み込んだ文字列をスペースで分割する。
 split_first = first.split()
 
-# それぞれをint型に変換する
+# それぞれをint型に変換する。
 A = int(split_first[0])
 B = int(split_first[1])
 
 # 慣れてくると この一行でよい
-# A , B = map(int, raw_input().split()) 
+# A, B = map(int, raw_input().split()) 
 
 #2行目を読み込む
 S = raw_input()
@@ -135,7 +135,7 @@ print A + B, S
 
 <h3 class="shadow">Python3 (PyPy3)</h3>
 <pre>
-# 標準入力から一行分を読み出し intにキャストする。
+# 標準入力から一行分を読み出し、文字列として格納する。
 first = input()
 
 # 読み込んだ文字列をスペースで分割する
@@ -146,7 +146,7 @@ A = int(split_first[0])
 B = int(split_first[1])
 
 # 慣れてくると この一行でよい
-# A , B = map(int, input().split()) 
+# A, B = map(int, input().split()) 
 
 #2行目を読み込む
 S = input()
@@ -155,7 +155,11 @@ S = input()
 # カンマで区切るとスペースで分割してくれるので楽です。
 print(A + B, S)
 </pre>
-Python3では, raw_inputが使えなくなりましたのでinput関数を使用します。
+標準入力を一行分読み出し、文字列に格納する関数は、
+Python2ではraw_input()、Python3ではinput()です。
+Python2のinput()と同じ動きをする組込み関数はPython3には存在せず(※)、
+Python3にはraw_input()という名前の組み込み関数は存在しません。
+※eval(input())でエミュレートする案が有名か。
 
 <h3 class="shadow">PHP</h3>
 
