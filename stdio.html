@@ -246,7 +246,6 @@ Main(require("fs").readFileSync("/dev/stdin", "utf8"));
 
 CodeforcesではNode.jsではなくv8が使用されている。両対応になる入出力例は以下のとおり(ただし空行を正しく処理できない点は注意を要する)。
 <pre>
-//usr/bin/env node $0 $@;exit 
 var main=function(){
 	var a=readline().split(' ').map(Number);
 	print(a[0]+a[1]+' '+readline());
@@ -267,7 +266,7 @@ if(typeof process!=='undefined'){
 		stdin.on('data', function(input) {
 			var ref=(input_fragment+input).split("\n");
 			input_fragment=ref.pop();
-			for(var i=0;i<ref.length;i++){
+			for(var i=0;i&lt;ref.length;i++){
 				if(ref[i]=='')continue;
 				T.push(ref[i]);
 			}
@@ -276,7 +275,7 @@ if(typeof process!=='undefined'){
 			if(input_fragment){
 				var ref=(input_fragment+"\n").split("\n");
 				input_fragment=ref.pop();
-				for(var i=0;i<ref.length;i++){
+				for(var i=0;i&lt;ref.length;i++){
 					if(ref[i]=='')continue;
 					T.push(ref[i]);
 				}
@@ -285,7 +284,7 @@ if(typeof process!=='undefined'){
 		});
 
 		return function(){
-			if(T.length<=cnt)return null;
+			if(T.length&lt;=cnt)return null;
 			return T[cnt++];
 		};
 	})();
@@ -311,8 +310,10 @@ func main() {
 fmhrさん提供
 
 <h3 class="shadow">Haskell</h3>
+<!--$ があるとMathjaxになってしまうので無理やりオフに -->
+<div class="tex2jax_ignore">
 <pre>
--- <$>とか使う場合は必須。でも、7.10からはデフォルトで読み込まれるので不要。
+-- &lt;$&gt;とか使う場合は必須。でも、7.10からはデフォルトで読み込まれるので不要。
 import Control.Applicative
 
 -- main、ここでIOモナドを完結させる。
@@ -324,15 +325,15 @@ main = do
     -- 1行読み込んで、空白切りで配列に分割して、それぞれを数字に変換する。
     -- readで変換される型は、main'での型指定によって決まる。
     -- IO [a]
-    ab <- map read . words <$> getLine
+    ab &lt;- map read . words &lt;$&gt; getLine
     -- ----
     -- 単純に1行をStringとして読み込む。末尾改行は含まれない。
     -- IO String
-    s <- getLine
+    s &lt;- getLine
     -- ----
     -- その他に、1行に数字一つだけであれば下記のようにする。
     -- IO a
-    -- n <- read <$> getLine
+    -- n &lt;- read &lt;$&gt; getLine
     -- ----
     -- 読み込んだ値を別関数に渡して、戻り値を出力する。
     -- 戻り値がIntの場合は、`print`を使う。
@@ -343,9 +344,10 @@ main = do
 -- 実際に問題を解く関数main'、実際の名前は何でもいい。
 -- ここの型指定でmainでのreadが何に変換されるが決まる。
 -- IOモナドは持ち込まずに純粋な関数だけの世界にすると書きやすいと思う。
-main' :: [Int] -> String -> String
+main' :: [Int] -&gt; String -&gt; String
 main' ab s = (show . sum) ab ++ " " ++ s
 </pre>
+</div>
 らっしー(raccy)さん提供
 
 <h3 class="shadow">Nim</h3>
@@ -360,7 +362,7 @@ cielさん提供
 
 <h3 class="shadow">Rust</h3>
 <pre>
-fn getline() -> String{
+fn getline() -&gt; String{
 	let mut __ret=String::new();
 	std::io::stdin().read_line(&mut __ret).ok();
 	return __ret;
@@ -368,7 +370,7 @@ fn getline() -> String{
 
 fn main(){
 	let s=getline();
-	let a:Vec<_>=s.trim().split(' ').collect();
+	let a:Vec&lt;_&gt;=s.trim().split(' ').collect();
 	let x:i32=a[0].parse().unwrap();
 	let y:i32=a[1].parse().unwrap();
 	print!("{} ",x+y);
@@ -380,7 +382,7 @@ cielさん提供
 <h3 class="shadow">Kotlin</h3>
 <pre>
 import java.util.*
-fun main(args: Array<String>){
+fun main(args: Array&lt;String&gt;){
 	val cin = Scanner(System.`in`)
 	print(cin.nextInt()+cin.nextInt())
 	print(" ")
@@ -417,7 +419,7 @@ cielさん提供
 
 <h3 class="shadow">OCaml</h3>
 <pre>
-Scanf.sscanf (read_line ()) "%d %d" (fun a b ->
+Scanf.sscanf (read_line ()) "%d %d" (fun a b -&gt;
 	print_int (a+b)
 );;
 print_string " "; print_string (read_line ()); print_string "\n";;
