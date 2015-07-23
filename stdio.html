@@ -163,7 +163,7 @@ Python2ではraw_input()、Python3ではinput()です。<br>
 Python2のinput()と同じ動きをする組込み関数はPython3には存在せず(※)、<br>
 Python3にはraw_input()という名前の組み込み関数は存在しません。<br>
 ※eval(input())でエミュレートする案が有名か。<br>
-printもpython3からは関数呼び出しになっているので注意
+printもpython3からは関数呼び出しになっているので注意(注：Python2でも<b>from __future__ import print_function</b>することでこの挙動に出来ます)
 <br>
 <h3 class="shadow">PHP</h3>
 
@@ -180,7 +180,7 @@ printもpython3からは関数呼び出しになっているので注意
     //標準出力に書き出す。
     printf("$c $S\n");
 </pre>
-最初に &lt;?php  をつけないといけないことに注意
+最初に &lt;?php  をつけないといけないことに注意。最後の?&gt;は必要ありません。
 </div>
 <!--$ があるとMathjaxになってしまうので無理やりオフに -->
 <div class="tex2jax_ignore">
@@ -224,6 +224,7 @@ object Main {
     
 </pre>
 ともきさん提供
+
 <h3 class="shadow">JavaScript</h3>
 <pre>
 function Main(input) {
@@ -243,4 +244,182 @@ function Main(input) {
 Main(require("fs").readFileSync("/dev/stdin", "utf8"));
 </pre>
 
+CodeforcesではNode.jsではなくv8が使用されている。両対応になる入出力例は以下のとおり(ただし空行を正しく処理できない点は注意を要する)。
+<pre>
+//usr/bin/env node $0 $@;exit 
+var main=function(){
+	var a=readline().split(' ').map(Number);
+	print(a[0]+a[1]+' '+readline());
+};
 
+/// IO ///
+if(typeof process!=='undefined'){
+	//node.js
+	var print=function(x){
+		console.log(x);
+	}
+	var readline=(function(){
+		var T=[],cnt=0;
+		var stdin = process.openStdin();
+		stdin.setEncoding('utf8');
+
+		var input_fragment="";
+		stdin.on('data', function(input) {
+			var ref=(input_fragment+input).split("\n");
+			input_fragment=ref.pop();
+			for(var i=0;i<ref.length;i++){
+				if(ref[i]=='')continue;
+				T.push(ref[i]);
+			}
+		});
+		stdin.on('end', function(z) {
+			if(input_fragment){
+				var ref=(input_fragment+"\n").split("\n");
+				input_fragment=ref.pop();
+				for(var i=0;i<ref.length;i++){
+					if(ref[i]=='')continue;
+					T.push(ref[i]);
+				}
+			}
+			main();
+		});
+
+		return function(){
+			if(T.length<=cnt)return null;
+			return T[cnt++];
+		};
+	})();
+}else{
+	//v8
+	main();
+}
+</pre>
+cielさん提供
+
+<h3 class="shadow">Go</h3>
+<pre>
+package main
+import "fmt"
+
+func main() {
+	var A, B int
+	var S string
+	fmt.Scan(&A, &B, &S)
+	fmt.Println(A+B, S)
+}
+</pre>
+fmhrさん提供
+
+<h3 class="shadow">Haskell</h3>
+<pre>
+-- <$>とか使う場合は必須。でも、7.10からはデフォルトで読み込まれるので不要。
+import Control.Applicative
+
+-- main、ここでIOモナドを完結させる。
+main :: IO ()
+-- do記法を使う。別に他の方法でもいいけど、読み込む物が多くなった場合は、
+-- こっちの方がわかりやすいと思う。たぶん。
+main = do
+    -- ----
+    -- 1行読み込んで、空白切りで配列に分割して、それぞれを数字に変換する。
+    -- readで変換される型は、main'での型指定によって決まる。
+    -- IO [a]
+    ab <- map read . words <$> getLine
+    -- ----
+    -- 単純に1行をStringとして読み込む。末尾改行は含まれない。
+    -- IO String
+    s <- getLine
+    -- ----
+    -- その他に、1行に数字一つだけであれば下記のようにする。
+    -- IO a
+    -- n <- read <$> getLine
+    -- ----
+    -- 読み込んだ値を別関数に渡して、戻り値を出力する。
+    -- 戻り値がIntの場合は、`print`を使う。
+    -- 戻り値がFloatの場合は、`Text.Printf.printf`を使う必要がある。
+    -- IO ()
+    putStrLn $ main' ab s
+
+-- 実際に問題を解く関数main'、実際の名前は何でもいい。
+-- ここの型指定でmainでのreadが何に変換されるが決まる。
+-- IOモナドは持ち込まずに純粋な関数だけの世界にすると書きやすいと思う。
+main' :: [Int] -> String -> String
+main' ab s = (show . sum) ab ++ " " ++ s
+</pre>
+らっしー(raccy)さん提供
+
+<h3 class="shadow">Nim</h3>
+<pre>
+#!/usr/bin/env nim
+import strutils
+var AB=readLine(stdin).split()
+var n=parseInt(AB[0])+parseInt(AB[1])
+echo($n&" "&readLine(stdin))
+</pre>
+cielさん提供
+
+<h3 class="shadow">Rust</h3>
+<pre>
+fn getline() -> String{
+	let mut __ret=String::new();
+	std::io::stdin().read_line(&mut __ret).ok();
+	return __ret;
+}
+
+fn main(){
+	let s=getline();
+	let a:Vec<_>=s.trim().split(' ').collect();
+	let x:i32=a[0].parse().unwrap();
+	let y:i32=a[1].parse().unwrap();
+	print!("{} ",x+y);
+	println!("{}",getline());
+}
+</pre>
+cielさん提供
+
+<h3 class="shadow">Kotlin</h3>
+<pre>
+import java.util.*
+fun main(args: Array<String>){
+	val cin = Scanner(System.`in`)
+	print(cin.nextInt()+cin.nextInt())
+	print(" ")
+	println(cin.next())
+}
+</pre>
+cielさん提供
+
+<h3 class="shadow">Scheme</h3>
+<pre>
+#!/usr/bin/env gosh
+
+(let ((a (read (current-input-port))) (b (read (current-input-port))) (s (read (current-input-port))))
+    (write (+ a b))
+    (display " ")
+    (write s)
+    (newline)
+)
+</pre>
+cielさん提供
+
+<h3 class="shadow">Crystal</h3>
+<pre>
+#!/usr/bin/env crystal
+s=gets
+# sはnilである可能性があるので、ifで分岐させる
+if s
+	a,b=s.split.map{|e|e.to_i}
+	print a+b
+	puts " "+gets.not_nil! # not_nil!で外すことも可能
+end
+</pre>
+cielさん提供
+
+<h3 class="shadow">OCaml</h3>
+<pre>
+Scanf.sscanf (read_line ()) "%d %d" (fun a b ->
+	print_int (a+b)
+);;
+print_string " "; print_string (read_line ()); print_string "\n";;
+</pre>
+cielさん提供
