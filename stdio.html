@@ -165,8 +165,8 @@ Python3にはraw_input()という名前の組み込み関数は存在しませ�
 ※eval(input())でエミュレートする案が有名か。<br>
 printもpython3からは関数呼び出しになっているので注意(注：Python2でも<b>from __future__ import print_function</b>することでこの挙動に出来ます)
 <br>
-<h3 class="shadow">PHP</h3>
 
+<h3 class="shadow">PHP</h3>
 <!--$ があるとMathjaxになってしまうので無理やりオフに -->
 <div class="tex2jax_ignore">
 <pre>
@@ -182,10 +182,10 @@ printもpython3からは関数呼び出しになっているので注意(注：P
 </pre>
 最初に &lt;?php  をつけないといけないことに注意。最後の?&gt;は必要ありません。
 </div>
-<!--$ があるとMathjaxになってしまうので無理やりオフに -->
-<div class="tex2jax_ignore">
 
 <h3 class="shadow">Perl</h3>
+<!--$ があるとMathjaxになってしまうので無理やりオフに -->
+<div class="tex2jax_ignore">
 <pre>
 #!/usr/bin/perl
 
@@ -203,6 +203,22 @@ chomp $S;
 
 # 標準出力に出力します
 print $A + $B, " ", $S;
+</pre>
+</div>
+なおさん提供
+
+<h3 class="shadow">Perl</h3>
+<!--$ があるとMathjaxになってしまうので無理やりオフに -->
+<div class="tex2jax_ignore">
+<pre>
+# 1行読み込んで空白で分割
+my ($A,$B) = get().split(' ');
+
+# 1行読み込む
+my $S = get();
+
+# 計算して出力
+say $A+$B, ' ', $S;
 </pre>
 </div>
 なおさん提供
