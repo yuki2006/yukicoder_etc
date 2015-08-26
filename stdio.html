@@ -264,8 +264,8 @@ Main(require("fs").readFileSync("/dev/stdin", "utf8"));
 </pre>
 
 CodeforcesではNode.jsではなくv8が使用されている。両対応になる入出力例は以下のとおり(ただし空行を正しく処理できない点は注意を要する)。
+<!--MathJaxのため正しく表示できず：//usr/bin/env node $0 $@;exit-->
 <pre>
-//usr/bin/env node $0 $@;exit
 var main=function(){
 	var a=readline().split(' ').map(Number);
 	print(a[0]+a[1]+' '+readline());
@@ -458,8 +458,8 @@ end
 cielさん提供
 
 <h3 class="shadow">F#</h3>
+<!--MathJaxのため正しく表示できず：//usr/bin/env fsharpi $0 $@;exit-->
 <pre>
-//usr/bin/env fsharpi $0 $@;exit
 open System;
 let a:String array=Console.ReadLine().Split(' ')
 Console.Write(int(a.[0])+int(a.[1]))
