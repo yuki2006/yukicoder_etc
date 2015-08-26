@@ -265,6 +265,7 @@ Main(require("fs").readFileSync("/dev/stdin", "utf8"));
 
 CodeforcesではNode.jsではなくv8が使用されている。両対応になる入出力例は以下のとおり(ただし空行を正しく処理できない点は注意を要する)。
 <pre>
+//usr/bin/env node $0 $@;exit
 var main=function(){
 	var a=readline().split(' ').map(Number);
 	print(a[0]+a[1]+' '+readline());
@@ -442,5 +443,26 @@ Scanf.sscanf (read_line ()) "%d %d" (fun a b -&gt;
 	print_int (a+b)
 );;
 print_string " "; print_string (read_line ()); print_string "\n";;
+</pre>
+cielさん提供
+
+<h3 class="shadow">Fortran</h3>
+<pre>
+implicit none
+integer::a,b
+character(99)::s
+read(*,*) a,b,s
+write(*,'(i0," ",a)') a+b,trim(s)
+end
+</pre>
+cielさん提供
+
+<h3 class="shadow">F#</h3>
+<pre>
+//usr/bin/env fsharpi $0 $@;exit
+open System;
+let a:String array=Console.ReadLine().Split(' ')
+Console.Write(int(a.[0])+int(a.[1]))
+Console.WriteLine(" "+Console.ReadLine())
 </pre>
 cielさん提供
