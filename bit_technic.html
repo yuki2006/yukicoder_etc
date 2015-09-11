@@ -3,15 +3,22 @@
 こちらのページも参考
 <a href="http://graphics.stanford.edu/~seander/bithacks.html">http://graphics.stanford.edu/~seander/bithacks.html</a>
 <dl>
-    <dt>1のビット数をカウントする</dt>
-    <dd>こちらのアルゴリズムを使用すると早い<br>
+    <dt>1のビット数をカウントする (population count, popcount)</dt>
+    <dd>特別な命令が無いCPUにおいては、こちらのアルゴリズムを使用すると速い<br>
     <a href="http://www.mwsoft.jp/programming/java/java_lang_integer_bit_count.html">http://www.mwsoft.jp/programming/java/java_lang_integer_bit_count.html</a><br>
-        言語によっては、__builtin_popcount(C++)やInteger.bitCount(Java)などの標準ライブラリの関数を使っていきたい。
-    </dd>
+    言語や環境によっては事前に用意されていることがある。
+    <ul>
+    <li>Javaの場合、標準ライブラリの <code>Integer.bitCount</code>
+    <li>gccの場合、<code>__builtin_popcount</code>
+    <li>MSVCまたはclangの場合、intrin.h をインクルードして <code>__popcnt</code>
+    </ul>
+</dd>
 
-    <dt>$B \setminus A$（差集合）を計算する。 （Bにだけ立ってる1のビットだけ残す)
+    <dt>$A \setminus B$（差集合）を計算する。（Aにだけ立ってる1のビットだけ残す)
         
     </dt>
-    <dd><code>~A & B</code> もしくは<code>(A|B) xor B</code>
+    <dd><code>A & ~B</code> もしくは<code>(A|B) xor B</code>として計算できる。<br>
+    1つ目のコードは$A \setminus B = A \cap \overline B$、2つ目のコードは$A \setminus B = (A \cup B)\ \triangle\ B$ であると言っている。
+    
     </dd>
 </dl>
