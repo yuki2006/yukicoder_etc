@@ -88,13 +88,26 @@
 <dl>
     <dt><a href="http://docs.python.jp/2/library/heapq.html">heapq</a></dt>
     <dd>優先度付きキュー 使い方としたら、専用のクラスがあるというわけでなく配列をヒープ化する。<br>
+    
+    <dt><a href="http://docs.python.jp/3/library/collections.html#collections.deque">collections.deque</a></dt>
+    <dd>両端キュー。スタックやキューとして用いることができる。</dd>
+    
+    <dt><a href="http://docs.python.jp/3/library/collections.html#collections.namedtuple">collections.namedtuple</a></dt>
+    <dd>名前付きタプル。構造体もどきを作るのに便利。</dd>
 
     <dt><a href="http://docs.python.jp/2/library/collections.html#collections.Counter">Counter</a></dt>
     <dd>連想配列とカウンターを持ったクラス
     </dd>
     
     <dt><a href="http://docs.python.jp/3/library/itertools.html#itertools.permutations">itertools.permutations</a></dt>
-    <dd>いわゆる順列、競プロによく出てくるあれです。 <br>
+    <dd>いわゆる順列、競プロによく出てくるあれです。組み合わせを列挙できる
+    <a href="http://docs.python.jp/3/library/itertools.html#itertools.combinations">itertools.combinations</a>もある。<br>
+    </dd>
+    
+    <dt><a href="http://docs.python.jp/3/library/itertools.html#itertools.product">itertools.product</a></dt>
+    <dd>デカルト積。これを使うと多重ループを簡単に書ける。たとえばワーシャル・フロイド法で出てくる三重ループは<br>
+    <pre>for i, j, k in itertools.product(range(n), repeat=3):</pre>
+    のようになる。
     </dd>
     
     <dt>float('inf')</dt>
@@ -139,7 +152,9 @@
     <dt><a href="http://docs.python.jp/2.7/library/fractions.html#fractions.gcd">gcd(x, y)</a></dt>
     <dd>
         最大公約数。<br>
-        <pre>from fractions import gcd</pre><br>
+        <pre>from fractions import gcd</pre>
+        Python 3.5からは次でもよい。
+        <pre>from math import gcd</pre>
         lcm(最小公倍数)は標準には含まれていないので自分で実装する必要がある。<br>
         <pre>lcm = lambda x, y: x * y / gcd(x, y)</pre>
     </dd>
@@ -186,6 +201,13 @@
         リストのリストarrに対して、<code>zip(*arr)</code>とすればいい。<br>
         <pre>arr = [[1, 4, 7], [2, 5, 8], [3, 6, 9]]<br>print zip(*arr) # [(1, 2, 3), (4, 5, 6), (7, 8, 9)]<br>print map(list, zip(*arr)) # [[1, 2, 3], [4, 5, 6], [7, 8, 9]]</pre>
     </dd>
+    
+    <dt><a href="http://docs.python.jp/3/library/sys.html#sys.setrecursionlimit">sys.setrecursionlimit</a></dt>
+    <dd>スタックの深さの最大値を設定できる。深さ優先探索などで再帰が深くなるときに便利。あまり大きくするとクラッシュするので注意。</dd>
+    
+    <dt><a href="http://docs.python.jp/3/library/array.html">array</a></dt>
+    <dd>整数や浮動小数点数など、決まった型の値だけを格納できる配列。リストの代わりに使うと、実行時間を改善できるかもしれない。
+    リストと大体同じだが、sortなどのメソッドはないので注意。</dd>
 
 </dl>
 
