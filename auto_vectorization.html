@@ -1,0 +1,329 @@
+<title>gcc での自動ベクトル化</title>
+
+<h3 class="shadow">自動ベクトル化</h3>
+<h4 class="shadow">ベクトル化</h4>
+<p>
+SIMD を利用すると、128 bit (AVX2: 256 bit) 単位で演算を行うことが可能になります。つまり、理想条件のもとで、<code>int</code> 系の演算では 4(8) 倍、<code>signed char</code> 系の演算では 16(32) ほどの高速化を期待することができます。
+</p>
+<p>
+ただし、多くのオンラインジャッジではコンパイルオプションに SIMD 用のオプションが設定されていないため、明示的に SIMD を利用する場合、インラインアセンブラや intrinsic などを用いる必要があります。
+これらの利用は通常のコーディングと比較すると人間側の負担が大きいため、なるべく避けたいものです。
+</p>
+<p>
+幸い、比較的最近の gcc ではソースコード中に pragma 文を埋め込むことにより、以上の問題を回避しつつ自動ベクトル化の恩恵を得ることが可能です。
+以下では、その方法と自動ベクトル化の簡単な説明をします。
+</p>
+
+<h4 class="shadow">自動ベクトル化の方法</h4>
+<p>gcc 4.4 以後にはコンパイルオプションによらず、最適化のレベルを変更する pragma 文が存在します。例えば、以下のような 2 文をソースコードの最初に加えると、
+<ul>
+  <li><code>#pragma GCC optimize ("O3")</code> // 最適化レベルの変更 O0〜O3 などを指定</li>
+  <li><code>#pragma GCC target ("avx")</code> // ターゲットの変更 sse4, avx, avx2 など</li>
+</ul>
+以後定義される関数は <code>-O3 -mavx</code> の状態でコンパイルされるのと おおよそ 同等になり、ベクトル並列可能な箇所については AVX を用いて最適化されたコードが出力されます。正確には <a href="https://gcc.gnu.org/onlinedocs/gcc/Function-Specific-Option-Pragmas.html" target="_blank">gcc の仕様書</a>で確認してください。</p>
+
+<p><code>target ("avx")</code> の箇所はサーバの cpu がどれだけ新しいかによって指定できる範囲が決まっており、どこまで動作するのかを事前に調べておく必要があります。</p>
+
+<p>例えば、
+<ul>
+  <li>AVX2 まで OK : ideone
+  <li>AVX まで OK : yukicoder
+</ul>
+となっています。これらは、<code>cpuid</code> 系の関数を用いることにより、調べることができます。出力が見れない環境では、意図的に Runtime Error を生じさせると確認できます。
+</p>
+<p>
+SSE4 以上に対応していれば、十分に自動ベクトル化の恩恵を受けることができます。
+</p>
+
+<h4 class="shadow">自動ベクトル化の対象</h4>
+<h5 class="shadow">自動ベクトル化される演算 (SSE4 以上を仮定)</h5>
+<p>
+以下のような計算のみで構成される場合、多くの場合自動ベクトル化されます。
+<ul>
+  <li>（64-bit 以下の）加算 (+)、減算 (-)、論理積 (and)、論理和 (or)、排他的論理和 (xor)、最小 (min)、最大 (max)、シフト演算 </li>
+  <li>（32-bit × 32-bit = 64-bit 以下の）乗算 (×) </li>
+  <li> 単純な <code>if</code> 文 </li>
+</ul>
+
+<p>例えば、以下のようなコードは、
+<pre>
+inline int mixed(int a, int b) {
+  int c = (a & b) >> 4;
+  int e = min(c, max(a - c, b ^ (a + c)));
+  return (e << 5) | (a * a - b * b);
+}
+
+void vec_mixed(int* A, int* B, int n) {
+  for (int i = 0; i < n; ++i) {
+    A[i] = mixed(A[i], B[i]);
+  }
+}
+</pre>
+次のようなアセンブリコードに変換され、4 並列で計算されることを確認できます。（注: コンパイル時に <code>-S</code> をつけると実行ファイルの代わりにアセンブリコードが出力されます。mathjax の変換を防ぐため、定数値は \$ で書いています。）
+<pre>
+L5:
+  vmovdqu (%edx), %xmm0
+  addl  \$1, %ecx
+  addl  \$16, %ebx
+  addl  \$16, %edx
+  vmovdqu -16(%ebx), %xmm1
+  vpand %xmm0, %xmm1, %xmm2
+  vpsrad  \$4, %xmm2, %xmm2
+  vpaddd  %xmm2, %xmm0, %xmm3
+  vpxor %xmm1, %xmm3, %xmm4
+  vpsubd  %xmm2, %xmm0, %xmm3
+  vpmulld %xmm1, %xmm1, %xmm1
+  vpmulld %xmm0, %xmm0, %xmm0
+  vpmaxsd %xmm3, %xmm4, %xmm3
+  vpminsd %xmm2, %xmm3, %xmm2
+  vpslld  \$5, %xmm2, %xmm2
+  vpsubd  %xmm1, %xmm0, %xmm0
+  vpor  %xmm0, %xmm2, %xmm0
+  vmovups %xmm0, -16(%edx)
+  cmpl  %ecx, %eax
+  ja  L5
+</pre>
+<p>
+単純な <code>if</code> 文というのは、ここでは条件代入のようなものを指します。例えば <code>add_mod</code>, <code>sub_mod</code> といった、$\mathbb{Z}/n\mathbb{Z}$ 上での加算・減算が該当します。
+例をあげると、
+<pre>
+inline int add_mod(int a, int b, int mod) {
+  return (a += b - mod) < 0 ? a + mod : a;
+}
+
+void vec_add_mod(int* A, int* B, int n, int mod) {
+  for (int i = 0; i < n; ++i) {
+    A[i] = add_mod(A[i], B[i], mod);
+  }
+}
+</pre>
+は以下のように変換されます:
+<pre>
+L5:
+  vmovdqu (%rsi,%r8), %xmm0
+  addl  \$1, %r10d
+  vpsubd  %xmm1, %xmm0, %xmm0
+  vpaddd  (%rdi,%r8), %xmm0, %xmm0
+  vpcmpgtd  %xmm0, %xmm4, %xmm3
+  vpaddd  %xmm0, %xmm1, %xmm2
+  vpblendvb %xmm3, %xmm2, %xmm0, %xmm0 ; 正負で取得を変える命令
+  vmovups %xmm0, (%rdi,%r8)
+  addq  \$16, %r8
+  cmpl  %r10d, %r9d
+  ja  L5
+</pre>
+注意点としては、（確認した限り）gcc 6.0 未満では、参照を用いた <code>add_mod</code> の記述ではベクトル化されません。
+</p>
+
+<h5 class="shadow">自動ベクトル化されない演算 (SSE4 以上を仮定)</h5>
+
+<p>
+逆に以下のような計算を含む場合、SIMD に対応する命令が存在しないため、多くの場合はベクトル化されません。
+
+<ul>
+  <li>128-bit 以上の演算</li>
+  <li>64-bit × 64-bit = 128-bit の乗算</li>
+  <li>除算・剰余算</li>
+  <li>単純でない <code>if</code> 文</li>
+</ul>
+
+<p>
+ただし、32-bit 除算については逆数乗算による近似演算、32-bit 剰余算については montgomery reduction、<code>if</code> 文については (cond) * A + (1 - cond) * B を利用するとベクトル化できる場合があります。
+</p>
+<p>
+例えば、$n! \pmod{p}$ を愚直に求める以下のコードは、ideone 上で $(p-1)! \pmod{p}$, $p = 10^9 + 7$ を 1.2 秒程度で計算できます。
+<pre>
+#pragma GCC optimize ("O3")
+#pragma GCC target ("avx")
+
+#include &lt;cstdio&gt;
+
+inline int fact_mod(int n, int mod) {
+  using ll = long long;
+  using ull = unsigned long long;
+
+  unsigned inv = 1;
+  for (int i = 0; i < 5; ++i) inv *= 2 - inv * unsigned(mod);
+  int r2 = -ull(mod) % mod; 
+
+  auto reduce = [&] (ull x) {
+    ull y = ull(unsigned(x) * inv) * mod;
+    return int(x >> 32) + mod - int(y >> 32);
+  };
+  auto init = [&] (int n) {
+    return reduce(ll(n) * r2);
+  };
+  auto add_mod = [&] (int a, int b) {
+    return (a += b - mod) < 0 ? a + mod : a;
+  };
+
+  const int M = 24;
+  const int diff = init(M);
+  int fact[M], mult[M];
+  for (int i = 0; i < M; ++i) fact[i] = init(1);
+  for (int i = 0; i < M; ++i) mult[i] = init(i + 1);
+  for (int i = 0; i < n / M; ++i) {
+    for (int j = 0; j < M; ++j) fact[j] = reduce(ll(fact[j]) * mult[j]);
+    for (int j = 0; j < M; ++j) mult[j] = add_mod(mult[j], diff);
+  }
+  int ret = init(1);
+  for (int i = 0; i < M; ++i) {
+    ret = reduce(ll(ret) * fact[i]);
+  }
+  ret = reduce(ret);
+  for (int i = n / M * M + 1; i <= n; ++i) {
+    ret = ll(ret) * i % mod;
+  }
+  return ret;
+}
+
+int main() {
+  const int mod = 1e9 + 7;
+  printf("%d\n", fact_mod(mod - 1, mod));
+  return 0;
+}
+</pre>
+
+<h4 class="shadow">自動ベクトル化の効率をよくする方法</h4>
+<p>自動ベクトル化の効率をよくする際の基本的な方針としては以下のようなものがあります。</p>
+
+<ul>
+  <li><p>演算対象の型のサイズを小さくする:</br>
+    自動ベクトル化は基本 128 bit (256 bit) 単位で行われるため、演算対象の型の bit 数は小さいに越したことはないです。<code>short</code>, <code>signed char</code> などでよい場合は型のサイズを落とすと効率がよくなることが多いです。</p>
+  </li>
+  <li><p>キャッシュを効かせる:<br />
+    キャッシュミスが多くなる場合、ベクトル化の恩恵が少なくなります。メモリの使い回しなどにより、キャッシュ効率をよくしましょう。</p>
+  </li>
+  <li><p>暗黙の型変換を避ける:</br>
+    <code>short</code> などの <code>int</code> より小さい型での演算は promotion により <code>int</code> に変換され、ベクトル化が冗長になる場合があります。こういったケースでは、演算後に適切に型変換を行う（コンパイラに値域を知らせる）とよいです。</p>
+  </li>
+  <li><p>unsigned は控えめにする:<br/>
+    SIMD の多くの演算は signed 系で構成されているため、unsigned 系の演算のベクトル化は最悪ケースを考慮して冗長になることがあります。signed で問題ない場合は signed な型を指定すると良いです。
+    </p>
+  </li>
+</ul>
+
+<p>
+実際には、アセンブリコードを見てうまくベクトル化されているかどうかを確認できるとよいです。
+</p>
+
+<h4 class="shadow">自動ベクトル化による実行時間の悪化</h4>
+<p>
+  自動ベクトル化を行う場合、端数の計算・SIMD 用のレジスタの初期化・配列のオーバーラップの検出など、通常では不必要であった処理が追加されることが多いです。これらのオーバーヘッドの方が大きくなるような場合では、<code>"O3"</code>, <code>"avx"</code> などの pragma 文を入れる方が実行時間が遅くなります。
+</p>
+<p>例えば、以下のコード
+<pre>
+void add(int* a, int* b, int n) {
+  for (int i = 0; i < n; ++i) {
+    a[i] += b[i];
+  }
+}
+</pre>
+での差を見てみると、</p>
+
+<p><b>pragma 文なし</b></p>
+<pre>
+LFB3576:
+  xorl  %eax, %eax
+  testl %edx, %edx
+  jle L1
+  .align 4,0x90
+L5:
+  movl  (%rsi,%rax,4), %ecx
+  addl  %ecx, (%rdi,%rax,4)
+  addq  \$1, %rax
+  cmpl  %eax, %edx
+  jg  L5
+L1:
+  ret
+</pre>
+
+<p><b>pragma 文あり: <code>"O3"</code>, <code>"avx"</code></b> つき</p>
+<pre>
+
+LFB3576:
+  testl %edx, %edx
+  jle L17
+  leaq  16(%rsi), %rax ; この辺りの処理が追加される
+  cmpq  %rax, %rdi
+  leaq  16(%rdi), %rax
+  setnb %cl
+  cmpq  %rax, %rsi
+  setnb %al
+  orb %al, %cl
+  je  L3
+  cmpl  \$6, %edx
+  jbe L3
+  leal  -4(%rdx), %r8d
+  xorl  %ecx, %ecx
+  xorl  %r9d, %r9d
+  shrl  \$2, %r8d
+  addl  \$1, %r8d
+  leal  0(,%r8,4), %eax ; ここまで
+L5:
+  vmovdqu (%rsi,%rcx), %xmm0
+  vpaddd  (%rdi,%rcx), %xmm0, %xmm0
+  addl  \$1, %r9d
+  vmovups %xmm0, (%rdi,%rcx)
+  addq  \$16, %rcx
+  cmpl  %r9d, %r8d
+  ja  L5
+
+  cmpl  %eax, %edx
+  je  L17
+  movslq  %eax, %rcx
+  movl  (%rsi,%rcx,4), %r8d
+  addl  %r8d, (%rdi,%rcx,4)
+  leal  1(%rax), %ecx
+  cmpl  %ecx, %edx
+  jle L17
+  movslq  %ecx, %rcx
+  addl  \$2, %eax
+  movl  (%rsi,%rcx,4), %r8d
+  addl  %r8d, (%rdi,%rcx,4)
+  cmpl  %eax, %edx
+  jle L19
+  cltq
+  movl  (%rsi,%rax,4), %edx
+  addl  %edx, (%rdi,%rax,4)
+  ret
+  .align 4,0x90
+L3:
+  xorl  %eax, %eax
+  .align 4,0x90
+L10:
+  movl  (%rsi,%rax,4), %ecx
+  addl  %ecx, (%rdi,%rax,4)
+  addq  \$1, %rax
+  cmpl  %eax, %edx
+  jg  L10
+L17:
+  ret
+  .align 4,0x90
+L19:
+  ret
+</pre>
+となっており、いくつかの処理が追加されることを確認できます。
+</p>
+
+<h4 class="shadow">便利資料</h4>
+<ul>
+  <li><a href="http://www.officedaytime.com/tips/simd.html" target="_blank">x86/x64 SIMD 命令一覧表</a>: SIMD の命令一覧表</li>
+  <li><a href="http://www.agner.org/optimize/instruction_tables.pdf" target="_blank">Instruction tables</a>: latency/throughput</li>
+  <li><a href="https://gcc.gnu.org/onlinedocs/gcc/Vector-Extensions.html" target="_blank">gcc : Vector Extensions</a>: gcc での型のベクトル化</li>
+</ul>
+
+<h4 class="shadow">練習問題</h4>
+<p>
+多くの問題は練習問題として使えます。
+愚直解では 1〜5 × 10^9 演算 / 秒 を要求するクエリ系の問題も練習になるかもしれません。
+10^10 演算 / 秒 を超してくると、愚直解の自動ベクトル化のみで通すのはかなり厳しくなります。
+</p>
+
+<h4 class="shadow">その他</h4>
+<p>
+浮動小数点系の高速化の pragma 文としては、
+<code>#pragma GCC optimize ("fast-math")</code>
+があります。精度の悪化など、いくつかの安全性を失いますが、
+同時に多くの最適化が効くようになります。
+</p>
