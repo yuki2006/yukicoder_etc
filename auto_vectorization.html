@@ -20,7 +20,8 @@ SIMD を利用すると、128 bit (AVX2: 256 bit) 単位で演算を行うこと
   <li><code>#pragma GCC optimize ("O3")</code> // 最適化レベルの変更 O0〜O3 などを指定</li>
   <li><code>#pragma GCC target ("avx")</code> // ターゲットの変更 sse4, avx, avx2 など</li>
 </ul>
-以後定義される関数は <code>-O3 -mavx</code> の状態でコンパイルされるのと おおよそ 同等になり、ベクトル並列可能な箇所については AVX を用いて最適化されたコードが出力されます。正確には <a href="https://gcc.gnu.org/onlinedocs/gcc/Function-Specific-Option-Pragmas.html" target="_blank">gcc の仕様書</a>で確認してください。</p>
+以後定義される関数は <code>-O3 -mavx</code> の状態でコンパイルされるのと おおよそ 同等になり、ベクトル並列可能な箇所については AVX を用いて最適化されたコードが出力されます。正確には <a href="https://gcc.gnu.org/onlinedocs/gcc/Function-Specific-Option-Pragmas.html" target="_blank">gcc の仕様書</a>で確認してください。
+</p>
 
 <p><code>target ("avx")</code> の箇所はサーバの cpu がどれだけ新しいかによって指定できる範囲が決まっており、どこまで動作するのかを事前に調べておく必要があります。</p>
 
@@ -34,6 +35,17 @@ SIMD を利用すると、128 bit (AVX2: 256 bit) 単位で演算を行うこと
 <p>
 SSE4 以上に対応していれば、十分に自動ベクトル化の恩恵を受けることができます。
 </p>
+
+<p><b>追記</b>:</p>
+<ul>
+  <li>
+    <p><code>#pragma GCC optimize ("O3")</code> を記述すると、（おそらく）<code>#pragma GCC optimize ("tree-vectorize")</code> を記述したことになり、この pragma 文が自動ベクトル化を有効にします。ですので、<code>#pragma GCC optimize ("O2")</code> 以下で自動ベクトル化を行う場合は、<code>#pragma GCC optimize ("tree-vectorize")</code> も合わせて記述してください。</p>
+  </li>
+  <li>
+    <p><code>#pragma GCC optimize ("O3")</code> は <code>-O3</code> でのコンパイルとは異なるようです。
+    例えば、<code>-O0</code> の元で <code>#pragma GCC optimize ("O3")</code> を記述してもほとんど早くなりません。</p>
+  </li>
+</ul>
 
 <h4 class="shadow">自動ベクトル化の対象</h4>
 <h5 class="shadow">自動ベクトル化される演算 (SSE4 以上を仮定)</h5>
@@ -146,9 +158,14 @@ inline int fact_mod(int n, int mod) {
   for (int i = 0; i < 5; ++i) inv *= 2 - inv * unsigned(mod);
   int r2 = -ull(mod) % mod; 
 
+  // 仮定: x < mod * 2^32
   auto reduce = [&] (ull x) {
     ull y = ull(unsigned(x) * inv) * mod;
-    return int(x >> 32) + mod - int(y >> 32);
+    return int(x >> 32) + mod - int(y >> 32); // (0, 2 * mod)
+
+    // [0, mod) に制限する場合は、上の行を以下のように変更する。
+    // int ret = int(x >> 32) - int(y >> 32);
+    // return ret < 0 ? ret + mod : ret;
   };
   auto init = [&] (int n) {
     return reduce(ll(n) * r2);
@@ -188,16 +205,16 @@ int main() {
 <p>自動ベクトル化の効率をよくする際の基本的な方針としては以下のようなものがあります。</p>
 
 <ul>
-  <li><p>演算対象の型のサイズを小さくする:</br>
+  <li><p>演算対象の型のサイズを小さくする:<br />
     自動ベクトル化は基本 128 bit (256 bit) 単位で行われるため、演算対象の型の bit 数は小さいに越したことはないです。<code>short</code>, <code>signed char</code> などでよい場合は型のサイズを落とすと効率がよくなることが多いです。</p>
   </li>
   <li><p>キャッシュを効かせる:<br />
     キャッシュミスが多くなる場合、ベクトル化の恩恵が少なくなります。メモリの使い回しなどにより、キャッシュ効率をよくしましょう。</p>
   </li>
-  <li><p>暗黙の型変換を避ける:</br>
+  <li><p>暗黙の型変換を避ける:<br />
     <code>short</code> などの <code>int</code> より小さい型での演算は promotion により <code>int</code> に変換され、ベクトル化が冗長になる場合があります。こういったケースでは、演算後に適切に型変換を行う（コンパイラに値域を知らせる）とよいです。</p>
   </li>
-  <li><p>unsigned は控えめにする:<br/>
+  <li><p>unsigned は控えめにする:<br />
     SIMD の多くの演算は signed 系で構成されているため、unsigned 系の演算のベクトル化は最悪ケースを考慮して冗長になることがあります。signed で問題ない場合は signed な型を指定すると良いです。
     </p>
   </li>
@@ -205,6 +222,9 @@ int main() {
 
 <p>
 実際には、アセンブリコードを見てうまくベクトル化されているかどうかを確認できるとよいです。
+</p>
+<p>
+最近の cpu ではそれほど差が出ないようですが、alignment（配列を 16(32) バイトの倍数上の番地に配置すること: <code>int A[5000] __attribute__((aligned(16)));</code> のように定義する）の調整で効率が良くなる例もあるかもしれません。
 </p>
 
 <h4 class="shadow">自動ベクトル化による実行時間の悪化</h4>
@@ -306,6 +326,18 @@ L19:
 となっており、いくつかの処理が追加されることを確認できます。
 </p>
 
+<p>
+なお、配列のオーバーラップが存在しないと断定できる場合には <code>__restrict__</code> を付けることができ、
+オーバーラップの検出処理を省略することができます。
+</p>
+<pre>
+void add(int* __restrict__ a, int* __restrict__ b, int n) {
+  for (int i = 0; i < n; ++i) {
+    a[i] += b[i];
+  }
+}
+</pre>
+
 <h4 class="shadow">便利資料</h4>
 <ul>
   <li><a href="http://www.officedaytime.com/tips/simd.html" target="_blank">x86/x64 SIMD 命令一覧表</a>: SIMD の命令一覧表</li>
@@ -321,9 +353,16 @@ L19:
 </p>
 
 <h4 class="shadow">その他</h4>
-<p>
-浮動小数点系の高速化の pragma 文としては、
-<code>#pragma GCC optimize ("fast-math")</code>
-があります。精度の悪化など、いくつかの安全性を失いますが、
-同時に多くの最適化が効くようになります。
-</p>
+<ul>
+  <li>
+    <p>浮動小数点系の高速化の pragma 文としては、
+    <code>#pragma GCC optimize ("fast-math")</code>
+    があります。精度の悪化など、いくつかの安全性を失いますが、
+    同時に多くの最適化が効くようになります。</p>
+  </li>
+  <li>
+    <p><code>#pragma GCC target ("sse4")</code> 以上の pragma 文をつけると、
+    <code>__builtin_popcount</code> 系の命令は関数呼び出しから機械語の <code>popcnt</code> に変更されるため、
+    3 倍ほど早くなります。</p>
+  </li>
+</ul>
