@@ -37,6 +37,11 @@
     もし$ab$と$n$が互いに素でなければ(背理法の仮定)、$ab$と$n$を共通して割り切る素数$p$が存在する。<br>
     $n$は$p$の倍数なので、仮定から$a$と$b$はどちらも$p$の倍数ではないが、そうすると$ab$が$p$の倍数であることと矛盾。<br>
     よって$ab$と$n$は互いに素。
+<h3 class="shadow">$ac \equiv bc \pmod n \rightarrow a \equiv \pmod \frac{p}{g}$ ($g$は$c$と$n$の最大公約数）</h3>
+    証明は<a href="http://oto-suu.seesaa.net/article/216454231.html">【数の構成】合同式で遊ぼう～掛けてもいいなら割ってもいい？ | 大人が学び直す数学</a>を参照<br><br>
+    ここで$c$と$n$の最大公約数(g)が1のとき、つまり$c$と$n$が互いに素のときは、両辺共通の値で割れることを意味する。
+    
+    
 <h3 class="shadow">$a^{\varphi (n)} \equiv 1 \pmod{n} $（オイラーの定理）</h3>
         $\varphi (n)$はオイラーのトーシェント関数、$n$以下の$n$と互いに素の数<br>
         Wikipediaに証明が記載されているので引用と、少し補足する。<a href="https://ja.wikipedia.org/wiki/%E3%82%AA%E3%82%A4%E3%83%A9%E3%83%BC%E3%81%AE%E5%AE%9A%E7%90%86_(%E6%95%B0%E8%AB%96)">オイラーの定理 :Wikipedia</a><br>
@@ -60,7 +65,7 @@
         この時 $ax \equiv ay \pmod {n} $となる$y$が他に存在するか考える。（存在しなければ単射であり、$B$の要素に重複しているものがないことを指す）<br>
         <br>
         逆元 $a^{-1}$を持つため, $a \cdot a^{-1} \equiv 1$ より<br>
-        $a(x-y) \equiv 0 \pmod {n} $の両辺に$a^{-1}$をかけると, <br>
+        $a(x-y) \equiv 0 \pmod {n} $の両辺に$a^$を割ると, <br>
         $ a^{-1} \cdot a \cdot (x-y) = (x-y) \equiv 0 \pmod {n} $ <br><br>
         $x-y$が$n$の倍数の場合のときに合同であるが、<br>
         $x,y$はそれぞれ$n$未満の数であるため$x-y=0$以外に$n$の倍数になることはない。<br>
