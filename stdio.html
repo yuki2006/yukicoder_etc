@@ -1,5 +1,8 @@
 <title>言語別標準入出力</title>
 
+<!--$ があるとMathjaxになってしまうので無理やりオフに -->
+<div class="tex2jax_ignore">
+
 各問題の入出力の受け取り方です。
 ここでは、
 <a href="http://yukicoder.me/problems/527">No.9001 標準入出力の練習問題（テスト用）</a>の問題を例にしております。
@@ -170,8 +173,6 @@ printもpython3からは関数呼び出しになっているので注意(注：P
 <br>
 
 <h3 class="shadow">PHP</h3>
-<!--$ があるとMathjaxになってしまうので無理やりオフに -->
-<div class="tex2jax_ignore">
 <pre>
 &lt;?php
     //一行分を読み込む, 空白で分割してそれぞれ$aと$bの変数に入れる
@@ -184,11 +185,8 @@ printもpython3からは関数呼び出しになっているので注意(注：P
     printf("$c $S\n");
 </pre>
 最初に &lt;?php  をつけないといけないことに注意。最後の?&gt;は必要ありません。
-</div>
 
 <h3 class="shadow">Perl</h3>
-<!--$ があるとMathjaxになってしまうので無理やりオフに -->
-<div class="tex2jax_ignore">
 <pre>
 #!/usr/bin/perl
 
@@ -207,12 +205,9 @@ chomp $S;
 # 標準出力に出力します
 print $A + $B, " ", $S;
 </pre>
-</div>
 なおさん提供
 
 <h3 class="shadow">Perl 6</h3>
-<!--$ があるとMathjaxになってしまうので無理やりオフに -->
-<div class="tex2jax_ignore">
 <pre>
 # 1行読み込んで空白で分割
 my ($A,$B) = get().split(' ');
@@ -223,7 +218,6 @@ my $S = get();
 # 計算して出力
 say $A+$B, ' ', $S;
 </pre>
-</div>
 なおさん提供
 
 <h3 class="shadow">Scala</h3>
@@ -331,8 +325,6 @@ func main() {
 fmhrさん提供
 
 <h3 class="shadow">Haskell</h3>
-<!--$ があるとMathjaxになってしまうので無理やりオフに -->
-<div class="tex2jax_ignore">
 <pre>
 -- &lt;$&gt;とか使う場合は必須。でも、7.10からはデフォルトで読み込まれるので不要。
 import Control.Applicative
@@ -368,7 +360,6 @@ main = do
 main' :: [Int] -&gt; String -&gt; String
 main' ab s = (show . sum) ab ++ " " ++ s
 </pre>
-</div>
 らっしー(raccy)さん提供
 
 <h3 class="shadow">Nim</h3>
@@ -467,3 +458,5 @@ Console.Write(int(a.[0])+int(a.[1]))
 Console.WriteLine(" "+Console.ReadLine())
 </pre>
 cielさん提供
+
+</div>
