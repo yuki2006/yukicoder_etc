@@ -47,6 +47,16 @@ yukicoderでは以下の点に注意するとよいでしょう。</p>
 <h3 class="shadow">縮め方</h3>
 <p>以下では、実際にコードを縮める上でよくある書き方や変形方法などについて述べます。</p>
 <div class="tex2jax_ignore">
+<h4 class="shadow">ループ</h4>
+<p></p>
+<h5 class="shadow">C</h5>
+<p>Cのループ構文には<code>while</code>と<code>for</code>がありますが、<code>for</code>の方が短い（または同じ）です。次の3つのコードは基本的に同じです（<code>A</code>,<code>B</code>,<code>C</code>,<code>D</code>は何らかの式とします）。</p>
+<pre>A;while(B){C;D;}
+A;while(B)C,D;
+for(A;B;D)C;
+</pre>
+<p><code>while</code>の繰り返す部分が単文のとき、ブロック<code>{}</code>は省略できます。これは<code>for</code>や<code>if</code>でも同様です。<code>;</code>を<code>,</code>に変えることで、通常は複数の文に分けて書くような部分を単文にすることができます。</p>
+<p><code>for</code>の<code>A</code>,<code>C</code>,<code>D</code>には何を書いてもよいので、<code>while</code>で書けるものは必ず<code>for</code>でも書けます。<code>D</code>にインクリメントやデクリメント以外の式を書くこともできます。<code>B</code>の部分で<code>,</code>を使うこともあります。</p>
 <h4 class="shadow">型変換</h4>
 <h5 class="shadow">Perl</h5>
 <p>Perlでは演算子によって項の解釈が定まることがほとんどなので、明示的に型変換する必要がある場面は他の言語に比べれば少ないものの、必要な場合もあります。また、Perlにはスカラーコンテキストとリストコンテキストという概念があり、これの変換についてもここで扱います。</p>
