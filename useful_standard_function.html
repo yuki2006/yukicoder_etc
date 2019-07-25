@@ -248,14 +248,20 @@
     <dd>組み合わせ。<code>[1,2,3].combination(2){|l| p l}</code> は <code>[1, 2] [1, 3] [2, 3]</code>を列挙する。</dd>
     <dt><a href="https://docs.ruby-lang.org/ja/latest/class/Array.html#I_PERMUTATION">Array#permutation</a></dt>
     <dd>順列。<code>[1,2].combination(2){|l| p l}</code> は <code>[1, 2] [2, 1]</code>を列挙する。</dd>
-    <dt><a href="https://docs.ruby-lang.org/ja/latest/class/Array.html#I_REPEATED_COMBINATION">Array#combination</a></dt>
-    <dd>重複あり組み合わせ。<code>[0,1].combination(2){|l| p l}</code> は <code>[0, 0] [0, 1] [1, 1]</code>を列挙する。</dd>
-    <dt><a href="https://docs.ruby-lang.org/ja/latest/class/Array.html#I_REPEATED_PERMUTATION">Array#permutation</a></dt>
-    <dd>重複あり順列。<code>[0, 1].combination(2){|l| p l}</code> は <code>[0, 0] [0, 1] [1, 0] [1, 1]</code>を列挙する。</dd>
+    <dt><a href="https://docs.ruby-lang.org/ja/latest/class/Array.html#I_REPEATED_COMBINATION">Array#repeated_combination</a></dt>
+    <dd>重複あり組み合わせ。<code>[0,1].repeated_combination(2){|l| p l}</code> は <code>[0, 0] [0, 1] [1, 1]</code>を列挙する。</dd>
+    <dt><a href="https://docs.ruby-lang.org/ja/latest/class/Array.html#I_REPEATED_PERMUTATION">Array#repeated_permutation</a></dt>
+    <dd>重複あり順列。<code>[0, 1].repeated_combination(2){|l| p l}</code> は <code>[0, 0] [0, 1] [1, 0] [1, 1]</code>を列挙する。</dd>
     <dt>Array#[]=(配列アクセス)</a></dt>
     <dd>負の値を指定した時、配列の後ろから数えた要素にアクセスする。<code>arr=[1,2,3]; p arr[-1]</code> で3を出力する。</dd>
     <dt><a href="https://docs.ruby-lang.org/ja/latest/class/Array.html#I_BSEARCH">Array#bsearch</a>, <a href="https://docs.ruby-lang.org/ja/latest/class/Range.html#I_BSEARCH">Range#bsearch</a></dt>
     <dd>二分探索</dd>
+    <dt>Enumerable#each_cons</dt>
+    <dd>要素を重複ありで n 要素ずつに区切り、 ブロックに渡して繰り返します。</dd>
+    <dt>Enumerable#each_slice</dt>
+    <dd>n 要素ずつブロックに渡して繰り返します。</dd>
+    <dt><a href="https://docs.ruby-lang.org/ja/latest/class/Prime.html">Prime</a></dt>
+    <dd>素数全体を表すクラス。Enumerableなので、<code>Prime.take_while{|x|x<10}</code>等の書き方が出来る。</dd>
 </dl>
 
 
