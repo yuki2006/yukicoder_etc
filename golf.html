@@ -123,6 +123,16 @@ char*b,a[99];
 <p><code>A?B:C</code>は、Aが真のときBが、Aが偽のときCが実行されるので、if-else文の代わりになります。</p>
 <p><code>A&amp;&amp;B</code>は、Aが真のときに限り、Bが実行されるので、if文の代わりになります。<br /><code>A&amp;&amp;B</code>の真偽値を知りたいのではなく、Aの真偽値によってBが実行されるかどうかが決まる、ということです。<br />これは短絡評価と呼ばれる性質を利用したものです。</p>
 <p><code>A||B</code>は、Aが偽のときに限り、Bが実行されるので、これもif文の代わりになります。</p>
+<p>分岐する際には比較演算をすることが多いですが、そのときに、真偽を反転させるようにすると縮む場合があります。<br />例えば、<code>if(a&lt;=b)C</code>は<code>a&lt;=b&amp;&amp;C</code>と書けて、真偽を反転することで、<code>a&gt;b||C</code>と書けます（同様に、<code>a&lt;=b?C:D</code>も<code>a&gt;b?D:C</code>と書けます）。</p>
+<pre><code>a&lt;=b  →  a&gt;b
+a&gt;=b  →  a&lt;b
+a==b  →  a-b  （Ruby以外の多くの言語では数値の真偽値は0なら偽、0でないなら真）
+</code></pre>
+<p>整数変数と定数の比較でも同様に長い演算子の代わりに短い演算子を使うことで縮む場合があります。</p>
+<pre><code>a&lt;=5  →  a&lt;6
+a&gt;=5  →  a&gt;4
+</code></pre>
+<p>比較演算は分岐の条件として使われることが多いですが、比較によって得られた真偽値を整数値として使うこともあります（Ruby以外）。<br />例えば<code>x+=a&lt;=b</code>は<code>a&gt;b||++x</code>よりも短いです。</p>
 <h4 class="shadow">ループ</h4>
 <h5 class="shadow">C</h5>
 <p>Cのループ構文には<code>while</code>と<code>for</code>がありますが、<code>for</code>の方が短い（または同じ）です。次の3つのコードは基本的に同じです（<code>A</code>,<code>B</code>,<code>C</code>,<code>D</code>は何らかの式とします）。</p>
