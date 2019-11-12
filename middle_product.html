@@ -1,0 +1,42 @@
+<title>middle product</title>
+<h4 class="shadow">Middle Product</h4>
+FFT とラグランジュ補間を用いて多項式の標本点をシフトする操作を<br>
+定数倍高速化する middle product というテクニックがある。<br>
+次数 $d$ の多項式 $f(x) = \sum_{i=0}^{d} a_i x^i$ と次数 $2d$ の多項式 $g(x) = \sum_{i=0}^{2d} b_i x^i$ を考える。<br>
+積 $f(x) \cdot g(x) = \sum_{i=0}^{3d}c_i x^i$ の次数 $d$ 以上 $2d$ 以下の項を求めたい。<br>
+
+$\omega_n$ を位数 $n$ の原始根とする。通常のFFTでは次のような計算を行っている。<br>
+<br>
+<p>$\displaystyle c_i = \sum_{\substack{ \begin{alignat}{3} &0 \leq &k& < n \\ &0 \leq &i'& \leq d \\ &0 \leq &i''& \leq 2d \end{alignat}}}a_{i'}b_{i''} \omega^{k(i-i'-i'')}_{n}  = \frac{1}{n} \sum_{0 \leq i' \leq d} a_{i'}b_{i-i'}$</p>
+<br>
+$k$について和を取った時、$i-i'-i''=0 \bmod n$となる項のみが残る。<br>
+$\left(i-i'-i''=0 \bmod n \right)\Leftrightarrow i - i' - i''=0$ である必要がある。<br>
+$0 \leq i \leq 3d$ より原始根の指数について <br>
+<br>
+<p>$-3d \leq i-i'-i'' \leq 3d$</p>
+<br>
+となり原始根の位数は $3d < n$ を満たさなければならない。<br>
+$0 \leq i < d \lor 2d < i \leq n$　なる項は必要なく計算量削減の余地がある。<br>
+middle product では添え字を変更して次のようにする。<br>
+<br>
+<p>$\displaystyle c_{d+i} = \sum_{\begin{alignat}{3} &0 \leq &k& < n \\ &0 \leq &i'& \leq d \\ &0 \leq &i''& \leq 2d \end{alignat}}a_{d-i'}b_{i''} \omega^{k(i+i'-i'')}_{n} = \frac{1}{n} \sum_{0 \leq i' \leq d} a_{d-i'}b_{i+i'}$</p>
+<br>
+必要な $i$ の範囲は $0 \leq i \leq d$ のみ。このとき原始根の指数について <br>
+<br>
+<p>$-2d \leq i + i'-i'' \leq 2d$</p>
+<br>
+だから、原始根の位数は $2d < n$ を満たさなければならない。<br>
+条件 $2d < n$ は $0 \leq i \leq d $ なる項の係数の正しさのみを保証し、<br>
+FFTで実際に計算する際に得られる $d < i < n$ なる項の正しさは保証しない。<br>
+だから、middle product で計算量が削減される。<br>
+次のようにも書ける。<br>
+<br>
+<p>$\displaystyle \left\{ c_{d+i} \right\}=\left\{  \frac{1}{n}\mathcal{F^{-1}}\left(\left\{   \mathcal{F}^{-1}\left(\{a_{d-i}\}\right)_k \cdot \mathcal{F}\left(\{b_i\}\right)_k  \right\}\right)_i \right\}$</p>
+<br>
+ただし $\mathcal{F(\{x_i\})_k}$ は波数 $k$ についての離散フーリエ変換、<br>
+$\mathcal{F^{-1}}(\{X_k\})_i$ は位置 $i$ についての離散逆フーリエ変換を表す。<br>
+
+原始根の位数 $n$ を用いてフーリエ変換の計算量は $O(n \log{n})$ と書ける。<br>
+$n$ は$2$冪であること及び $\log_2{3d} - \log_2{2d} = 0.58... $ であることから、<br>
+FFT一回につき確率 $58 \%$ で $n$ の大きさは通常の FFT の半分になる。<br>
+よって middle product により計算速度は $30\%$ 速くなる。
