@@ -1,90 +1,78 @@
 <title>yukicoder Wiki</title>
 <h4 class="shadow">このWikiについて</h4>
-<p>ACの問題数が10以上の方であれば、誰でも編集することができます。</p>
-<p>新しいページを作成するには /wiki/〇〇 とURLに入力し、右上の編集を押せばいいです。</p>
-<p>サイト的には、まだ実装途中で、まだ編集履歴のUIが無いですが、バージョン管理されてるので、管理者に言っていただければ戻せます。</p>
-<p>現状、こちらから変更履歴を見ることができます。<a href="https://bitbucket.org/yuki2006/yukicoder_wiki/commits/all" target="_blank">https://bitbucket.org/yuki2006/yukicoder_wiki/commits/all</a></p>
-<p>基本的には、思ったことを書き留めてるページで、メモ帳代わりに使って頂ければいいです。（整理したいと思ったら整理します。）</p>
-<p>(管理者の思想的に、"逆引き"や"気づかなかったことを知れる"みたいなことをしたいと思ってます。</p>
-
+<p>
+    ACの問題数が10以上の方であれば、誰でも編集することができます。
+</p>
+<p>
+    新しいページを作成するには <code>/wiki/〇〇</code> とURLに入力し、右上の編集を押せばいいです。
+</p>
+<p>
+    サイト的にはまだ実装途中で、まだ編集履歴のUIが無いですが、バージョン管理されてるので、管理者に言っていただければ戻せます。<br>
+    現状、<a href="https://bitbucket.org/yuki2006/yukicoder_wiki/commits/all" target="_blank">https://bitbucket.org/yuki2006/yukicoder_wiki/commits/all</a>から変更履歴を見ることができます。
+</p>
+<p>
+    基本的には、思ったことを書き留めてるページで、メモ帳代わりに使って頂ければいいです。（整理したいと思ったら整理します。）<br>
+    管理者の思想的に、"逆引き" や "気づかなかったことを知れる" みたいな wiki にしたいと思ってます。
+</p>
 
 
 <h4 class="shadow">初心者の方向け</h4>
+
+<h5>参加方法についてのまとめ</h5>
 <ul>
     <li><a href="/wiki/guide">初心者のためのガイド</a></li>
     <li><a href="/wiki/stdio">言語別標準入出力（追記中）</a></li>
-
-    <li><a href="https://topcoder.g.hatena.ne.jp/">TopCoder部＠はてな(外部サイト)</a>
-        競技プログラミングの開催される日時がまとめられているカレンダーがあります。
-    </li>
-
+    <li><a href="/wiki/enviroment_tips">環境構築まとめ（エディタ、環境別Tips）</a></li>
 
     <li><a href="/wiki/useful_standard_function">使えそうな標準関数</a></li>
-    <li><a href="/wiki/shell">使えると便利なシェルのコマンド</a></li>
-    <li><a href="/wiki/mathematical_property">数学的な性質</a></li>
-
+    <li><a href="/wiki/shell">使えると便利なシェルのコマンド(MacOS, Linux)</a></li>
 </ul>
-<h5>問題・回答についてのまとめ</h5>
+<h5>問題・解答についてのまとめ</h5>
 <ul>
-    <li><a href="/wiki/knowledge">競技プログラミングをする上での予備知識</a></li>
-    <li><a href="/wiki/mistake">誤回答のハマリどころまとめ</a></li>
+    <li><a href="/wiki/mathematical_property">競プロで役に立つ数学的な性質</a></li>
+    <li><a href="/wiki/mistake">誤解答のハマリどころまとめ</a></li>
     <li><a href="/wiki/reactive">リアクティブ形式の問題についてのまとめ</a></li>
+    <li><a href="/wiki/knowledge">競技プログラミングをする上でのあると嬉しい予備知識</a></li>
 </ul>
-<h4 class="shadow">WebAPI</h4>
+<h5>アルゴリズムイントロダクション</h5>
 <ul>
-    <li><a href="https://petstore.swagger.io/?url=https://yukicoder.me/api/swagger.yaml">yukicoder Web API swagger</a></li>
+    <li><a href="/wiki/algorithm_summary">アルゴリズムの簡単なまとめ</a></li>
+    <li><a href="/wiki/pattern">競技プログラミング問題パターンメモ</a></li>
+    <li><a href="/wiki/slide">競技プロ的なスライドまとめ</a></li>
+    <li><a href="/wiki/%E8%A4%87%E9%9B%91%E6%80%A7%E3%82%AF%E3%83%A9%E3%82%B9">複雑性クラスについて（PとかNP）</a></li>
 </ul>
-
-
-
-<h4 class="shadow">参考書籍</h4>
+<h5>参考書籍</h4>
 <ul>
     <li><a href="/wiki/book">参考書籍</a></li>
 </ul>
 
-
-
-<h4 class="shadow">環境構築</h4>
+<h4 class="shadow">作問者・テスター向けページ</h4>
+<h5>yukicoder の基本的な作問方法</h5>
 <ul>
-    <li><a href="/wiki/enviroment_tips">エディタ、Tips</a></li>
+    <li><a href="/wiki/problem_writing_publishing">作問から公開までの流れ</a></li>
 </ul>
-
-関係ありそうなページヘのリンク
+<h5>ガイドライン <strong>(必ず目を通してください)</strong> </h5>
 <ul>
-<li><a href="http://www.atmarkit.co.jp/ait/articles/1402/24/news026.html">学習＆開発環境Webサービス23選まとめ</a></li>
+    <li><a href="/wiki/problem_policy">問題ポリシー</a></li>
+    <li><a href="/wiki/problem_checklist">作問用チェックリスト</a></li>
+    <li><a href="/wiki/tester_guideline">テスターガイドライン</a></li>
 </ul>
-
-
-
-<h4 class="shadow">作問者・回答者向けページ</h4>
+<h5>ページの書き方についてのまとめ</h5>
 <ul>
     <li><a href="/wiki/mathjax">MathJaxテンプレート</a></li>
     <li><a href="/wiki/mathjax_signature">作問などで使う記号</a></li>
-    <li><a href="/wiki/problem_writing_publishing">作問から公開までの流れ</a></li>
-    <li><a href="/wiki/pattern">競技プログラミング問題パターンメモ</a></li>
-    <li><a href="/wiki/problem_checklist">作問用チェックリスト</a></li>
-    <li><a href="/wiki/problem_policy">問題ポリシー</a></li>
-    <li><a href="/wiki/tester_guideline">テスターガイドライン</a></li>
-    
+    <li><a href="/wiki/add_images">画像の貼り方</a></li>
 </ul>
 
-文章中に画像を貼りたい場合は、この辺のツールでHTMLとして貼り付ける。<br />
 
-<a href="https://syncer.jp/base64-encoder">画像をbase64エンコードするツール(外部サイト)</a> <br>
-<a href="http://blog.thingslabo.com/archives/000058.html">data URI scheme 変換ツール(外部サイト)</a><br>
+<p>
+    テストケースのファイル名で使える文字(これら以外の文字を使用するとアップロード時に対象の文字が消去されます。）<br>
+    <code>ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz._0123456789</code>
+</p>
 
-テストケースのファイル名で使える文字(これら以外の文字を使用するとアップロード時に対象の文字が消去されます。）<br>
-<pre>
-ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz._0123456789
-</pre>
-<h4 class="shadow">アルゴリズムイントロダクション</h4>
-<ul>
-    <li><a href="/wiki/algorithm_summary">アルゴリズムの簡単なまとめ</a></li>
-    <li><a href="/wiki/slide">競技プロ的なスライドまとめ</a></li>
-    <li><a href="/wiki/%E8%A4%87%E9%9B%91%E6%80%A7%E3%82%AF%E3%83%A9%E3%82%B9">複雑性クラスについて（PとかNP）</a></li>
-</ul>
 
-<p>上級者向け</p>
+
+<h4 class="shadow">上級者向け</h4>
 <ul>
     <li><a href="/wiki/mod_approach">modに対するアプローチ</a></li>
     <li><a href="/wiki/shortest_path">最短路問題</a></li>
@@ -102,9 +90,16 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz._0123456789
 <ul>
     <li><a href="/wiki/trap">標準機能の罠</a></li>
     <li><a href="/wiki/error">誤差</a></li>
-    <li><a href="/wiki/library_link">ライブラリのコードへのリンク</a></li>
+    <li><a href="/wiki/library_link">個人のライブラリ・スニペットのリンク</a></li>
     <li><a href="/wiki/auto_vectorization">gcc での自動ベクトル化</a></li>
 </ul>
+
+
+<h4 class="shadow">yukicoder API</h4>
+<ul>
+    <li><a href="https://petstore.swagger.io/?url=https://yukicoder.me/api/swagger.yaml">yukicoder Web API swagger</a></li>
+</ul>
+
 
 <h4 class="shadow">（多分考慮する必要がない）トリビア</h4>
 <ul>
@@ -153,6 +148,7 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz._0123456789
 
     <li><a href="/wiki/online_judge">競技プログラミング・オンラインジャッジサイト</a></li>
 
+    <li><a href="http://www.atmarkit.co.jp/ait/articles/1402/24/news026.html">学習＆開発環境Webサービス23選まとめ</a></li>
 
     <li><a href="https://youtu.be/W6k_LV1Wzd4">プログラミングコンテストとアルゴリズム／アルゴリズムが世界を変える Season 1.5 (youtube)</a></li>
     
@@ -161,6 +157,10 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz._0123456789
     <li><a href="http://www.atmarkit.co.jp/ait/articles/0911/17/news102.html">
     競技大好き、世界3位のアルゴリズマー「高橋直大」 (1/2)</a></li>
 
+
+    <li><a href="https://topcoder.g.hatena.ne.jp/">TopCoder部＠はてな(外部サイト)</a><br>
+        競技プログラミングコンテストの開催日時がカレンダーにまとめられていました。（更新されていないようです）
+    </li>
     
 </ul>
 
