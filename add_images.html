@@ -1,0 +1,36 @@
+<title>文章中に画像を貼りたい場合</title>
+<h3 class="shadow">文章中に画像を貼りたい場合</h3>
+
+<p>
+    基本的に、画像等を yukicoder にアップロードすることはできません。
+</p>
+<p>
+    yukicoder では、base64 を使って画像を html に埋め込むか、外部サイトに画像を置いてリンクする方法が一般的です。
+</p>
+
+
+<h4 class="shadow">base64を使う方法</h4>
+<p>
+    この辺のツールでHTMLとして貼り付ける。
+</p>
+<ul>
+    <li><a href="https://syncer.jp/base64-encoder">画像をbase64エンコードするツール(外部サイト)</a></li>
+    <li><a href="http://blog.thingslabo.com/archives/000058.html">data URI scheme 変換ツール(外部サイト)</a></li>
+</ul>
+
+
+<h4 class="shadow">Google Driveを使う方法</h4>
+<p>
+    一部の writer は Google Drive に画像をアップロードしてリンクしています。
+</p>
+<ol>
+    <li>Google Drive にアップロードします。</li>
+    <li>アイテムを右クリック、Get shareable link をクリックして共有URLをコピーします。</li>
+    <li><code>http://drive.google.com/uc?export=view&id=「idの部分」</code>に置き換えます。</li>
+    <li><code>&lt;img src="URL"></code>で画像が挿入できます。</li>
+</ol>
+
+<p>
+    例えば、共有URLが<code>https://drive.google.com/open?id=0Bw7ZcbbrTxkzVmVYUFNkS3BrYkU</code>の場合、<br>
+    <code>&lt;img src="http://drive.google.com/uc?export=view&id=0Bw7ZcbbrTxkzVmVYUFNkS3BrYkU"></code>となります。
+</p>
