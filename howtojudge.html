@@ -1,0 +1,87 @@
+<title>スペシャルジャッジの実装例</title>
+<p>
+    <a href="https://yukicoder.me/problems/no/5000">仕様についてはこちらを参照</a>
+</p>
+
+<h3 class="shadow">実装例</h3>
+
+<p>
+    例えば、以下の問題のスペシャルジャッジを作る場合を考えます。
+</p>
+
+<blockquote>
+    整数 $N$ が与えられる。次の条件を満たす 2 つの整数 $A$, $B$ を半角スペース区切りで出力せよ。<br>
+    $N = A + B$
+</blockquote>
+
+<pre>
+#include &lt;bits/stdc++.h>
+
+int main(int argc, char** argv) {
+  
+  // テストケースの入力ファイルの input stream
+  std::ifstream input_ifs(argv[1]);
+  // テストケースの出力ファイルの input stream
+  std::ifstream output_ifs(argv[2]);
+  // 提出されたコードのファイルの input stream
+  std::ifstream code_ifs(argv[3]);
+  // スコアファイル（スコア問題のみ利用）の output stream
+  std::ofstream score_ofs(argv[4]);
+  
+  // 標準入力(std::cin)に提出コードでの標準出力が渡される
+  
+  // ------
+  
+  
+  // 「提出コードでの標準出力」から2つの整数を読み込む
+  // 半角スペース区切り・改行区切りのどちらでも可
+  int a, b;
+  std::cin >> a >> b;
+  
+  // int型なので、32bit整数で表現出来ない数値は読み込めない
+  // 脆弱性を突かれないためにも、制約を決めて、問題文に記載するべき。
+  // 例えば、-100以上100以下の整数しか受け付けない場合、以下のように記述すれば良い。
+  if (-100 > a || a > 100) abort("invalid a");
+  if (-100 > b || b > 100) abort("invalid b");
+  
+  // 「テストケースの入力ファイル」から1つの整数を読み込む
+  int n;
+  input_ifs >> n;
+  
+  // a + b == n でないならば
+  if (a - n != -b) {
+    // Wrong Answer として、ジャッジプログラムを終了する。
+    // メッセージを記載しておくと、デバッグしやすい。
+    std::cerr &lt;&lt; "a=" &lt;&lt; a &lt;&lt; ", b=" &lt;&lt; b &lt;&lt; ", n=" &lt;&lt; n &lt;&lt; std::endl;
+    abort("Wrong Answer: a + b = n");
+  }
+  
+  // 正解なので、正常終了する。
+  return 0;
+}
+
+</pre>
+
+<p>
+    また、スペシャルジャッジ問題の場合、入力制約のみならず、出力制約にも気を配りましょう。
+</p>
+<br>
+<h3 class="shadow">その他の言語の実装例</h3>
+<h4 class="shadow">Python3</h4>
+<p>
+    きっと誰かが書いてくれます
+</p>
+<br>
+<h4 class="shadow">Ruby</h4>
+<p>
+    あとで書きます
+</p>
+<br>
+<h4 class="shadow">Go</h4>
+
+<p>
+    <a href="https://yukicoder.me/problems/no/5000/code">こちら</a>
+</p>
+
+
+
