@@ -57,9 +57,7 @@ bool is_3k(unsigned n){
 
 <h5 class="shadow">離散対数問題</h5>
 
-
-
-離散対数問題$a^x = b \bmod p^e$は$O(e\sqrt{p})$で解ける。
+Pohlig–Hellman algorithmを用いて離散対数問題$a^x = b \bmod p^e$は$O(e\sqrt{p})$で解ける。
 $a=A(1+p)^u、b=B(1+p)^v$
 として、$\bmod p$では$A^x=B \bmod p$がbaby-step giant-stepで求まる。
 $(1+p)^{x+u}=(1+p)^{v} \bmod p^e$
