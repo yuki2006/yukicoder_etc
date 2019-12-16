@@ -61,7 +61,7 @@ Pohlig–Hellman algorithmを用いて離散対数問題$a^x = b \bmod p^e$は$O
 $a=A(1+p)^u、b=B(1+p)^v$
 として、$\bmod p$では$A^x=B \bmod p$がbaby-step giant-stepで求まる。
 $(1+p)^{x+u}=(1+p)^{v} \bmod p^e$
-を満たすxを求める。$e=k$までも求まった(*)とする。
+を満たす$x$を求める。$e=k$までも求まった(*)とする。
 $(1+p)^{p^{k-1}X+Y}=(1+p)^{v-u} \bmod p^{k+1}$と書ける。
 $Y$はすでに分かっている(*)ので$X$がbaby-step giant-stepで$O(\sqrt{p})$で求まる。
 前・後半は中国人剰余定理で合体すればいい。よって全体は$O(e\sqrt{p})$で求まる。
