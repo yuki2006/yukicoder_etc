@@ -57,14 +57,18 @@ bool is_3k(unsigned n){
 
 <h5 class="shadow">離散対数問題</h5>
 
-Pohlig–Hellman algorithmを用いて離散対数問題$a^x = b \bmod p^e$は$O(e\sqrt{p})$で解ける。
-$a=A(1+p)^u、b=B(1+p)^v$
-として、$\bmod p$では$A^x=B \bmod p$がbaby-step giant-stepで求まる。
-$(1+p)^{x+u}=(1+p)^{v} \bmod p^e$
-を満たす$x$を求める。$e=k$までも求まった(*)とする。
-$(1+p)^{p^{k-1}X+Y}=(1+p)^{v-u} \bmod p^{k+1}$と書ける。
-$Y$はすでに分かっている(*)ので$X$がbaby-step giant-stepで$O(\sqrt{p})$で求まる。
-前・後半は中国人剰余定理で合体すればいい。よって全体は$O(e\sqrt{p})$で求まる。
+Pohlig–Hellman algorithmを用いて離散対数問題$a^x = b \bmod p^e$は$O(\sqrt{ep})$で解ける。
+まず$a^x\equiv b\bmod p$をbaby-step giant-step(BSGS)で求める。
+次に$\alpha:=\frac{a}{a\ \bmod\ p},\beta:=\frac{b}{b\ \bmod\ p}$として、$\alpha^x\equiv \beta\bmod p^e$を満たす$x$を求める。
+$\alpha\equiv\beta\equiv1\bmod p$だから$g:=(1+p)$として$\alpha,\beta$は$g$を生成元とする位数$p^{e-1}$の巡回群の元。
+従って、$\alpha,\beta$の$g$による表示を求められると、$\alpha^x\equiv \beta \bmod p^e$も解ける。
 
-最初に $O((ep)^{1/2})$ 分テーブルを作っておけば$O(\sqrt{ep})$になる（後で書く）。
+ここでは$\alpha,\beta$を$h$と置いて、$g^x\equiv h\bmod p^e$を解こう。
 
+$h^{x_k},\beta$を$g$のべき乗で表したときのべき指数が$p$進数で$1$桁目から$k$桁目まで一致するとする。
+すると、$hg^{-x_k}$はべき指数が$k$桁目まで打ち消されるので位数$p^{e-1-k}$以下になる。
+つまり$(hg^{-x_k})^{p^{e-2-k}}$は位数$1$または$p$となり、$\gamma:=g^{p^{e-2}}$として$\langle \gamma \rangle$の元となる（なぜなら、$\gamma^p=1$より$\langle\gamma\rangle$の位数は$p$であるから）。
+よって、$(hg^{-x_k})^{p^{e-2-k}}$の$\gamma$のべき乗による表示$\gamma^{d_k}=(hg^{-x_k})^{p^{e-2-k}}$がBSGSによって得られる。
+$\gamma:=g^{p^{e-2}}$を戻して$p^{d_kp^k}=hg^{-x_k}$だから$h_{k+1}:=h_k+p^kd_k$となる。
+
+通常のBSGSでは$x=u\sqrt{p}+v$として$0\leq u\leq [\sqrt p]$を探索するが、このアルゴリズムでは$\gamma$が$k$によらないことから$x=u\sqrt{ep}+v$とするとよい。テーブルの構築に$(\sqrt{ep})$かかるが、一回のBSGSの実行で見る$u$の範囲が$O(\sqrt{\frac{p}{e}})$となるため全体の計算量も$O(\sqrt{ep})$になる。
