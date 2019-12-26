@@ -20,24 +20,24 @@ $$
 \sum_{n=1}^N n = \sum_{n=1}^N \sum_{d|n}{\varphi(d)}\\
 \end{align}
 $$
-を得る。左辺は等差数列の和だから$N(N+1)/2$と等しい。
-右辺は$(n/d)$を固定して$d$について和を取ることで$\sum_{(n/d)=1}^{N} \sum_{d=1}^{[N/(n/d)]} \varphi(d)$とできる。
+を得ます。左辺は等差数列の和だから$N(N+1)/2$と等しくなります。
+右辺は$(n/d)$を固定して$d$について和を取ることで$\sum_{(n/d)=1}^{N} \sum_{d=1}^{[N/(n/d)]} \varphi(d)$とできます。
 よって
 $$
 \begin{align}
 &N(N+1)/2 = \sum_{n=1}^N \sum_{d=1}^{[N/n]} {\varphi(d)}\\
-\Leftrightarrow&N(N+1)/2 = \sum_{n=2}^N \sum_{i=1}^{[N/n]}{\varphi(i)} + \sum_{n=1}^N {\varphi(n)}
+\Leftrightarrow&N(N+1)/2 = \sum_{n=2}^N \sum_{d=1}^{[N/n]}{\varphi(d)} + \sum_{n=1}^N {\varphi(n)}
 \end{align}
 $$
-を得る。
+を得ます。
 
 <br>
-ここで、オイラーのトーティエント関数$\varphi(i)$を$i=1,2,...,n$まで変化させたときの和を$\Phi(n):=\sum_{i=1}^{n}{\varphi(i)}$と定義します。
-すると上の式は
-<br>
-$N(N+1)/2 = \sum_{n=2}^N \Phi([N/n]) + \Phi(N)$
-<br>
-$\Phi(N) = N(N+1)/2 - \sum_{n=2}^{N} \Phi([N/n])$
+ここで$\Phi(n):=\sum_{i=1}^{n}{\varphi(i)}$とすると上の式は
+$$
+\begin{align}
+&N(N+1)/2 = \sum_{n=2}^N \Phi([N/n]) + \Phi(N) \\
+\Leftrightarrow&\Phi(N) = N(N+1)/2 - \sum_{n=2}^{N} \Phi([N/n]) \\
+\end{align}
 <br>
 とできます。ここで、$\Phi(N)$が求めたい値になっています。
 <br>
