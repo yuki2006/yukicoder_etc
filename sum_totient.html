@@ -14,7 +14,7 @@ $n/g \leq m/g$だからこのような$n$は$\varphi(m/g)$個あります。
 したがって 任意の正の整数について、$m = \sum_{d|m}{\varphi(m/d)}= \sum_{d|m}{\varphi(d)}$となります。
 <br>
 <br>
-$m = \sum_{dはmの因数}{\quad\varphi(d)}$の $m$ を$1$から $N$ まで変化させたときの和を取り、変形します。
+$m = \sum_{d|m}{\varphi(d)}$の $m$ を$1$から $N$ まで変化させたときの和を取り、変形します。
 <br>
 $1+2+...+N = \sum_{n=1}^N \sum_{d|n}{\varphi(d)}$
 <br>
@@ -22,7 +22,7 @@ $N(N+1)/2 = \sum_{n=1}^N \sum_{i=1}^{[N/n]}{\varphi(i)}$
 <br>
 $N(N+1)/2 = \sum_{n=2}^N \sum_{i=1}^{[N/n]}{\varphi(i)} + \sum_{n=1}^N {\varphi(n)}$
 <br>
-ここで、オイラーのトーティエント関数$\varphi(i)$を$i=1,2,...,n$まで変化させたときの和を$\Phi(n)=\sum_{i=1}^{n}{\varphi(i)}$と定義します。
+ここで、オイラーのトーティエント関数$\varphi(i)$を$i=1,2,...,n$まで変化させたときの和を$\Phi(n):=\sum_{i=1}^{n}{\varphi(i)}$と定義します。
 すると上の式は
 <br>
 $N(N+1)/2 = \sum_{n=2}^N \Phi([N/n]) + \Phi(N)$
