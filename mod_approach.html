@@ -72,3 +72,46 @@ $h^{x_k},\beta$を$g$のべき乗で表したときのべき指数が$p$進数�
 $\gamma:=g^{p^{e-2}}$を戻して$p^{d_kp^k}=hg^{-x_k}$だから$x_{k+1}:=x_k+p^kd_k$となる。
 
 通常のBSGSでは$x=u\sqrt{p}+v$として$0\leq u\leq [\sqrt p]$を探索するが、このアルゴリズムでは$\gamma$が$k$によらないことから$x=u\sqrt{ep}+v$とするとよい。テーブルの構築に$(\sqrt{ep})$かかるが、一回のBSGSの実行で見る$u$の範囲が$O(\sqrt{\frac{p}{e}})$となるため全体の計算量も$O(\sqrt{ep})$になる。
+
+
+<h5 class="shadow">離散対数問題(2): index calculus algorithm</h5>
+離散対数問題$a^x=b \bmod p$は平均$O(e^{(3/\sqrt{2}+o(1))\sqrt{log{p}log\log{p}}})$で解ける。
+<br>
+①小さい方から素数を$k$個列挙して$p_1,\ldots,p_k$と置く。
+ランダムな数$h$について計算して、$p_1,\ldots,p_k$のみを素因数に持つ$(a^h \bmod p)$を探す($p_k$-smoothという)。<br>
+②そのような$a^n=\sum_{i=1}^k p_i^{e_i} \bmod p$の指数部比較で
+$h=sum_{i=1}^k e_i  log_{a} p_i \bmod (p-1)$
+を得る。$\mathrm{ord}(a)|(p-1)$であるから$\mod p-1$を取っている。
+ここで、$\log_{a}p_1,\ldots,\log_{a}p_k$は未知数である。<br>
+③同じような方程式を$4k$個用意する。<br>
+③そのうち$k$個が線形独立なら連立してガウスの消去法で$\log_{a}p_1,\ldots,\log_{a}p_k$について解ける。
+高確率で線形独立になるらしい(証明求む)。$p-1$は合成数だから逆元が存在せずガウスの消去法ができない場合がある。
+その場合$\gcd$を取って互いに素なmodとの計算から中国剰余定理で再構成すればよい。<br>
+④ランダムな数$g$について計算して$p_k$-smoothな$a^gb = \sum_{i=1}^k p_i^{f_i} \bmod p$を探す。この時、指数部比較で
+$$g+\log_b{a}=\sum_{i=1}^k f_i \log_{a}p_i \bmod (p-1)$$
+を得る。未知変数は$\log_b{a}$のみである。よって、$a^x=b \bmod p$の解である$\log_a{b}$について解くことができる。
+<br>
+＊計算量解析
+<br>
+ランダムな数$h$について$a^h \bmod p$が$p_k$-smoothになる確率を見積ろう。$φ(p_k):=$「$p_k$-smoothな数の個数」とする。
+
+素数定理から$k \approx p_k/\log{p_k}$である。$u:=[\log_{p_k} p]$とする。
+$\prod p_i^{e_i}$ について $\sum e_i \leq u $ならば $p_k$-smoothである。このような数は$\binom{u+k}{k}$個なので 
+\begin{align}
+φ(p_k)&\geq \binom{u+k}{k}\\
+&\geq (k/u)^u \\
+&\approx (p_k/(u \log{p_k}))^u\\
+&\approx p (u \log{p_k}))^{-u}\\
+&\end{align}
+なので大体、$φ(p_k)/p \approx u^{-u+o(1)}$
+
+なので最初の$4k$個の$p_k$-smoothな数を見つけるのに
+平均$O(k^2 u^u)$かかる。ガウスの消去法には$O(k^3)$かかる。
+$k^2 u^u + k^3 $が最小になる$k\approx \sqrt{\frac{2\log{p}}{\log{\log{p}}}}$を取ってくると良いらしいですが示し方が分かりませんでした（加筆求む）。
+
+<br>
+＊問題演習<br>
+<a href="https://t.co/xN0jJJ6Wco?amp=1">LOJ:6542</a>: ($p < 3 \times 10^{18}$)<br>
+<br>
+＊参考文献<br>
+<a href="https://t.co/Jt3WvW7YqS?amp=1">https://t.co/Jt3WvW7YqS?amp=1</a>
