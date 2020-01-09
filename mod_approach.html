@@ -75,12 +75,12 @@ $\gamma:=g^{p^{e-2}}$を戻して$p^{d_kp^k}=hg^{-x_k}$だから$x_{k+1}:=x_k+p^
 
 
 <h5 class="shadow">離散対数問題(2): index calculus algorithm</h5>
-離散対数問題$a^x=b \bmod p$は平均$O(e^{(3/\sqrt{2}+o(1))\sqrt{log{p}log\log{p}}})$で解ける。
+離散対数問題$a^x=b \bmod p$は平均$O(e^{(3/\sqrt{2}+o(1))\sqrt{\log{p}\log\log{p}}})$で解ける。
 <br>
 ①小さい方から素数を$k$個列挙して$p_1,\ldots,p_k$と置く。
 ランダムな数$h$について計算して、$p_1,\ldots,p_k$のみを素因数に持つ$(a^h \bmod p)$を探す($p_k$-smoothという)。<br>
 ②そのような$a^n=\sum_{i=1}^k p_i^{e_i} \bmod p$の指数部比較で
-$h=sum_{i=1}^k e_i  log_{a} p_i \bmod (p-1)$
+$h=\sum_{i=1}^k e_i  log_{a} p_i \bmod (p-1)$
 を得る。$\mathrm{ord}(a)|(p-1)$であるから$\mod p-1$を取っている。
 ここで、$\log_{a}p_1,\ldots,\log_{a}p_k$は未知数である。<br>
 ③同じような方程式を$4k$個用意する。<br>
