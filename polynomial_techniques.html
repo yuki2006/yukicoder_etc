@@ -37,6 +37,25 @@ f(X+C)=&\sum_{i=0}^N a_i (X+C)^i \\
 \end{align}
 を得る。ただし$g(s):=\sum_{i=0}^N a_i i! s^{-i},\exp(Cs):=\sum_{i=0}^N \frac{(Cs)^{i}}{i!}$とする。$g(s)$と$\exp(Cs)$の畳み込みになっているのでFFTで$O(N\log{N})$で計算できる。
 これは平行移動後の関数をラプラス変換したものの逆ラプラス変換$\Theta(X+C) \sum_{k=0}^N f_k (X+C)^k = \mathcal{L}^{-1}[\exp(Cs)\sum_{k=0}^N a_k\frac{k!}{s^{k+1}}]$を計算しているとみなせる(?)。
+
+
+<h3>$\Pi_{i=1}^{N}  (1+X^{s_i})$</h3>
+分割数を計算するときに$\Pi_{i=1}^{N}  (1+X^{s_i})$を計算したくなることがある。
+<a href="https://arxiv.org/abs/1807.11597">https://arxiv.org/abs/1807.11597</a>にて
+$A(X):=\Pi_{i=1}^{N}  (1+X^{s_i}) \bmod X^{t+1}$を$O(t\log t)$で求めるアルゴリズムが示されている。
+$\log(1+X)=\sum_{i=1}^\infty \frac{(-1)^{i-1}}{i!}X^i$であるから
+\begin{align}
+\log\Pi_{i=1}^{N}  (1+X^{s_i})=&\sum_{i=1}^N\log(1+X^{s_i}) \bmod X^{t+1}\\
+=&\sum_{i=1}^N\sum_{j=1}^\infty \frac{(-1)^{j-1}}{j!}X^{js_i} \bmod X^{t+1}\\
+=&\sum_{i=1}^t \sum_{j=1}^{[t/j]} \frac{(-1)^{j-1}}{j!}X^{j a_i} \bmod X^{t+1}
+\end{align}
+ただし、$a_i:=\#\{j:s_j=i\}$とする。$O(\sum_{j=1}^{t}[t/j])=O(t\log t)$で計算できる。あとは$A(X)=\exp(\log(A(X))$から計算すればよい。
+<br>
+演習問題<br>
+<ul>
+<li>AGC041-D (<a href="http://q.c.titech.ac.jp/docs/progs/AGC041D.html">Ryuhei_Moriさんの解説</a>)<br></li>
+<li>EDPC-M (<a href="https://maspypy.com/%e5%a4%9a%e9%a0%85%e5%bc%8f%e3%83%bb%e5%bd%a2%e5%bc%8f%e7%9a%84%e3%81%b9%e3%81%8d%e7%b4%9a%e6%95%b0%ef%bc%88%ef%bc%92%ef%bc%89%e5%bc%8f%e5%a4%89%e5%bd%a2%e3%81%ab%e3%82%88%e3%82%8b%e8%a7%a3%e6%b3%95">maspyさんの解説</a>)<br></li>
+</ul>
 <h3>母関数</h3>
 <p>
 数列に対し、有理関数が母関数であることと線形漸化式であることは同値である。<br>
