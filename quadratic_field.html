@@ -1,7 +1,7 @@
 <title>二次体の整数論</title>
 二次体$\mathbb{Q}(\sqrt{d})$の整数環を考えることで、問題が簡単になる場合がある。
 <h3>$p=x^2+y^2$の整数解</h3>
-ガウス整数環$\mathbb{Z}[i]$で考えることにより$O(\log(p))$で求めることができる [1]。$p=3\bmod 4$のとき、解は存在しない($\bmod 4$で考えると分かる)。
+$p$を奇素数とする。ガウス整数環$\mathbb{Z}[i]$で考えることにより$O(\log(p))$で求めることができる [1]。$p=3\bmod 4$のとき、解は存在しない($\bmod 4$で考えると分かる)。
 $p=1\bmod 4$のとき平方剰余の相互法則より、$-1$は平方剰余である。従って$u^2=-1 \bmod p$を満たす$u$が存在する。
 このとき、ある$m$が存在して
 $u^2+1=mp\Leftrightarrow(u+i)(u-i)=mp$
@@ -23,7 +23,7 @@ $\mathrm{N}(p)=p^2$であるので$p$は$\mathbb{Z}[i]$で高々2つの素元に
 <br>
 <h4>演習問題</h4>
 <a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&category=&problem=3182&mosmsg=Submission+received+with+ID+20304398">UVA 12031 - Summation of Four Squares</a><br>
-与えられた$n(< 10^{17})$について$n=x^2+y^2+z^2+w^2$を満たす$(x,y,z,w)$を求める問題(四平方数定理より必ず存在)。[1]で$O(\log^2 p)$のアルゴリズムが与えられている。
+与えられた$T(< 120000)$個の$n(< 10^{17})$について$n=x^2+y^2+z^2+w^2$を満たす$(x,y,z,w)$をそれぞれ求める問題(四平方数定理より必ず存在)。$n$が奇素数$p$の場合については[1]で$O(\log^2 p)$のアルゴリズムが与えられている。
 
 <br><br>
 [1] Rabin, Michael O., and Jeffery O. Shallit. "Randomized algorithms in number theory." Communications on Pure and Applied Mathematics 39.S1 (1986): S239-S256.
