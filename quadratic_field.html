@@ -4,8 +4,9 @@
 $p$を奇素数とする。ガウス整数環$\mathbb{Z}[i]$で考えることにより$O(\log(p))$で求めることができる [1]。$p=3\bmod 4$のとき、解は存在しない($\bmod 4$で考えると分かる)。
 $p=1\bmod 4$のとき平方剰余の相互法則より、$-1$は平方剰余である。従って$u^2=-1 \bmod p$を満たす$u$が存在する。
 このとき、ある$m$が存在して
-$u^2+1=mp\Leftrightarrow(u+i)(u-i)=mp$
+$$u^2+1=mp\Leftrightarrow(u+i)(u-i)=mp$$
 である。
+<!--
 $u$を絶対値最小剰余系で取ると、$u^2+1\leq (p-1)^2+1 \leq p(p-1)$より$m \lt p$とできる。
 従ってガウス整数環で最小公倍数を取ると
 $$\gcd(\mathrm{N}(u+i),\mathrm{N}(p))=\gcd(mp,p^2)=p$$
@@ -15,10 +16,12 @@ $$\gcd(\mathrm{N}(u+i),\mathrm{N}(p))=\gcd(mp,p^2)=p$$
 $\mathrm{N}(\gcd(a,b)) | \gcd(\mathrm{N}(a),\mathrm{N}(b))$
 が成り立つ。従って$\mathrm{N}(\gcd(u+i))=1,p$となる。同様に$\mathrm{N}(\gcd(u-i))=1,p$だが
 $\gcd(u^2+1,p)=p|\gcd(u+i,p)\gcd(u-i,p)$だから
-$$\mathrm{N}(\gcd(u\pm i))=p$$
-である。従って$\gcd(u+i,p)=x+yi$であり$x^2+y^2=p$となる組$(x,y)$が得られた。
-$\mathrm{N}(p)=p^2$であるので$p$は$\mathbb{Z}[i]$で高々2つの素元に素因数分解できる。
-従ってガウス整数の素元分解の一意性から、$(x,y)$は自明な重複($(y,x)$,$(-x,y)$,etc)を除いて一組に定まる。
+-->
+素元 $\pi \mid p$ を適当にとる。$\pi \mid p$ かつ $\pi \mid \alpha$（$\alpha$ は $u\pm i$ のうち都合の良い方）。
+$p\nmid \alpha$ なので、$p\nmid \pi$。
+$\mathrm{N}(p)=p^2$であるので$p$は2つの素元$p = \pi \pi'$に分解される。
+これと $p\nmid \alpha$ より、$\gcd(p,\alpha) = \pi$である。従って$\gcd(u+i,p)=x+yi$であり$x^2+y^2=p$となる組$(x,y)$が得られた。
+ガウス整数の素元分解の一意性から、$(x,y)$は自明な重複($(y,x)$,$(-x,y)$,etc)を除いて一組に定まる。
 計算量は$O(\log p)$である。
 <br>
 <h4>演習問題</h4>
