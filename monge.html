@@ -1,0 +1,261 @@
+<title>Monge DP</title>
+
+<b>この記事はtmaeharaさんの週刊 spaghetti_source(はてなグループのサービス終了に伴って削除)を移植したものです（作業途中）。tmaeharaさんにはご了承いただき感謝いたします。</b>
+
+<h3 class="shadow">Monge DP</h3>
+
+
+<p>今回と次回は「動的計画法を加速する」タイプの話題を取り上げます．キーワードはMonge性（モンジュとよむ，人名）です．</p>
+
+<p>長いので，ちゃんと読むつもりの人は覚悟してください．理屈はいいからコード出せという人は半分強くらいスクロールGO．末尾に２つ演習問題もあるよ．</p>
+
+
+<p><b>全体的な導入</b></p>
+
+二変数の関数$f(i,j)$が「Monge」であるとは，任意の $i \leq j$ と $k \leq l$ について
+
+　　$$f(i,l) + f(j,k) \geq f(i,k) + f(j,l)$$
+
+が成立することをいいます．$f(i,j)$ が $i \leq j$ についてのみ定義されている場合を「上三角Monge」などといいますが，ここでは特に区別しません．この手の不等号の向きは忘れがちですが，Monge性はmin-max束の劣モジュラ不等式だと思うと忘れません：
+
+　$$f(i,l) + f(j,k) \geq f(\min({i,j}),\min({k,l})) + f(\max{(i,j)},\max{(i,k)}) = f(i,k) + f(j,l)$$
+
+<p>余談１：劣モジュラなどの不等号の向きは「左に$f(X)+f(Y)$と書いてから，余計なことをすると減る，と思って右辺$f(X∩Y)+f(X∪Y)$を書く」と覚えます．数学の劣と優は，だいたいこの流儀に則っているはずです．</p>
+
+<p>余談２：Monge性は分野ごとにいろんな名前で呼ばれており，有名ドコロだけでも distribution matrix (Gilmore), concave quadrangle inequality (Yaoなど), concave function (Larmore-Schieberなど) が知られていて，大変ややこしいのが現状です．論文とかなら文脈に応じて選ぶ用語ですが，ここではMongeで統一します．</p>
+
+
+Monge性があると簡単に解ける問題は様々ありますが，ここではすごく大雑把に列挙します．ポインタも示しますので，琴線に響くものがあれば参照してください．
+
+<p>二部グラフマッチングの枝コストが Monge のとき，貪欲解が最適解になる
+<ul>
+    <li>[1] A. J. Hoffman: "On simple linear programming problems", Convexity: Proceedings of the Seventh Symposium in Pure Mathematics, Proceedings of Symposia in Pure Mathematics (V. Klee, ed.), Vol. 7. American Mathematical Society, Providence, RI, 317-327, 1963.</li>
+	<li>[2] M. Queyranne, F. Spieksma, and F. Tardella: "A general class of greedily solvable linear programs", Mathematics of Opeartional Research, Vol.23, No.4, 1998.</li>
+</ul>
+</p>
+
+<p>
+$f(i,j)$ がMongeのとき，「各 $i$ について最小を与える $j$」を全部求めるのは $O(n)$ で計算可能
+<ul>
+	<li>[3] A. Aggarwal, M. M. Klawe, S. Moran, P. Shor, and R. Wilber: "Geometric applications of a matrix-searching algorithm", Algorithmica, Vol.2, pp.195-208, 1987.</li>
+	<li>[4] L. L. Larmore and B. Schieber: "On-line dynamic programming with applications to the prediction of RNA secondary structure" Journal on Algorithms, Vol.12, pp.490-515, 1991.</li>
+</ul>
+</p>
+
+<p>
+$X(i) = \min_{j < i} {( X(j) + w(i,j) )}$ 型のDPは，$w$がMongeなら $O(n)$ で計算可能<br>
+$X(i,d) = \min_{j < i} {( X(j,d-1) + w(i,j) )}$ 型のDPは，$w$がMongeなら $O(nd)$ で計算可能<br>
+<ul>
+    <li>[5] D. Eppstein, Z. Galil, and R. Giancalco: "Speeding up Dynamic Programming", 29th IEEE Symposium on Foundations of Computer Science, White Plains, New York, pp. 488-496, 1988.</li>
+    <li>[6] A. Bar-Noy, M. J. Golin, and Y. Zhang: "Online Dynamic Programming Speedups", Theory of Computing Systems, Vol.45, No.33, pp.429-445, 2009.</li>
+</ul>
+</p>
+
+<p>
+$X(i,j) = \min_{i\leq s < j} { X(i,s) + X(s+1,j) } + w(i,j)$ 型のDPは，$w$がMongeかつ単調なら $O(n^2)$ で計算可能．<br>
+<ul>
+    <li>[7] D. E. Knuth: "Optimum binary search trees", Acta Infomatica, Vol.1, pp.14-25, 1971.</li>
+    <li>[8] F. F> Yao: "Efficient dynamic programming using quadrangle inequalities", Proceedings of 12th Annual ACM Symposium on Theory of Computing, pp.429-435, 1980.</li>
+</ul>
+</p>
+
+
+<p>
+$X(i,j,p) = \min_{i \leq s < j} {( X(i,s,p) + X(s+1,j,p-1) )} + w(i,j)$ 型のDPは，$w$がMongeかつ単調なら $O(n^2 p)$ で計算可能<br>
+<ul>
+    <li>[9] A. Borchers and P. Gupta: "Extending the quadrangle inequality to speed-up dynamic programming", Information Processing Letters 49, pp.287-290, 1994.</li>
+</ul>
+</p>
+
+<p>
+その他，Monge性に関する全体的なサーベイは以下を参考にするのが良いと思います（DPの話題は少ないですが……）．<br>
+<ul>
+    <li>[10] R. E. Burkard, B. Klinz, and R. Rudolf: "Perspective of monge properties in optimization", Discrete Applied Mathematics, Vol. 70, No. 2, pp.95-161, 1996.</li>
+</ul>
+</p>
+
+今回は[8]で提案されたテクニックを紹介します．このテクニックは「Knuth-Yao speedup」という名前で知られているもので，「Mongeだと早く解ける」の最も基本的な例です．<br><br>
+
+
+<p><b>Knuth-Yao speedup</b></p>
+
+Knuth-Yao speedupは，「$O(n^3)$ DP が $O(n^2)$ に落ちる」型の加速です．元々は最適二分探索木問題に対してKnuthが提案した手法[7]を，Monge性が鍵であるとYao[8]が見抜いた，という歴史的な経緯になっています．最適二分探索木の加速についてはCormen-Leiserson-Rivest-SteinのアルゴリズムイントロダクションのDPの章の演習に出ているので，知っている人も多いかと思います．
+
+Knuth-Yao speedupのテクニックは，以下の3つの命題から構成されています．
+<br>
+
+<p><b>命題１．畳込みのspeedup</b></p>
+
+２変数関数 f, g について，その畳込みが
+
+　　$$(f*g)(i,j) := \min_{i \leq s < j} {\left( f(i,s) + g(s+1,j) \right)}$$
+
+で定義される．このとき，$f$, $g$ がMongeのとき，$(f*g)$もMongeとなる．さらに，$K(i,j)$ を右辺の min を達成する $s$ とする．すなわち
+
+　　$$K(i,j) := \arg\min {\left( f(i,s) + g(s+1,j) \right)}$$
+
+とする（最大値が複数ある場合は一番右をとる）．このとき K(i,j) は単調増加する：
+
+　　$$K(i,j) \leq K(i,j+1) \leq K(i+1,j+1)$$
+
+<p><b>命題２．Monge性の遺伝</b></p>
+
+　　$$X(i,j) = \min_{i \leq s < j} {\left( X(i,s) + X(s+1,j) \right)} + w(i,j)$$
+
+で定まる $X$ は，重み関数 $w$ が次の２つの条件をみたすときMonge．
+
+$w(i,j)$ はMonge
+$w(i,j)$ は単調，すなわち $w(i,j) \leq w(k,l)$ if　$[i,j] ⊆ [k,l]$
+<p><b>命題３．Knuth-Yao speedup</b></p>
+
+　　$$X(i,j) = \min_s {\left( X(i,s) + X(s+1,j) \right)} + w(i,j)$$
+
+型のDPは，命題２の条件をみたすとき $O(n^2)$ で解ける．
+
+
+<p>Knuth-Yao speedup の $O(n^2)$ というのは，$X(i,j), X(i+1,j+1)$ が計算されているとき，$X(i,j
++1)$ を計算するには $K$ の単調性から $s$ の走る範囲を限定できる，というロジックです（上のDPのテーブルを対角線から順番に右上に埋めていくイメージ）．
+具体的にコードを見たほうがこの界隈の人は理解しやすいと思うので，後ろの例題に対するコードを参考にしてください．</p>
+
+
+<p>以下命題１，２の証明を行います．たいして難しくないので自分で紙に書くとすぐに理解できると思います．３ は１，２の系です．</p>
+
+<p><b>命題１の証明</b></p>
+
+Mongeになることは省略（2の証明と全く同じ）．
+
+$K(i,j) = s, K(i,j+1) = t$ として $(f*g)(i,j) + (f*g)(i,j+1)$ を書くと
+
+　　$$(f*g)(i,j) + (f*g)(i,j+1) = f(i,s) + f(i,t) + g(s+1,j) + g(t+1,j+1)$$
+
+となり，Monge性を使うと
+
+　　$$\geq f(i,\min{s,t}) + f(i,\max{(s,t)}) + g(\min{(s,t)}+1,j) + g(\max{(s,t)}+1,j+1)$$
+
+となるが，右辺の形が $(f*g)(i,j) + (f*g)(i,j+1)$ の min の内側の項の形をしているので，左辺が最小であることより $\min{s,t}$ も $(f*g)(i,j)$ を達成し，
+$\max{s,t}$ も $(f*g)(i,j+1)$ を達成することがわかる．いま $t$ はそのようなものの中で一番右側にとったので $\max{(s,t)} \leq t$，したがって $s \leq t$．
+$K(i+1,j)$ 側も同様に示される．
+
+<p><b>命題２の証明</b></p>
+
+$|i-l|$ のサイズに関する帰納法で，いまの $|i-l|$ より小さいところでは成り立っているとする．このとき，
+
+　　$$X(i,l) = X(i,s) + X(s+1,l) + w(i,l), 　X(j,k) = X(i,t) + X(t+1,k) + w(j,k)$$
+
+と書いて足し合わせ，Monge性を縦ごとに使うと（サイズが小さい区間に関するMongeなので帰納法が適用可能）
+
+　　$$X(i,l)+X(j,k) \geq X(i,\min{(s,t)}) + X(i,\max{(s,t)}) + X(\min{(s,t)}+1,k) + X(\max{(s,t)}+1,l) + w(i,k) + w(j,l)$$
+
+右辺は $X(i,k) + X(j,l)$ のminの中身の形をしているので，minが走ると，もっと小さくなる：
+
+　　$$X(i,l)+X(j,k) \geq X(i,k) + X(j,l)$$
+
+注：Yaoの論文では，1,2の証明を $i,j,k,l$ と $s,t$ の位置関係の場合分けでゴリゴリやっていますが，こちらの証明のほうがはるかにシンプルだし，分かりよいと思います．この手の最小元の和に劣モジュラ性を使って何かを言うタイプの証明は，劣モジュラ業界では標準的です．
+
+
+ここまで一般論でした．以下では具体例でどのように Knuth-Yao speedup を使うかを説明します．
+
+
+<p><b>適用例：最適二分探索木問題</b></p>
+<table border="1">
+	<tr>
+		<th>
+            <a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1245">UVA 10304 - Optimal Binary Search Tree</a><br>
+            
+            $0 < 1 < \ldots < n-1$ を要素としてもつ二分探索木を構成したい．各キー $j$ にアクセスする頻度 $f(j)$ が与えられるので，コスト：$\sum depth(j)×f(j)$ が最小となるような二分探索木を求めよ（コストのみ）
+            
+        </th>
+	</tr>
+</table>
+＃扱いやすいように，根の深さを $1$ とします（このほうがKnuth-Yao的に説明が楽なので）．最終的に得られた解を根の深さ 0 に修正するためには，$\sum f(j)$ を引いてやればいけます．
+            
+この問題に対する素直なDPは，$i, \ldots, j-1$ を要素とする二分探索木のコストを $X(i,j)$ と定義して，どれを根にするかで min を取る，すなわち
+            
+$$X(i,j) = \min_s {\left( X(i,s) + X(s+1,j) \right)} + w(i,j), 　X(i,i) = 0$$
+            
+だと思います．ここで$w(i,j)$は根を通る頻度で $w(i,j) := f(i) + \ldots + f(j-1)$ です，最終的に求めたいものは $X(0,n)$ です．
+このDPはそのままだと $O(n^3)$ ですが，重み関数が Monge なのが自明（不等式でなく等式で成立）なので，Knuth-Yao speedup が使えて，$O(n^2)$ で解けます．
+            
+以下に speedup を適用したものと，speedup を適用しないもののソースコードを示します．書き換わった部分に注目すると，Knuth-Yao speedup の使い方がわかるかと思います．
+
+<p><b>$O(n^3)$解：Knuth-Yao speedup適用前</b></p>
+<pre><code>// 21 lines
+int optimalBST(int a[], int n) {
+  static int W[MAXSIZE][MAXSIZE];
+  static int X[MAXSIZE][MAXSIZE];
+  for (int i = 0; i < n; ++i) {
+    W[i][i] = 0;
+    for (int j = i; j < n; ++j) 
+      W[i][j+1] = W[i][j] + a[j];
+  }
+  for (int i = 0; i <= n; ++i) {
+    for (int j = 0; j <= n; ++j) 
+      X[i][j] = 99999999;
+    X[i][i] = 0;
+  }
+  for (int w = 1; w <= n; ++w) 
+    for (int i = 0, j; (j = i+w) <= n; ++i) 
+      for (int r = i; r+1 <= j; ++r) {
+        int c = X[i][r] + X[r+1][j] + W[i][j];
+        if (X[i][j] > c) X[i][j] = c;
+      }
+  return X[0][n];
+}</code></pre>
+
+<p><b>$O(n^2)$解：Knuth-Yao speedup適用後</b></p>
+<pre><code>// 23 lines
+int optimalBST_KY(int a[], int n) {
+  static int W[MAXSIZE][MAXSIZE];
+  static int X[MAXSIZE][MAXSIZE];
+  static int K[MAXSIZE][MAXSIZE]; // +
+  for (int i = 0; i < n; ++i) {
+    W[i][i] = 0;
+    for (int j = i; j < n; ++j) 
+      W[i][j+1] = W[i][j] + a[j];
+  }
+  for (int i = 0; i <= n; ++i) {
+    for (int j = 0; j <= n; ++j)
+      X[i][j] = 99999999;
+    X[i][i] = 0;
+    K[i][i] = i; // +
+  }
+  for (int w = 1; w <= n; ++w) 
+    for (int i = 0, j; (j = i+w) <= n; ++i) 
+      for (int r = K[i][j-1]; r <= K[i+1][j]; ++r) { // c
+        int c = X[i][r] + X[r+1][j] + W[i][j]; 
+        if (X[i][j] > c) { X[i][j] = c; K[i][j] = r; } // c
+      }
+  return X[0][n];
+}</code></pre>
+<p><b>課題：連鎖集合積問題</b></p>
+<table border="1">
+	<tr>
+		<th>
+            集合 $S_1, \ldots, S_n$ が与えられ，これらの直積 $S_1×\ldots×S_n$ を計算することを考えます．集合の直積 S1×S2 を行うには計算コストが |S1|×|S2| かかるとすると（全要素対の数），直積計算のカッコのつけかた次第で計算コストに違いが発生します．
+            各集合のサイズ $|S_1|, \ldots , |S_n|$ が与えられたときの最適計算コストを求めなさい．
+        </th>
+	</tr>
+</table>
+連鎖行列積問題のバリエーションですが，コスト関数が違うので Knuth-Yao speedup が適用できます（Monge性の証明には$a,b>1$のとき$(a-1)(b-1)\geq 0$を使います）．逆に，連鎖行列積問題には Knuth-Yao speedup が適用できないことは重要です．
+
+ちなみにYao[8]のモチベーションとして連鎖行列積はあったようですが，うまくいかないという結論でした．その4年後に Hu-Shing(1984) が連鎖行列積 $O(n \log n)$ を証明しています．ちなみに自分は未だにHu-Shingは理解できていません．長すぎる上に読みにくいですわアレ．
+
+<p><b>発展課題：一般化ハノイの塔</b></p>
+
+<table border="1">
+	<tr>
+		<th>
+		    「ハノイの塔」の問題を，次のように一般化します．
+            <ul>
+                <li>柱は「開始の柱」と「終了の柱」と「自由に使って良い柱$\times p$」の合計 $p+2$ 本．普通のハノイは $p = 1$．</li>
+                <li>各ディスクを移動させるのにかかる時間 $t_1, \ldots, t_n$ が決まっている．通常のハノイは $t_j = 1$</li>
+            </ul>
+            このときに，すべてのディスクを開始の柱から終了の柱に動かすまでの最短時間を求めなさい．
+        </th>
+	</tr>
+</table>
+この問題は，ナイーブなDPで $O(n^3 p)$ で解けますが，実は Knuth-Yao speedup の拡張版が適用できて，$O(n^2 p)$ で解けます[9]．厳密な証明はさておき $O(n^3 p)$ のDPを書いてみて，適当に弄って $O(n^2 p)$ にしても解けていることを確認すると，なかなか楽しいかと思います．
+
+ちなみに柱の数が一般で，$t_j=1$のケースについては，Frame-Stewartのアルゴリズムというものが最適だと予想されています（問題がとっつきやすいので，正しいと「証明」した論文がいくつもあるけれど，いずれもミスがあったりするので，きっと現在でもOpen Problem）．
+
+来週も同じ系統の話題を扱います．
