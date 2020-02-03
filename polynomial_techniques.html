@@ -230,7 +230,7 @@ $$f(X) \equiv g(X)\sum_{i=0}^\infty a_i X^i \pmod {X^{2N}}$$
 
 $A(X):=\left(\sum_{i=0}^\infty a_iX^i \right)\bmod X^{2N},B(X):=X^{2N}$とする。
 $s_1:=1,s_2:=0,t_1:=0,t_2:=1,r_1:=A(X),r_2:=B(X)$とする。
-$$s_i(X)A+t_i(X)B(X)=r_i(X)$$
+$$s_i(X)A(X)+t_i(X)B(X)=r_i(X)$$
 を$r_{i+2}=r_{i} \bmod r_{i+1}$となるように拡張ユークリッドの互除法の要領で更新すると、$(r_i)$は次数が狭義単調減少、$(s_i)$は次数が狭義単調増加、$\deg r_i + \deg s_i \leq 2N-1$となる($\deg 0 = -1$とする)。
 従って、$\deg f < \deg g \leq N $となったとき、目的の母関数が得られている。
 
