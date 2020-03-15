@@ -65,6 +65,15 @@ int main(int argc, char** argv) {
 <p>
     また、スペシャルジャッジ問題の場合、入力制約のみならず、出力制約にも気を配りましょう。
 </p>
+文字列を受け取る場合 <code>std::setw</code> を使い、入力数を制限することも検討してください。<br>
+特にユーザーコードがバグにより異常に多い出力になってしまった場合<code>TLE</code>にならないまま ジャッジ側に渡された場合<code>J_TLE</code>
+と言われる場合があります。<br>
+通常の問題の場合<code>J_TLE</code>と出るのは好ましくないです。 <br>
+文字数もジャッジの判定している場合は<code>N+1</code>文字で制限するなどで検討してください。
+
+<a href="https://cpprefjp.github.io/reference/iomanip/setw.html">https://cpprefjp.github.io/reference/iomanip/setw.html</a>
+
+ランダムに<code>J_TLE</code>が出る場合は、システムの調整をしますのでご連絡ください。
 <br>
 <h3 class="shadow">その他の言語の実装例</h3>
 <h4 class="shadow">Python3</h4>
