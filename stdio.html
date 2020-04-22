@@ -462,20 +462,11 @@ cielさん提供
 <h3 class="shadow">Kuin</h3>
 <pre>
 func main()
-    var s: []char :: cui@input()
-    var ss: [][]char :: s.split(" ")
-    var t: []char :: cui@input()
-    var a: int
-    var b: int
-    var _: bool
-    do a :: ss[0].toInt(&_)
-    do b :: ss[1].toInt(&_)
-    do cui@print((a+b).toStr())
-    do cui@print(" ")
-    do cui@print(t)
-    do cui@print("\n")
+    var a: int :: cui@inputInt()
+    var b: int :: cui@inputInt()
+    var s: []char :: cui@inputStr()
+    do cui@print("\{a + b} \{s}\n")
 end func
 </pre>
-cielさん提供
 
 </div>
