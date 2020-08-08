@@ -46,6 +46,37 @@
 <p>
     まだありません。
 </p>
+
+<h2 class="shadow">回答時のよくある質問</h3>
+
+<h3 class="shadow"> C++のendlを使って改行したコードはACなのに、printf の"\n"を使ったコードは<code>TLE</code>になるのはなぜか？</h3>
+<p>
+   まず前提として、リアクティブ問題はflushをする必要があります。一般的に出力関数はすぐに出力されるのではなくフォーマンスの問題で、バッファリングされるためです。<br> 
+   <br> 
+   <code>std::endl</code>は改行されるだけでなくflushもされるという効果があります。<a href="https://cpprefjp.github.io/reference/ostream/endl.html">https://cpprefjp.github.io/reference/ostream/endl.html</a>  <br><br>
+   
+   printfの"\n" などはflushされる効果はありません。逆に言うとprintfの後に自分でflushすれば大丈夫です。<br><br>
+   
+   <h4 class="shadow">「printfでも手元のターミナルで実行したらすぐに反応がある」のはなぜか？</h4>
+
+   
+   <a href="https://linuxjm.osdn.jp/html/LDP_man-pages/man3/setbuf.3.html">https://linuxjm.osdn.jp/html/LDP_man-pages/man3/setbuf.3.html</a>
+   <pre>
+もし ストリームが (通常、 stdout がそうであるように) ターミナルを参照する場合には、ファイルは line buffered となる。標準エラー出力 stderr はデフォルトでは常に unbuffered である。       
+   </pre>
+    により、ターミナルに対しては「line buffered」なのですぐに反応がある。<br>
+    リアクティブジャッジではターミナル扱いではないらしく、block bufferedになっておりブロックサイズのデータの書き込みで始めて出力される模様<br>
+    （ブロックサイズはディスクフォーマットによって決められている値の模様 <a href="https://www.techscore.com/blog/2016/12/04/veryfy-write-buffer-4kb-8kb/">https://www.techscore.com/blog/2016/12/04/veryfy-write-buffer-4kb-8kb/</a><br><br>
+
+    よって手元のターミナルでは動くのにジャッジでは<code>TLE</code>になることがありうる。<br><br>
+
+    
+    また、<code>setvbuf</code>関数などでmodeを変更しておく方法も可能。（この方法でのパフォーマンスに関しては、測定していないので不明）
+    
+    
+        
+</p>
+
 <h2 class="shadow">作問時の注意点</h3>
 <p>
 リアクティブ問題は通常の問題と異なり、入出力にかかる時間、より正確には書き込みを行うのにかかる時間が非常に大きいです。だいたい10000回程度のやりとりで数秒かかるものと考えるのが良いでしょう。<br>
