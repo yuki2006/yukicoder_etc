@@ -66,7 +66,7 @@
    </pre>
     により、ターミナルに対しては「line buffered」なのですぐに反応がある。<br>
     リアクティブジャッジではターミナル扱いではないらしく、block bufferedになっておりブロックサイズのデータの書き込みで始めて出力される模様<br>
-    （ブロックサイズはディスクフォーマットによって決められている値の模様 <a href="https://www.techscore.com/blog/2016/12/04/veryfy-write-buffer-4kb-8kb/">https://www.techscore.com/blog/2016/12/04/veryfy-write-buffer-4kb-8kb/</a><br><br>
+    （ブロックサイズはディスクフォーマットによって決められている値の模様 <a href="https://www.techscore.com/blog/2016/12/04/veryfy-write-buffer-4kb-8kb/">https://www.techscore.com/blog/2016/12/04/veryfy-write-buffer-4kb-8kb/</a>）<br><br>
 
     よって手元のターミナルでは動くのにジャッジでは<code>TLE</code>になることがありうる。<br><br>
 
