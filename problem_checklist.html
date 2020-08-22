@@ -1,7 +1,23 @@
 <title>作問用チェックリスト</title>
+
+
+<h4 class="shadow">有志の方の資料</h4>
+
+<a href="https://drive.google.com/file/d/1kTfrNKGXMhJOgUdyDhYo2dswbwPAhZ7a/view">optさんの競プロ作問チェックリスト (初心者向け)</a> <br>
+大変まとまっておりますので参考にしてください <br><br>
+
+<a href="http://tozangezan.hatenablog.com/entry/2015/12/02/000030">作問の失敗 判例集</a><br>
+<a href="https://codeforces.com/blog/entry/70178">On the problem setting by antontrygubO_o</a><br>
+<a href="https://drive.google.com/file/d/1CVTQBkLNRfciEJeCaRwBUfy3w7mt-G6P/edit">初心者のための作問テクニックについて by E869120</a><br>
+
+
 <h4 class="shadow">作問用チェックリスト</h4>
 
 yukicoder作問用のチェックリストです。強制ではありませんが完成度を高めるために参考にしてください。
+
+
+
+
 <dl>
 
     <dt>やり取りしやすいように是非yukicoder Slackにご参加ください</dt>
@@ -45,8 +61,9 @@ yukicoder作問用のチェックリストです。強制ではありません�
     </dd>
 
 
-    <dt>テストケースの改行チェックには、Unix系なら「file」コマンドを使いましょう</dt>
-    <dd>「ASCII text」とだけ出れば、末尾に改行がありでLFで終わってます。「with no line terminators」なら末尾に改行がありません。「with CR line terminators」ならCRで終わってます。<br>
+    <dt>テストケースの改行チェックには、Unix系なら「file」コマンドを使いましょう  </dt>
+    <dd>（yukicoderは末尾改行が自動で付加されるようなったのであまり必要ありません）<br>
+    「ASCII text」とだけ出れば、末尾に改行がありでLFで終わってます。「with no line terminators」なら末尾に改行がありません。「with CR line terminators」ならCRで終わってます。<br>
     「file *」とするとディレクトリ内、全部のファイルを指定できます。
     <p>ディレクトリ内のCRLFをLF（yukicoderの改行コード）に変換するコード
         <code> find . -type f | xargs -n 10 nkf -Lu --overwrite</code>
@@ -123,10 +140,6 @@ yukicoder作問用のチェックリストです。強制ではありません�
     
 </dl>
 
-<h4 class="shadow">参考リンク</h4>
-<a href="http://tozangezan.hatenablog.com/entry/2015/12/02/000030">作問の失敗 判例集</a><br>
-<a href="https://codeforces.com/blog/entry/70178">On the problem setting by antontrygubO_o</a><br>
-<a href="https://drive.google.com/file/d/1CVTQBkLNRfciEJeCaRwBUfy3w7mt-G6P/edit">初心者のための作問テクニックについて by E869120</a><br>
 <h4 class="shadow">作問用テクニック（？）</h4>
 
 こっそりと書いているのです。
