@@ -429,12 +429,12 @@ end
 </pre>
 cielさん提供<br>
 <br>
-ただし、64bit整数の入力にはto_i64を使いますが、以下のようなおまいないを挿入する必要があります。
+ただし、64bit整数の入力にはto_i64を使いますが、以下のようなおまじないを挿入する必要があります。
 <pre>
 lib C;fun strtoll(s: UInt8*,p: UInt8**,b: Int32): Int64;end
 class String;def to_i64;C.strtoll(self,nil,10);end;end
 </pre>
-本件は https://github.com/crystal-lang/crystal/issues/9654 にて議論されましたが解決は望めなくなりました。
+本件は <a href="https://github.com/crystal-lang/crystal/issues/9654">https://github.com/crystal-lang/crystal/issues/9654</a> にて議論されましたが解決は望めなくなりました。
 
 <h3 class="shadow">OCaml</h3>
 <pre>
