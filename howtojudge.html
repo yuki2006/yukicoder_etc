@@ -41,8 +41,8 @@ int main(int argc, char** argv) {
   // int型なので、32bit整数で表現出来ない数値は読み込めない
   // 脆弱性を突かれないためにも、制約を決めて、問題文に記載するべき。
   // 例えば、-100以上100以下の整数しか受け付けない場合、以下のように記述すれば良い。
-  if (-100 > a || a > 100) abort("invalid a");
-  if (-100 > b || b > 100) abort("invalid b");
+  if (-100 > a || a > 100) assert("invalid a");
+  if (-100 > b || b > 100) assert("invalid b");
   
   // 「テストケースの入力ファイル」から1つの整数を読み込む
   int n;
@@ -53,7 +53,7 @@ int main(int argc, char** argv) {
     // Wrong Answer として、ジャッジプログラムを終了する。
     // メッセージを記載しておくと、デバッグしやすい。
     std::cerr &lt;&lt; "a=" &lt;&lt; a &lt;&lt; ", b=" &lt;&lt; b &lt;&lt; ", n=" &lt;&lt; n &lt;&lt; std::endl;
-    abort("Wrong Answer: a + b = n");
+    assert("Wrong Answer: a + b = n");
   }
   
   // 正解なので、正常終了する。
