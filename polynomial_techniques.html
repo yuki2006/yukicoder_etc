@@ -43,11 +43,11 @@ f(X+C)=&\sum_{i=0}^N a_i (X+C)^i \\
 分割数を計算するときに$\Pi_{i=1}^{N}  (1+X^{s_i})$を計算したくなることがある。
 <a href="https://arxiv.org/abs/1807.11597">https://arxiv.org/abs/1807.11597</a>にて
 $A(X):=\Pi_{i=1}^{N}  (1+X^{s_i}) \bmod X^{t+1}$を$O(t\log t)$で求めるアルゴリズムが示されている。
-$\log(1+X)=\sum_{i=1}^\infty \frac{(-1)^{i-1}}{i!}X^i$であるから
+$\log(1+X)=\sum_{i=1}^\infty \frac{(-1)^{i-1}}{i}X^i$であるから
 \begin{align}
 \log\Pi_{i=1}^{N}  (1+X^{s_i})=&\sum_{i=1}^N\log(1+X^{s_i}) \bmod X^{t+1}\\
-=&\sum_{i=1}^N\sum_{j=1}^\infty \frac{(-1)^{j-1}}{j!}X^{js_i} \bmod X^{t+1}\\
-=&\sum_{i=1}^t \sum_{j=1}^{[t/j]} a_i\frac{(-1)^{j-1}}{j!}X^{j i} \bmod X^{t+1}
+=&\sum_{i=1}^N\sum_{j=1}^\infty \frac{(-1)^{j-1}}{j}X^{js_i} \bmod X^{t+1}\\
+=&\sum_{i=1}^t \sum_{j=1}^{[t/j]} a_i\frac{(-1)^{j-1}}{j}X^{j i} \bmod X^{t+1}
 \end{align}
 ただし、$a_i:=\#\{j:s_j=i\}$とする。$O(\sum_{j=1}^{t}[t/j])=O(t\log t)$で計算できる。あとは$A(X)=\exp(\log(A(X))$から計算すればよい。
 <br>
