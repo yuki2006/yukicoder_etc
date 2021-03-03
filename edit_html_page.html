@@ -1,0 +1,90 @@
+<title>ページ編集に使えるHTML記法</title>
+<h3 class="shadow">ページ編集に使えるHTML記法</h3>
+<p>
+    このページは、yukicoderの問題文やWikiを編集する際に使われる HTML に関連する情報をまとめています。
+</p>
+
+<!-- ------------------------------------ -->
+
+<h4 class="shadow">利用可能なタグ</h4>
+
+<!-- TODO: 利用可能タグ一覧があるといいですね -->
+<p>
+    <code>&lt;p></code>や<code>&lt;pre></code>など、一部のタグのみが利用可能です。
+</p>
+<p>
+    許可されていないタグ、例えば <code>&lt;script></code> <code>&lt;marquee></code> 等は利用出来ません。
+    利用できないタグは、プレビュー時または保存時に自動的に取り除かれます。
+</p>
+
+<!-- ------------------------------------ -->
+
+<h4 class="shadow">よく使われるタグ・表記</h4>
+
+<!-- ------ -->
+
+<h5 class="shadow">文字装飾</h5>
+
+<p>
+<s>最後のコインを取った人が勝ちです。</s><br>
+<strong>最後のコインを取った人が負け</strong>です。
+</p>
+
+<pre>
+&lt;s>最後のコインを取った人が勝ちです。&lt;/s>&lt;br>
+&lt;strong>最後のコインを取った人が負け&lt;/strong>です。
+</pre>
+
+<!-- ------ -->
+
+<h5 class="shadow">等幅テキスト</h5>
+
+<p>
+<code>Yes</code> と出力せよ。
+</p>
+
+<pre>
+&lt;code>Yes&lt;/code> と出力せよ。
+</pre>
+
+<!-- ------ -->
+
+<h5 class="shadow">リスト</h5>
+
+<ol>
+    <li>$a_1,a_2,a_3$ は全て異なる</li>
+    <li>3つの要素のうち $a_2$ が最も大きい、あるいは最も小さい</li>
+</ol>
+
+<pre>
+&lt;ol>
+    &lt;li>&#36;a_1,a_2,a_3&#36; は全て異なる&lt;/li>
+    &lt;li>3つの要素のうち &#36;a_2&#36; が最も大きい、あるいは最も小さい&lt;/li>
+&lt;/ol>
+</pre>
+
+<!-- ------ -->
+
+<h5 class="shadow">文字色の変更</h5>
+
+<p>
+<font color="red">出力後 flush することを忘れずに</font>。
+</p>
+
+<pre>
+<font color="red">出力後 flush することを忘れずに</font>。
+</pre>
+
+<p>
+    style属性は削除されるため、<code>&lt;span style="color:red"></code>のような記述は利用できません。<br>
+    また、yukicoder では bootstrap3 が導入されている為、
+    <span class="text-danger">text-danger</span>や<span class="label label-success">label-success</span>を利用した強調も可能です。
+</p>
+
+<!-- ------ -->
+
+<h5 class="shadow">画像の貼り方</h5>
+
+<p>
+    <a href="/wiki/add_images">画像の貼り方</a>ページを参照。
+</p>
