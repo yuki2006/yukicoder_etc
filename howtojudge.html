@@ -82,8 +82,60 @@ int main(int argc, char** argv) {
 <h3 class="shadow">その他の言語の実装例</h3>
 <h4 class="shadow">Python3</h4>
 <p>
-    きっと誰かが書いてくれます
+    きっと誰かが書いてくれます(書きました)
 </p>
+<pre>
+import sys
+
+#テストケースの入力ファイル
+input_file = open(sys.argv[1],mode='r',encoding='utf-8')
+
+#テストケースの出力ファイル
+output_file = open(sys.argv[2],mode='r',encoding='utf-8')
+
+#提出されたコードのファイル
+code_file = open(sys.argv[3],mode='r',encoding='utf-8')
+
+#スコアファイル
+score_file = open(sys.argv[4],mode='w',encoding='utf-8')
+
+###########################################################
+
+#標準出力はopen(0)で開いて、多く出力されていないかも見たほうが良い。
+std_input = open(0).read().split()
+
+if len(std_input)!=2:
+  #標準エラー出力をしておくと便利である。
+  sys.stderr.write("too many output!\n")
+  #必ず例外を発生させる。
+  raise Exception
+
+#実は、std_inputの各要素には改行がついていることがあるので文字列として扱う場合は注意
+a,b=map(int,std_input)
+
+N=int(input_file.read().split()[0])
+
+if a+b!=N:
+  sys.stderr.write(f"a={a},b={b},N={N}\n")
+  #Exceptionのあとにメッセージを入れることも可能
+  raise Exception("a+b!=N")
+
+#エラーがなくてもエラー出力しておくとデバックしやすい
+sys.stderr.write(f"success,a={a},b={b},N={N}\n")
+
+
+#ファイルは必ず閉じる(閉じなくてもエラーが起きたりはしない)
+#with を使うと閉じなくてよいので便利
+input_file.close()
+
+output_file.close()
+
+code_file.close()
+
+score_file.close()
+
+
+</pre>
 <br>
 <h4 class="shadow">Ruby</h4>
 <p>
