@@ -441,7 +441,7 @@ class String;def to_i64;C.strtoll(self,nil,10);end;end
 Scanf.sscanf (read_line ()) "%d %d" (fun a b -&gt;
 	print_int (a+b)
 );;
-print_string " "; print_string (read_line ()); print_string "\n";;
+print_string " "; print_string (read_line ()); print_newline ();;
 </pre>
 cielさん提供
 
@@ -476,8 +476,9 @@ let split_on_char sep s =
   String.sub s 0 !j :: !r;;
 
 (*
- Scanfでもいいのだけど、必ず出力される文字列が固定されるとも言えず、
- 文字列を組み立てるのも面倒くさいので、イディオムで覚えられる
+ Scanfでもいいのだけど、必ず出力される要素が固定されるとも言えず、
+ 何らかの関数を渡さないといけないという融通のきかなさや、
+ 文字列を組み立てる面倒臭さもあるので、イディオムで覚えられる
  `read_line () |> split_on_char ' '`のほうが好み。
 
 もちろん、スペース空けではない単体の要素は単純に `read_line () |> int_of_string`
