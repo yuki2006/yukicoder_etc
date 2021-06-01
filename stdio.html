@@ -445,6 +445,53 @@ print_string " "; print_string (read_line ()); print_string "\n";;
 </pre>
 cielさん提供
 
+<pre>
+(*
+ OCaml 4.12から 'String.split_on_char'という便利な関数が利用できるようになったので、
+ 例えば `read_line () |> String.split_on_char ' ' |> List.map int_of_string`
+ といったような書き方が可能になった。
+
+ (標準ライブラリではない `Str`を使ったりするような必要がなくなった)
+
+ とはいえ、4.12に対応しているような"Online Judge"はまれ（AtCoderではなぜか使える）なのだが、
+ この手の「新規で使えるようになった標準ライブラリの関数」といった類のものは、ほとんどOCamlで
+ 書かれている。
+
+ 例えば `String.split_on_char`ならば、次の行で定義されている。
+ https://github.com/ocaml/ocaml/blob/cd65210491ae60803fa804e6e77fa8c2788da81e/stdlib/string.ml#L235
+
+ なので、このコードをそのままコピーして動かすことは可能。
+ この手段で `Aizu Online Judge`なんかのフ**キンなバージョンのOCamlでも気軽に書くことができる。
+*)
+
+let split_on_char sep s =
+  let r = ref [] in
+  let j = ref (String.length s) in
+  for i = String.length s - 1 downto 0 do
+    if String.unsafe_get s i = sep then begin
+      r := String.sub s (i + 1) (!j - i - 1) :: !r;
+      j := i
+    end
+  done;
+  String.sub s 0 !j :: !r;;
+
+(*
+ Scanfでもいいのだけど、必ず出力される文字列が固定されるとも言えず、
+ 文字列を組み立てるのも面倒くさいので、イディオムで覚えられる
+ `read_line () |> split_on_char ' '`のほうが好み。
+
+もちろん、スペース空けではない単体の要素は単純に `read_line () |> int_of_string`
+してあげてもよい *)
+
+let () =
+  read_line () |> int_of_string |> solve;;
+
+(* なお、OCamlは一番最初にだらっと処理を書いてもいいけれど、
+   `let ()`とすると、そこがスタートポイントになって処理が始まるのでオススメ。
+*)    
+</pre>
+eseharaさん提供
+
 <h3 class="shadow">Fortran</h3>
 <pre>
 implicit none
