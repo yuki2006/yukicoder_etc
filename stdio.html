@@ -476,20 +476,18 @@ let split_on_char sep s =
   String.sub s 0 !j :: !r;;
 
 (*
- Scanfでもいいのだけど、必ず出力される要素が固定されるとも言えず、
- 何らかの関数を渡さないといけないという融通のきかなさや、
- 文字列を組み立てる面倒臭さもあるので、イディオムで覚えられる
- `read_line () |> split_on_char ' '`のほうが好み。
-
-もちろん、スペース空けではない単体の要素は単純に `read_line () |> int_of_string`
-してあげてもよい *)
+もちろん、スペース空けではない単体の要素は単純に `read_int ()`
+してあげてもよい (内部的な挙動は `read_line () |> int_of_string `) *)
 
 let () =
-  read_line () |> int_of_string |> solve;;
+  read_int () |> solve;;
 
-(* なお、OCamlは一番最初にだらっと処理を書いてもいいけれど、
-   `let ()`とすると、そこがスタートポイントになって処理が始まるのでオススメ。
-*)    
+(*
+Scanf.scanfを使う場合は、`Scanf.scanf " %d" (fun x -> x)`といったイディオムが使われることが多い。
+*)
+
+let scan_int () = Scanf.scanf " %d" (fun x -> x);;
+
 </pre>
 eseharaさん提供
 
