@@ -1,0 +1,122 @@
+<title>テストケースバリデーションの書き方</title>
+<h3 class="shadow">テストケースバリデーションの書き方</h3>
+
+
+
+<h4 class="shadow">テストケースバリデーションとは</h4>
+
+<p>
+    入力制約を満たさないテストケースが含まれているかどうか、プログラムを利用して自動的に判定する機能です。
+</p>
+
+
+
+<h4 class="shadow">バリデータの書き方</h4>
+
+<ul>
+    <li>
+        競技プログラミング同様、標準入力からテストケースが与えられます。
+    </li>
+    <li>
+        スペシャルジャッジの書き方同様、そのテストケースに不備があるならば、0以外の終了コードで終了します。不備がなければ、0の終了コードで終了します。
+    </li>
+    <li>
+        標準エラー出力に情報を出力すると、後で確認出来ます。
+    </li>
+    <li>
+        C++の場合、<a href="https://github.com/MikeMirzayanov/testlib"><strong>testlib</strong></a> が使えます。testlibを使うことで、余分な半角スペースや改行の不備等を簡単に発見できます。
+    </li>
+    <li>
+        コンパイルエラーが表示されないので、オンライン実行を使うと良いです。
+    </li>
+</ul>
+
+
+
+<h4 class="shadow">実装例</h4>
+
+<!--<h5 class="shadow">実装例1 </h5>-->
+
+<p>以下のような入力制約を考えます。</p>
+
+<div class="block">
+    <pre>$N$
+$M_1$ $a_{1,1}$ $\ldots$ $a_{1,M_1}$
+$\vdots$
+$M_N$ $a_{N,1}$ $\ldots$ $a_{N,M_N}$
+</pre>
+    <p>
+        $1 \le N \le 4000$<br />
+        $1 \le M_i \le 4000$<br />
+        $1 \le a_{i,j} \le 4000$<br /><br />
+        $\sum_{i=1\ldots N}{M_i} \le 4000$<br />
+        すべて整数
+    </p>
+    
+</div>
+
+testlib (C++14)を使って実装すると、以下のようになります。
+
+<pre><code>#include &ltbits/stdc++.h>
+#include "testlib.h"
+
+using namespace std;
+using ll = long long;
+
+int main(int argc, char** argv) {
+  registerValidation(argc, argv);
+
+  ll n = inf.readLong(1ll, 4000ll);
+  inf.readEoln();
+
+  ll mtotal = 0;
+
+  for (ll i = 0; i &lt n; ++i) {
+
+    ll m = inf.readLong(1ll, 4000ll);
+    mtotal += m;
+
+    for (ll j = 0; j &lt m; ++j) {
+      inf.readSpace();
+
+      inf.readLong(1ll, 4000ll);
+    }
+
+    inf.readEoln();
+  }
+  
+  assert(mtotal &lt= 4000);
+
+  inf.readEof();
+  return 0;
+}
+</code></pre>
+
+正規表現(Ruby)を使った実装例です
+
+<pre><code>line1 = gets.chomp!
+abort "line1" unless line1 =~ /^\d+$/
+
+n = line1.to_i
+abort "n" unless 1 <= n && n <= 4000
+
+mtotal = 0
+n.times do |i|
+  linei = gets.chomp!
+  abort "line#{i}" unless linei =~ /^\d+( \d+)*$/
+
+  m, *aa = linei.split.map(&:to_i)
+  abort "m#{i}" unless 1 <= m && m <= 4000
+  mtotal += m
+
+  aa.each do |a|
+    abort "a#{i}" unless 1 <= a && a <= 4000
+  end
+  abort "aa.size" unless aa.size == m
+
+end
+
+abort "mtotal" unless mtotal <= 4000
+abort "too many lines" unless !gets
+
+</code></pre>
