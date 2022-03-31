@@ -6,6 +6,64 @@
 各問題の入出力の受け取り方です。
 ここでは、
 <a href="http://yukicoder.me/problems/527">No.9001 標準入出力の練習問題（テスト用）</a>の問題を例にしております。
+
+<h3 class="shadow">Lazy K （期間限定掲載）</h3>
+<pre>
+# Lazy K のコードは全体が１つの関数になっている。
+# 入力は関数への引数として与えられ、関数からの戻り値が出力される。
+
+# 次の処理は２回やる（読むべき整数が２つあるので）
+SSS(KS)KI
+
+# 整数を１つ読んで、これまでの総和に加算
+(S
+    # １文字ずつ処理するためのループ
+    (S(KS)(S(K(S(K(SS(S(S(KS)K))(K(SII))))))(S(S(KS)(S(K(S(KS)))(S(K(S(K(S(KS)))
+    ))(S(K(S(K(S(K(S(KS)))))))(S(S(KS)(S(K(S(KS)))(S(K(S(KK)))(S(K(S(KS)))(S(K(S
+    (K(S(KS)))))(S(K(S(K(S(K(S(S
+        # 文字は数字かな？
+        # 文字コードと定数 36 を比較
+        # 文字コードのほうが小さければ数字じゃない
+        (S(S(SI(KK))(K(S(K(SI))K)))(K(KK)))
+        # 定数 36 のほうが小さければ数字
+        (K(SSSI(SS)S(SS(KI))(S(KS)K)(S(K(SI))K)(K(KI))))
+        )))))))
+        # 数字じゃない場合
+        # 今読んでいる整数をこれまでの総和に加算して次の処理へ
+        (S(K(S(K(S(KK)))))(S(S(KS)(S(KK)(S(KS)K)))(K(S(K(S(SI(K(SISSKSK)))))K)))
+        )))))))
+        # 数字の場合
+        # 今読んでいる整数を10倍して、それに文字コードから 48 を引いたものを
+        # 加算してループ
+        (K(K(S(S(KS)(S(KK)(S(KS)K)))(K(S(K(S(S(S(K(S(SSSSSSSSS)(SS(KI))(S(KS)K)(
+        S(S(SI(K(S(K(SI))(S(KK)(SI(K(SISSKSK)))))))(K(K(KI))))(KI))))(SI(KK)))(K
+        (SISSKSK)))))(S(KK)(S(K(SS(SSSS(SS(KI)))(S(KS)K)))))))))))))))
+        # いずれの場合も、次の文字へ進む
+        (K(K(K(K(SI(K(KI)))))))
+    )))
+    # 今読んでいる整数の初期値＝０
+    (K(K(KI)))
+)
+
+# 総和の数値を文字列に変換して、スペースと入力の残りの文字列を連結
+(S
+    # 数値を文字列に変換
+    (S(KS)(S(KK)(SSI(S(K(S(S(SS(KI))(S(K(KI)))))))(S(K(S(S(SI(K(S(S(K(SSSS(SS(KI
+    ))(S(KS)K)(S(K(SI))K)))(S(KK)(S(K(S(SI(S(K(KI))))))(S(KK)(S(K(S(S(KS)K)))(SI
+    (S(K(KI)))))))))(S(S(SS(K(S(K(SI)))))(KK))(S(KK)(SISSKS(S(K(SI))(SS(S(S(S(SS
+    )KS)))(KK)))(S(KK)(SI(S(K(KI)))))))))))(S(K(S(K(KI))))))))(S(KK)(S(SS)KS(S(K
+    K)(S(KS)(S(K(S(KS)))(S(S(K(S(KK))))I))))(K(SS(S(S(KS)(S(KK)(S(KS)(S(K(SI))(S
+    (KK)(S(S(SSSSSSSSS)(SS(KI)))S(S(KS)K))))))))(KK)))))))))
+    # スペースと入力の残りの文字列
+    (K(S(K(S(SI(K(S(SS(SSI(SS(KI))))(SS(KI))(S(KS)K))))))K))
+)
+
+# 総和の初期値＝０
+(KI)
+</pre>
+これは tails によるエイプリルフールのネタです。
+yukicoder では Lazy K は使えません。
+
 <h3 class="shadow">C++</h3>
 <pre>
 #include &lt;iostream>
