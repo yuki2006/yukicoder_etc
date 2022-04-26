@@ -1,4 +1,31 @@
-<title>MathJaxテンプレート</title>
+<title>数式テンプレート</title>
+
+<h4 class="shadow">数式表記に利用されるライブラリ</h4>
+<p>
+    yukicoder で使用される数式ライブラリは、<a href="https://twitter.com/yukicoder/status/1518398067405254657">2022年4月25日に MathJax から KaTeX に移行</a>されました。<br>
+    互換性の観点から、2022-04-25以前に更新されたページは、引き続き MathJax が使用されています。
+</p>
+
+<h5 class="shadow">KaTeX と MathJax の仕様上の違いについて</h5>
+
+<p>
+    どちらも LaTeX のような数式を記述できますが、MathJax で対応しているキーワードが KaTeX では対応していないことがあります。<br>
+    特に複数行に渡る数式等は崩れることがあります。例えば、以下のような式です。
+</p>
+<p>
+    <code>
+        \begin{eqnarray}x_0 & = 1 \\ x_1 & = 1 \\ x_i + x_{i+1} & = x_{i+2} \end{eqnarray}
+    </code>
+    <div>
+        $$\begin{eqnarray}x_0 & = 1 \\ x_1 & = 1 \\ x_i + x_{i+1} & = x_{i+2} \end{eqnarray}$$
+    </div>
+</p>
+
+<ul>
+    <li>参考: <a href="https://twitter.com/snuke_/status/1430219874500972547">AtCoder での MathJax → KaTeX 対応時のコメント</a></li>
+</ul>
+
+
 <h4 class="shadow">MathJaxテンプレート</h4>
 
         基本的にTeX表記です。<br \>
