@@ -408,7 +408,8 @@ cielさん提供
 <pre>
 #!/usr/bin/env gosh
 
-(let ((a (read)) (b (read)) (s (read)))
+; letは変数束縛の評価順が不定のためlet*を使う
+(let* ((a (read)) (b (read)) (s (read)))
     (write (+ a b))
     (display " ")
     (write s)
