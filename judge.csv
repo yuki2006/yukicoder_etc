@@ -1,0 +1,52 @@
+C++14,judge,cpp14,gcc 12.2.0 + boost 1.81.0,c_cpp,main.cpp,g++7 -I /boost_git/ -O2 -lm  -std=c++14 -Wuninitialized  -DONLINE_JUDGE -o a.out _filename_,./a.out
+C++17,judge,cpp17,gcc 12.2.0 + boost 1.81.0,c_cpp,main.cpp,g++7 -I /boost_git/ -O2 -lm -Wuninitialized -DONLINE_JUDGE -o a.out _filename_,./a.out
+C++17(clang Beta),swift,cpp-clang,clang 13.0.0 + boost 1.81.0,c_cpp,main.cpp,clang++ -I /boost_git/  -O2 -lm -std=c++1z -Wuninitialized -DONLINE_JUDGE -o a.out _filename_,./a.out
+C++23(draft),judge,cpp23,gcc 12.2.0 + boost 1.81.0,c_cpp,main.cpp,g++7 -I /boost_git/ -O2 -lm -std=c++23 -Wuninitialized -DONLINE_JUDGE -o a.out _filename_,./a.out
+C++11,judge,cpp,gcc 8.5.0,c_cpp,main.cpp,g++ -O2 -lm -std=gnu++11 -Wuninitialized -DONLINE_JUDGE -o a.out _filename_,./a.out
+C,judge,c11,gcc 12.2.0,c_cpp,main.c,gcc7 -O2 -lm -std=c11 -DONLINE_JUDGE -o a.out _filename_,./a.out
+C90,judge,c,gcc 8.5.0,c_cpp,main.c,gcc -O2 -lm -DONLINE_JUDGE -o a.out _filename_,./a.out
+Java19,judge,java8,openjdk 19.0.1,java,Main.java,javac -encoding UTF8 _filename_,/usr/bin/java -ea -Xmx700m -Xss256M -DONLINE_JUDGE=true _class_
+C#,judge,csharp,csc 3.9.0,csharp,Main.cs,csc -langversion:latest -unsafe -warn:0 -o+ /r:System.Numerics.dll _filename_ -out:a.exe,/usr/bin/mono a.exe
+C#(mono),judge,csharp_mono,mono 6.12.0.158,csharp,Main.cs,mcs -langversion:latest  -unsafe -warn:0 -o+ /r:System.Numerics.dll _filename_ -out:a.exe,/usr/bin/mono a.exe
+C#(.NET 6 Beta),judge,csharp_dotnet,.NET 6.12.0,csharp,Main.cs,/usr/bin/dotnet_c,./bin/Release/net6.0/main
+Perl,judge,perl,5.26.3,perl,Main.pl,/usr/bin/perl -cw _filename_,/usr/bin/perl -X _filename_
+Raku,judge,raku,rakudo v2022.12-1-gd52342eb0,perl6,Main.pl,/usr/bin/perl6 -c _filename_,/usr/bin/perl6 _filename_
+PHP,judge,php,7.2.24,php,Main.php,php -l _filename_,/usr/bin/php _filename_
+PHP8,judge,php7,8.2.4,php,Main.php,php7 -l _filename_,/usr/bin/php7 _filename_
+Python2,judge,python,2.7.18,python,Main.py,pkython2x -m py_compile _filename_,/usr/bin/python2x Main.pyc
+Python3,judge,python3,3.11.2 + numpy 1.24.2 + scipy 1.10.1,python,Main.py,/usr/local/bin/python3 -mpy_compile _filename_,/usr/local/bin/python3 _filename_
+PyPy2,judge,pypy2,7.3.11,python,Main.py,pypy2 -m py_compile _filename_,/usr/bin/pypy2 Main.pyc
+PyPy3,judge,pypy3,7.3.11,python,Main.py,pypy3 -mpy_compile _filename_,/usr/bin/pypy3 _filename_
+Ruby,judge,ruby,3.2.1 ,ruby,Main.rb,/usr/bin/ruby -w -c _filename_,/usr/bin/ruby _filename_
+D,judge,d,dmd 2.102.2,d,Main.d,dmd -m64 -w -wi -O -release -inline -I/opt/d/src/druntime/import/ -I/opt/d/src/phobos -L-L/opt/d/linux/lib64/ _filename_,./Main
+D(old),judge,d_old,dmd 2.100.0,d,Main.d,dmd_old -m64 -w -wi -O -release -inline -I/opt/d/src/druntime/import/ -I/opt/d/src/phobos -L-L/opt/d/linux/lib64/ _filename_,./Main
+Go,judge,go,1.20.2,golang,Main.go,env GOCACHE=/tmp go build _filename_,./Main
+Go1.4,judge,go1.4,1.4.2,golang,Main.go,env GOROOT=/usr/local/go1.4 go1.4 build _filename_,./Main
+Haskell,judge,haskell,9.6.1,haskell,Main.hs,ghc -rtsopts -with-rtsopts=-K1G -o a.out -O2 _filename_,./a.out
+Scala(Beta),judge,scala,3.2.2,scala,Main.scala,scalac _filename_,scala _class_
+Nim,judge,nim,1.6.12,nim,Main.nim,nim --nimcache=~ --hints:off -o:a.out -d:release cpp _filename_,./a.out
+Rust,judge,rust,1.68.1,rust,Main.rs,rustc --edition 2021 -C opt-level=3 Main.rs -o Main,./Main
+Kotlin,judge,kotlin,1.8.10,kotlin,Main.kt,kotlinc _filename_ -include-runtime -d main.jar,kotlin main.jar
+Scheme,judge,scheme,Gauche-0.9.12,scheme,Main.scm,TRUE,/usr/bin/gosh _filename_
+Crystal,judge,crystal,1.7.3,crystal,Main.cr,crystal build -Donline_judge -o a.out --release --no-debug _filename_,./a.out
+Swift,judge,swift,5.4.2,swift,Main.swift,/usr/bin/swiftc _filename_  -Ounchecked -o a.out,./a.out
+OCaml,judge,ocaml,5.0.0,ocaml,Main.ml,ocamlfind ocamlopt -o a.out -linkpkg -package zarith、str _filename_ -o a.out,./a.out
+Clojure(Beta),judge,clojure,1.10.2.790,clojure,Main.clo,TRUE,clojure -M _filename_
+F#,judge,fsharp,5,fsharp,Main.fs,fsharpc _filename_ --out:a.exe,/usr/bin/mono ./a.exe
+Elixir,judge,elixir,1.14.3,elixir,Main.exs,elixirc _filename_,/usr/local/bin/elixir -e Main.main
+Lua,judge,lua,LuaJit 2.0.5,lua,Main.lua,luajit -b _filename_ a.out,/usr/bin/luajit _filename_
+Julia,judge,julia,1.7.3,Julia,Main.jl,TRUE,julia _filename_
+Fortran,judge,fortran,gFortran 8.5.0,fortran,Main.f90,gfortran _filename_ -O2 -o ./a.out,./a.out
+JavaScript,judge,node,node v18.15.0,javascript,Main.js,TRUE,/usr/bin/node _filename_ ONLINE_JUDGE
+TypeScript,judge,typescript,5.0.2,typescript,main.ts,/usr/bin/tsc.sh -p tsconfig.json,/usr/bin/node main.js ONLINE_JUDGE
+Common Lisp,judge,lisp,sbcl 2.1.6,lisp,Main.lisp,sbclc _filename_,/usr/local/bin/sbcl --script Main.fasl
+Standard ML,judge,sml,MLton 20210117,sml,main.sml,mlton _filename_,./main
+Kuin,judge,kuin,KuinC++ v.2021.9.17,kuin,main.kn,KuinInKuin -i _filename_ -o out.cpp -s /KuinInKuin/src/sys/ -e cpp -r -q,./a.out
+Kuin exe(beta),judge,kuinexe,v.2021.9.17 on Wine,kuin,main.kn,kuinc /kuin/kuincl.exe -i _filename_ -o out.exe -s /kuin/sys/ -e exe -r -q,kuin out.exe
+Vim script,judge,vim,v9.0,text,Main.vim,TRUE,/usr/bin/vim -u NONE -i NONE -X -N -n -e -s -S _filename_ /dev/stdin -c qa!
+Bash,judge,sh,Bash 4.4.20,sh,Main.sh,TRUE,/usr/bin/sh _filename_
+Assembler,judge,nasm,nasm 2.15.03,assembly_x86,Main.asm,nasmc Main,./a.out
+cLay,judge,clay,20221230-1,cpp,Main.clay,clayc _filename_,./a.out
+Brainfuck,judge,bf,BFI 1.1,text,Main.bf,TRUE,/usr/bin/bf _filename_
+Whitespace,judge,Whitespace,0.3,text,Main.ws,TRUE,/usr/bin/wspace _filename_
+Text,judge,text,cat 8.3,text,Main.txt,TRUE,/usr/bin/cat _filename_
