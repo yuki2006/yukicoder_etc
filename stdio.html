@@ -545,7 +545,7 @@ main(require('fs').readFileSync('/dev/stdin', 'utf8'));
 </pre>
 基本的に<a href="https://yukicoder.me/wiki/stdio#:~:text=JavaScript">JavaScript</a>のnodeでのやり方と同じです<br />
 <div class="small text-info">
-<span>2024-12-23時点のyukicoderではコンパイル時に型定義の@types/nodeパッケージへの参照が抜けているようでそのままでは<span class="label label-warning">CE</span>になります<br />
+<span>2024-12-23時点のyukicoderではコンパイル時に型定義の@types/nodeパッケージへの参照が抜けているようで無対策では<span class="label label-warning">CE</span>になります<br />
 <span>回避策としては以下の2通りの方法が確認されています</span>
 <ul>
     <li><code>declare</code>を用いて提出コード内で定義する (上記コード例)</li>
