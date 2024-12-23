@@ -524,6 +524,32 @@ func main()
 end func
 </pre>
 
+<h3 class="shadow">TypeScript</h3>
+<pre>
+/// &lt;reference types="/home/linuxbrew/.linuxbrew/lib/node_modules/@types/node" /&gt;
+
+function main(input: string): void {
+	const lines = input.split(/\n/);
+	
+	const firstLine = lines[0].split(/\s/);
+	const A = parseInt(firstLine[0]);
+	const B = parseInt(firstLine[1]);
+	
+	const secondLine = lines[1];
+	const S = secondLine;
+	
+	console.log(A + B, S);
+}
+
+main(require('fs').readFileSync('/dev/stdin', 'utf8'));
+</pre>
+基本的に<a href="https://yukicoder.me/wiki/stdio/#:~:text=JavaScript">JavaScript</a>のnodeでのやり方と同じです<br />
+<div class="small text-info">
+<span>2024-12-23時点では1行目にTriple-Slash Directivesのreferenceタグのtypes属性で@types/nodeのパッケージのパスを指定しないとyukicoderではコンパイル通りません</span><br />
+<span>referenceタグなし: <a href="https://yukicoder.me/submissions/1032947">https://yukicoder.me/submissions/1032947</a></span><br />
+<span>referenceタグあり: <a href="https://yukicoder.me/submissions/1032946">https://yukicoder.me/submissions/1032946</a></span><br />
+</div>
+
 <h3 class="shadow">Whitespace</h3>
 <pre>
    
