@@ -526,8 +526,6 @@ end func
 
 <h3 class="shadow">TypeScript</h3>
 <pre>
-declare var require: any;
-
 function main(input: string): void {
 	const lines = input.split(/\n/);
 	
@@ -544,17 +542,6 @@ function main(input: string): void {
 main(require('fs').readFileSync('/dev/stdin', 'utf8'));
 </pre>
 基本的に<a href="https://yukicoder.me/wiki/stdio#:~:text=JavaScript">JavaScript</a>のnodeでのやり方と同じです<br />
-<div class="small text-info">
-<span>2024-12-23時点のyukicoderではコンパイル時に型定義の@types/nodeパッケージへの参照が抜けているようで無対策では<span class="label label-warning">CE</span>になります<br />
-<span>回避策としては以下の2通りの方法が確認されています</span>
-<ul>
-    <li><code>declare</code>を用いて提出コード内で定義する (上記コード例)</li>
-    <li>提出コードの1行目にTriple-Slash Directivesのreferenceタグのtypes属性でyukicoderのジャッジサーバー内にある@types/nodeのパッケージのパスを指定する</li>
-</ul>
-<span><code>declare</code>で定義: <a href="https://yukicoder.me/submissions/1032948">https://yukicoder.me/submissions/1032948</a></span><br />
-<span>referenceタグ: <a href="https://yukicoder.me/submissions/1032946">https://yukicoder.me/submissions/1032946</a></span><br />
-<span>いずれもなし: <a href="https://yukicoder.me/submissions/1032947">https://yukicoder.me/submissions/1032947</a> (<span class="label label-warning">CE</span>なのでコードは表示されません)</span><br />
-</div>
 
 <h3 class="shadow">Whitespace</h3>
 <pre>
